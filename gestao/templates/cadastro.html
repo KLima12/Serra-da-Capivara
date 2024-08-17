@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block 'dashboard' %}
+
+        <h1 style="text-align: center;">Cadastro de produtos.</h1>
+        <form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <br>
+            <label for="name">Nome:</label>
+            <input type="text" name="name" placeholder="Nome do produto" id="name">
+            <br>
+            <br>
+            <label for="size">Tamanho:</label>
+            <input type="number" id="size" name="size" step="0.1" min="0" placeholder="10.5">
+
+            <br>
+            <br>
+            
+            <label for="code">Codigo:</label>
+            <input type="text" name="code" id="code">
+            <br>
+            <br>
+            <label for="category">Categoria:</label>
+            <select id="category" name="category">
+                {% for category in categories %}
+                    <option value="{{category.id}}">{{category.name}}</option>
+                {% endfor %}
+            
+            <br>
+            <br>
+            <label for="photos">Fotos:</label>
+            <input type="file" name="photos" id="photos" multiple>
+            <br>
+            <br>
+            <button type="submit">Enviar</button>
+    {% endblock %}
+    
+        
+    </form>    
+</body>
+</html>
