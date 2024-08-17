@@ -5,6 +5,8 @@ from PIL import Image
 import os
 from django.conf import settings
 
+
+#Teste de git
 def home(request):
     return render(request, 'home.html')
 
