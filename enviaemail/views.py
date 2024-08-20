@@ -6,6 +6,10 @@ from django.core.mail import send_mail
 
 
 def envia_email(request):
-    send_mail('Assunto: ', 'Esse e o email teste!',
+    # Assunto : Conteudo : Email ativo : Email passivo
+    send_mail('****Assunto: ****', '**** Conteudo do email ****',
               'contato.adealencar@mail.com', ['dinhoalencaraa@gmail.com'])
-    return HttpResponse('ola')
+    return HttpResponse('*email enviado*')
+
+
+# LEMBRAR DE TROCAR OS EMAILS
