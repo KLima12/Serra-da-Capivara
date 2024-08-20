@@ -11,15 +11,109 @@
     <title>Editar Produto</title>
 </head>
 <body>
+    {% block 'dashboard' %}
     <h1 class="cabecalho">Editar Produto</h1>
 
-    <div style="margin-left: 1rem;">
-        <form action="{% url 'editar' product.id %}" method="post" >
-            {% csrf_token %}
-            {{ form.as_p }}
+    <form id="product-form" action="{% url 'editar' product.id %}" method="post" >
+        {% csrf_token %}
+        <table>
+            <table>{{ form.as_table }}</table>
+
+            {% if product.photos %}
+                <div class="horizontal" id="photo-container">
+                {% for photo in product.photos %}
+                    <div class="vertical" draggable="true" data-photo="{{ photo }}">
+                        <img src="../../media/{{ photo }}" alt="Imagem de {{ product.name }}" class="product-photo" draggable="false">
+                        <button type="button" class="btn btn-danger remove-photo-btn">X</button>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>Sem Imagens</p>
+            {% endif %}
+
+            <br>
+            
             <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
             <button type="submit" class="btn btn-edit">Salvar</button>
-        </form>
-    </div>
+        </table>
+    </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const photoContainer = document.getElementById('photo-container');
+        const form = document.getElementById('product-form');
+        let removedPhotos = [];
+
+        const dragImage = document.createElement('img');
+        dragImage.style.position = 'absolute';
+        dragImage.style.top = '-9999px';
+        dragImage.style.height = '1rem';
+        dragImage.style.objectFit = 'contain'; 
+        document.body.appendChild(dragImage);
+
+        photoContainer.addEventListener('dragstart', function(e) {
+            if (e.target.classList.contains('vertical')) {
+                e.dataTransfer.setData('text/plain', e.target.dataset.photo);
+
+                dragImage.src = e.target.querySelector('img').src;
+                dragImage.onload = function() {
+                    e.dataTransfer.setDragImage(dragImage, 0, 0);
+                };
+            }
+        });
+
+        photoContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        photoContainer.addEventListener('drop', function(e) {
+            e.preventDefault();
+            const draggedPhoto = e.dataTransfer.getData('text/plain');
+            const targetPhoto = e.target.closest('.vertical');
+            if (targetPhoto && targetPhoto.dataset.photo !== draggedPhoto) {
+                const allPhotos = Array.from(photoContainer.children);
+                const draggedElement = allPhotos.find(el => el.dataset.photo === draggedPhoto);
+                const targetIndex = allPhotos.indexOf(targetPhoto);
+                const draggedIndex = allPhotos.indexOf(draggedElement);
+                if (targetIndex < draggedIndex) {
+                    photoContainer.insertBefore(draggedElement, targetPhoto);
+                } else {
+                    photoContainer.insertBefore(draggedElement, targetPhoto.nextSibling);
+                }
+            }
+        });
+
+        photoContainer.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-photo-btn')) {
+                const photoElement = e.target.closest('.vertical');
+                const photoPath = photoElement.dataset.photo;
+                removedPhotos.push(photoPath); 
+                photoElement.remove();
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const photoOrder = Array.from(photoContainer.children).map(el => el.dataset.photo);
+            
+            const formData = new FormData(form);
+            formData.append('photo_order', JSON.stringify(photoOrder));
+            formData.append('removed_photos', JSON.stringify(removedPhotos));
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = response.url;
+                } else {
+                    alert('Error submitting form');
+                }
+            });
+        });
+    });
+    </script>
+    {% endblock %}
 </body>
 </html>

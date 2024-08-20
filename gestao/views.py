@@ -11,6 +11,8 @@ import os
 from django.conf import settings
 from django.contrib import messages
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 def home(request):
@@ -100,6 +102,7 @@ def confirmacaoCategoria(request, category_id):
 
     return render(request, 'confirmarCategoria.html', {'category': category})
 
+
 def editar(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     
@@ -107,11 +110,41 @@ def editar(request, product_id):
         form = EditForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
+
+            if 'photo_order' in request.POST:
+                photo_order = json.loads(request.POST['photo_order'])
+                product.photos = photo_order
+                product.save()
+
+            if 'removed_photos' in request.POST:
+                removed_photos = json.loads(request.POST['removed_photos'])
+                for photo in removed_photos:
+                    if default_storage.exists(photo):
+                        default_storage.delete(photo)
+                product.photos = [p for p in product.photos if p not in removed_photos]
+                product.save()
+
             return redirect('galeria') 
     else:
         form = EditForm(instance=product)
     
     return render(request, 'editar.html', {'form': form, 'product': product})
+
+
+@csrf_exempt
+def remove_photo(request):
+    if request.method == 'POST':
+        import json
+        data = json.loads(request.body)
+        photo_path = data.get('photo')
+        if photo_path:
+            full_path = os.path.join('produtos_fotos', photo_path)
+            if default_storage.exists(full_path):
+                default_storage.delete(full_path)
+                return JsonResponse({'success': True})
+        return JsonResponse({'success': False}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
 
 def cadastroCategoria(request):
     if request.method == 'POST':
@@ -123,5 +156,3 @@ def cadastroCategoria(request):
        form = EditFormCategory()
 
     return render(request, 'cadastroCategoria.html', {'form': form})
-
-

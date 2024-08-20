@@ -46,7 +46,7 @@
                                 </form>
                             </div>
                         {% endfor %}
-                        <a href="{% url 'cadastro'%}" class="btn btn-add">Adicionar Produto</a>
+                        <a href="{% url 'cadastro'%}?category_id={{ category.id }}" class="btn btn-add">Adicionar Produto</a>
                     {% else %}
                         <p class="vertical">Sem Produtos</p>
 

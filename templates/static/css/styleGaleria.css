@@ -139,6 +139,13 @@
     border: #35a7dc 1px solid;
 }
 
+.drag-image {
+    width: 1rem !important;
+    height: 1rem !important;
+    object-fit: contain;
+    display: block;
+}
+
 table {
     border-collapse: collapse; 
 }
