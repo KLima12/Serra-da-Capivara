@@ -42,6 +42,8 @@
                     {% else %}
                         <p class="vertical">Sem Produtos</p>
                     {% endif %}
+
+                    <a href="{% url 'cadastro'%}" class="btn btn-add">Adicionar Produto</a>
                 </div>
             </div>
             {% endfor %}

@@ -3,48 +3,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
+		{% block css %}
+			<link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
+		{% endblock %}
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Cadastro de Produtos</title>
-		  
 	</head>
 	<body>
 		{% block 'dashboard' %}
-		<h1 style="text-align: center;">Cadastro de produtos.</h1>
+		<h1 class="cabecalho">Cadastro de Produtos</h1>
 		<form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
+
+			<div class="field-box">
+				<label for="name">Nome:</label>
+				<input type="text" name="name" placeholder="Nome do produto" id="name" required>
+			</div>
+
+			<div class="field-box">
+				<label for="size">Tamanho:</label>
+				<input type="text" id="size" name="size" placeholder="Tamanho" required>
+			</div>
+
+			<div class="field-box">
+				<label for="code">Código:</label>
+				<input type="text" name="code" id="code" placeholder="Código" required>
+			</div>
+
+			<div class="field-box">
+				<label for="category">Categoria:</label>
+				<select id="category" name="category" required>
+					<option value="" disabled selected>Selecione uma categoria</option>
+					{% for category in categories %}
+					<option value="{{ category.id }}">{{ category.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+
 			<br>
-			<label for="name">Nome:</label>
-			<input type="text" name="name" placeholder="Nome do produto" id="name" required>
-			<br>
-			<br>
-			<label for="size">Tamanho:</label>
-			<input type="text" id="size" name="size" placeholder="Tamanho" required>
-			<br>
-			<br>
-			<label for="code">Código:</label>
-			<input type="text" name="code" id="code" placeholder="Código" required>
-			<br>
-			<br>
-			<label for="category">Categoria:</label>
-			<select id="category" name="category" required>
-				<option value="" disabled selected>Selecione uma categoria</option>
-				{% for category in categories %}
-				<option value="{{ category.id }}">{{ category.name }}</option>
-				{% endfor %}
-			</select>
-			
-			  
-			<br>
-			<br>
-			<div id="photo-fields">
+
+			<div id="photo-fields" class="field-box">
 				<label>Fotos:</label>
 				<input type="file" name="photos[]" accept="image/*">
 			</div>
-			<button type="button" onclick="addPhotoField()">Adicionar mais fotos</button><br>
+			
+			<div class="field-box">
+				<button type="button" onclick="addPhotoField()">Adicionar mais fotos</button><br>
+			</div>
+			
 			<br>
-			<br>
-			<button type="submit">Enviar</button>
+
+			<div class="field-box">
+				<button type="submit">Enviar</button>
+			</div>
 		</form>
 		<br>
 		<button type="submit" onclick="clique()">Clique</button>
