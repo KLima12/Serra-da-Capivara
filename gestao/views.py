@@ -33,4 +33,12 @@ def cadastro(request):
 def galeria(request):
     categories = Category.objects.all()
     products = Product.objects.all()
-    return render(request, 'galeria.html', {'categories': categories}, {'products': products})
+    category_products = {category: products.filter(category=category) for category in categories}
+
+    context = {
+        'categories': categories,
+        'products': products,
+        'category_products': category_products,
+    }
+
+    return render(request, 'galeria.html', context)

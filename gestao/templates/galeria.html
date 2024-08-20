@@ -3,25 +3,46 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
+        {% block css %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
+        {% endblock %}
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Galeria de Produtos</title>
 	</head>
 	<body>
 		{% block 'dashboard' %}
-		<h1 style="text-align: center;">Galeria de produtos</h1>
-		<div>
-			{% for category in categories %}
-			<h1>{{ category.name }}</h1>
-			{% for product in products %}
-			{% if product.category == category %}
-			<h2>{{ product.name }}</h2>
-			{% endif %}
-			{% endfor %}
-			{% empty %}
-			<p>Sem produtos.</p>
-			{% endfor %}
-		</div>
+		<h1 class="cabecalho">Galeria de produtos</h1>
+
+        <!--
+        ~Miguelindo aqui
+        2 laços: um para imprimir as categorias, e outro para imprimir os produtos nessa categoria
+        -->
+        <div>
+            {% for category, products_list in category_products.items %}
+            <div class="cat">
+                <h1 class="titulo">{{ category.name }}</h1>
+                <div class="horizontal">
+                    {% if products_list %}
+                        {% for product in products_list %}
+                            <div class="vertical">
+                                <h2 class="produto">{{ product.name }}</h2>
+                                <h6 class="produto">Código: {{ product.code }}</h6>
+                                <h6 class="produto">Tamanho: {{ product.size }}</h6>
+                                <h6 class="produto">Visualizações: {{ product.views }}</h6>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="produto">Sem Produtos</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        
+        
 		{% endblock %}
 	</body>
 </html>

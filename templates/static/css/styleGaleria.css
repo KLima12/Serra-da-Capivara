@@ -1,0 +1,28 @@
+.cat {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.cabecalho {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.titulo {
+    margin-left: 5rem;
+}
+
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.produto {
+    margin-left: 7rem;
+}
