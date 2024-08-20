@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.shortcuts import render
 from .models import Category, Product, ProductPhoto
 from .forms import EditForm, EditFormCategory 
 from PIL import Image
@@ -12,23 +13,26 @@ def home(request):
 
 def cadastro(request):
     categories = Category.objects.all().order_by('name')
-    if request.method == 'GET':
-        return render(request, 'cadastro.html', {'categories':categories})
-    elif request.method == 'POST':
+    
+    if request.method == 'POST':
         name = request.POST.get('name')
         size = request.POST.get('size')
         code = request.POST.get('code')
         category_id = request.POST.get('category')
         category = Category.objects.get(id=category_id)
 
+        # Create the product
         product = Product.objects.create(name=name, size=size, code=code, category=category)
 
-        if 'photos' in request.FILES:
-            photos = request.FILES.getlist('photos')
+        # Handle file uploads
+        if 'photos[]' in request.FILES:
+            photos = request.FILES.getlist('photos[]')
             for photo in photos:
                 ProductPhoto.objects.create(product=product, photo=photo)
                 
-    return HttpResponse('Salvo com sucesso')
+        return HttpResponse('Salvo com sucesso')
+    
+    return render(request, 'cadastro.html', {'categories': categories})
 
 def galeria(request):
     categories = Category.objects.all().order_by('name')
