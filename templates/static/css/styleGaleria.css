@@ -1,3 +1,14 @@
+:root {
+    --fundo: #322626;
+    --texto: #FFFFFF;
+    --texto-hover: #9F8272;
+    --texto-click: #A26E51;
+    --destaque: #3E3131;
+    --botao-off: #705E5E;
+    --botao-hover: #5C4646;
+    --botao-click: #4B2E2E;
+}
+
 .cat {
     padding-top: 5rem;
     padding-bottom: 5rem;
@@ -5,7 +16,7 @@
 
 .cabecalho {
     text-align: center;
-    margin-top: 2rem;
+    padding-top: 2rem;
 }
 
 .titulo {
@@ -102,9 +113,14 @@
     text-decoration: none;
 }
 
+.btn-form {
+    margin-left: 1rem;
+}
+
 .field-box {
-    margin-left: 0rem;
+    margin-left: 1rem;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .field {
@@ -121,4 +137,12 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: #35a7dc 1px solid;
+}
+
+table {
+    border-collapse: collapse; 
+}
+
+table td, table th {
+    padding: 1rem; 
 }

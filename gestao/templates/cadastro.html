@@ -12,23 +12,35 @@
 	</head>
 	<body>
 		{% block 'dashboard' %}
+		{% if messages %}
+			<div class="messages">
+				{% for message in messages %}
+					<div class="alert alert-{{ message.tags }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
 		<h1 class="cabecalho">Cadastro de Produtos</h1>
-		
+
 		<form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data" style="margin-left: 1rem;">
 			{% csrf_token %}
-			{{ form.as_p }}
-			
-			<div class="field-box" id="photo-fields">
-				<label for="photos">Fotos:</label>
-				<input type="file" name="photos[]" id="photos" accept="image/*" multiple required>
-				<button type="button" onclick="addPhotoField()">Adicionar mais fotos</button><br>
-			</div>
-		
-			<div class="field-box">
-			</div>
-			
-			<button type="submit" class="btn btn-edit">Adicionar Produto</button>
+			<table>
+				<table>{{ form.as_table }}</table>
+				
+				<div class="field-box" id="photo-fields">
+					<label for="photos">Fotos:</label>
+					<input type="file" name="photos[]" id="photos" accept="image/*" multiple required>
+				</div>
+
+				<button type="button" onclick="addPhotoField()" class="btn btn-add btn-form">Adicionar mais fotos</button><br>
+				
+				<button type="submit" class="btn btn-edit btn-form">Adicionar Produto</button>
+			</table>
 		</form>
+
+		<a href="{% url 'galeria' %}" class="btn btn-add">Galeria de Produtos</a>
 		
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {

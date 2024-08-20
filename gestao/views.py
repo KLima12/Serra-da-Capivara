@@ -9,15 +9,13 @@ from PIL import Image
 import io
 import os
 from django.conf import settings
+from django.contrib import messages
+from django.http import JsonResponse
 
 
 def home(request):
     return render(request, 'home.html')
 
-from django.core.files.storage import default_storage
-from django.shortcuts import redirect, render
-from .forms import ProductForm
-from .models import Category, Product
 
 def cadastro(request):
     categories = Category.objects.all().order_by('name')
@@ -45,16 +43,17 @@ def cadastro(request):
                     new_filename = f"img-{product.name.replace(' ', '-')}-{index+1}.jpg"
 
                     in_memory_file = io.BytesIO()
-                    image.save(in_memory_file, format='WEBP')
-                    in_memory_file.seek(0)
+                    image.save(in_memory_file, format='JPEG')
+                    in_memory_file.seek(0) 
 
                     path = default_storage.save(f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                     photos.append(path)
 
             product.photos = photos
             product.save()
-
-            return redirect('galeria')
+            messages.success(request, 'Produto adicionado com sucesso!')
+        
+            return redirect('cadastro')
     else:
         form = ProductForm(initial={'category': initial_category})
 
@@ -79,13 +78,19 @@ def galeria(request):
 
     return render(request, 'galeria.html', context)
 
+
 def confirmacaoProduto(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
+        for photo_path in product.photos:
+            if default_storage.exists(photo_path):
+                default_storage.delete(photo_path)
+        
         product.delete()
-        return redirect('galeria') 
+        return redirect('galeria')
 
     return render(request, 'confirmarProduto.html', {'product': product})
+
 
 def confirmacaoCategoria(request, category_id):
     category = get_object_or_404(Category, id=category_id)
