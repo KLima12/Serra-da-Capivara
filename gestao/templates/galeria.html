@@ -26,14 +26,21 @@
                     {% if products_list %}
                         {% for product in products_list %}
                             <div class="vertical">
-                                <h2 class="produto">{{ product.name }}</h2>
-                                <h6 class="produto">Código: {{ product.code }}</h6>
-                                <h6 class="produto">Tamanho: {{ product.size }}</h6>
-                                <h6 class="produto">Visualizações: {{ product.views }}</h6>
+                                <h3 class="produto">{{ product.name }}</h3>
+                                <h7 class="produto">Código: {{ product.code }}</h7>
+                                <h7 class="produto">Tamanho: {{ product.size }}</h7>
+                                <h7 class="produto">Visualizações: {{ product.views }}</h7>
+
+                                <a href="{% url 'editar' product.id %}" class="btn btn-edit">Editar Produto</a>
+
+                                <form action="{% url 'confirmacao' product.id %}" method="get" style="display:inline;" class="form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Apagar Produto</button>
+                                </form>
                             </div>
                         {% endfor %}
                     {% else %}
-                        <p class="produto">Sem Produtos</p>
+                        <p class="vertical">Sem Produtos</p>
                     {% endif %}
                 </div>
             </div>

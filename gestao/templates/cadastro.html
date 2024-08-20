@@ -15,23 +15,25 @@
 			{% csrf_token %}
 			<br>
 			<label for="name">Nome:</label>
-			<input type="text" name="name" placeholder="Nome do produto" id="name">
+			<input type="text" name="name" placeholder="Nome do produto" id="name" required>
 			<br>
 			<br>
 			<label for="size">Tamanho:</label>
-			<input type="number" id="size" name="size" step="0.1" min="0" placeholder="10.5">
+			<input type="text" id="size" name="size" placeholder="Tamanho" required>
 			<br>
 			<br>
 			<label for="code">Código:</label>
-			<input type="text" name="code" id="code">
+			<input type="text" name="code" id="code" placeholder="Código" required>
 			<br>
 			<br>
 			<label for="category">Categoria:</label>
-			<select id="category" name="category">
+			<select id="category" name="category" required>
+				<option value="" disabled selected>Selecione uma categoria</option>
 				{% for category in categories %}
 				<option value="{{ category.id }}">{{ category.name }}</option>
 				{% endfor %}
 			</select>
+			
 			  
 			<br>
 			<br>

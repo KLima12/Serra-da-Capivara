@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Category, Product, ProductPhoto
+from .forms import ProductForm 
 from PIL import Image
 import os
 from django.conf import settings
@@ -42,3 +43,30 @@ def galeria(request):
     }
 
     return render(request, 'galeria.html', context)
+
+def confirmacao(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('galeria') 
+
+    return render(request, 'confirmar.html', {'product': product})
+
+def editar(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('galeria') 
+    else:
+        form = ProductForm(instance=product)
+    
+    return render(request, 'editar.html', {'form': form, 'product': product})
+
+def apagar(request, product_id):
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+        product.delete()
+    return redirect('galeria')  
