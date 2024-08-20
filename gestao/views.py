@@ -1,18 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Category, Product, ProductPhoto
-from .forms import ProductForm 
+from .forms import EditForm, EditFormCategory 
 from PIL import Image
 import os
 from django.conf import settings
 
 
-#Teste de git
 def home(request):
     return render(request, 'home.html')
 
 def cadastro(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('name')
     if request.method == 'GET':
         return render(request, 'cadastro.html', {'categories':categories})
     elif request.method == 'POST':
@@ -32,9 +31,13 @@ def cadastro(request):
     return HttpResponse('Salvo com sucesso')
 
 def galeria(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('name')
     products = Product.objects.all()
-    category_products = {category: products.filter(category=category) for category in categories}
+    category_products = {
+        category: Product.objects.filter(category=category).order_by('name')
+        for category in categories
+    }
+
 
     context = {
         'categories': categories,
@@ -44,29 +47,44 @@ def galeria(request):
 
     return render(request, 'galeria.html', context)
 
-def confirmacao(request, product_id):
+def confirmacaoProduto(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
         product.delete()
         return redirect('galeria') 
 
-    return render(request, 'confirmar.html', {'product': product})
+    return render(request, 'confirmarProduto.html', {'product': product})
+
+def confirmacaoCategoria(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    if request.method == 'POST':
+        category.delete()
+        return redirect('galeria') 
+
+    return render(request, 'confirmarCategoria.html', {'category': category})
 
 def editar(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     
     if request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)
+        form = EditForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
             return redirect('galeria') 
     else:
-        form = ProductForm(instance=product)
+        form = EditForm(instance=product)
     
     return render(request, 'editar.html', {'form': form, 'product': product})
 
-def apagar(request, product_id):
+def cadastroCategoria(request):
     if request.method == 'POST':
-        product = get_object_or_404(Product, id=product_id)
-        product.delete()
-    return redirect('galeria')  
+        form = EditFormCategory(request.POST,)
+        if form.is_valid():
+            form.save()
+            return redirect('galeria') 
+    else:
+       form = EditFormCategory()
+
+    return render(request, 'cadastroCategoria.html', {'form': form})
+
+

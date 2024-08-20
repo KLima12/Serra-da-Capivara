@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apagar Categoria</title>
+</head>
+<body>
+    <h1 class="cabecalho">Apagar Categoria</h1>
+    <h2 class="titulo">Você tem certeza de que deseja apagar a categoria "{{ category.name }}"?</h2>
+
+    <form action="{% url 'confirmacaoCategoria' category.id %}" method="post" class="vertical" style="display:inline;">
+        {% csrf_token %}
+        <a href="{% url 'galeria' %}" class="btn btn-secondary btn-Confirm">Não</a>
+        <button type="submit" class="btn btn-danger">Sim</button>
+    </form>
+</body>
+</html>

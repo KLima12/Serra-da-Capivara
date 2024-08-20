@@ -33,20 +33,30 @@
 
                                 <a href="{% url 'editar' product.id %}" class="btn btn-edit">Editar Produto</a>
 
-                                <form action="{% url 'confirmacao' product.id %}" method="get" style="display:inline;" class="form">
+                                <form action="{% url 'confirmacaoProduto' product.id %}" method="get" style="display:inline;" class="form">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Apagar Produto</button>
                                 </form>
                             </div>
                         {% endfor %}
+                        <a href="{% url 'cadastro'%}" class="btn btn-add">Adicionar Produto</a>
                     {% else %}
                         <p class="vertical">Sem Produtos</p>
+
+                        <a href="{% url 'cadastro'%}?category_id={{ category.id }}" class="btn btn-add">Adicionar Produto</a>
+                        <form action="{% url 'confirmacaoCategoria' category.id %}" method="get" style="display:inline;" class="form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-remove">Apagar Categoria</button>
+                        </form>
+                        
                     {% endif %}
 
-                    <a href="{% url 'cadastro'%}" class="btn btn-add">Adicionar Produto</a>
+                    
                 </div>
             </div>
             {% endfor %}
+
+            <a href="{% url 'cadastroCategoria'%}" class="btn btn-add">Adicionar Categoria</a>
         </div>
 
 

@@ -11,9 +11,9 @@
     <h1 class="cabecalho">Apagar Produto</h1>
     <h2 class="titulo">Você tem certeza de que deseja apagar o produto "{{ product.name }}"?</h2>
 
-    <form action="{% url 'confirmacao' product.id %}" method="post" class="vertical" style="display:inline;">
+    <form action="{% url 'confirmacaoProduto' product.id %}" method="post" class="vertical" style="display:inline;">
         {% csrf_token %}
-        <a href="{% url 'galeria' %}" class="btn btn-secondary">Não</a>
+        <a href="{% url 'galeria' %}" class="btn btn-secondary btn-Confirm">Não</a>
         <button type="submit" class="btn btn-danger">Sim</button>
     </form>
 </body>
