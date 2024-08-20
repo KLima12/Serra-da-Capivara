@@ -29,3 +29,8 @@ def cadastro(request):
                 ProductPhoto.objects.create(product=product, photo=photo)
                 
     return HttpResponse('Salvo com sucesso')
+
+def galeria(request):
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    return render(request, 'galeria.html', {'categories': categories}, {'products': products})

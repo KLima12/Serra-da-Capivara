@@ -2,75 +2,72 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Produtos</title>   
-</head>
-<body>
-  {% block 'dashboard' %}
-
-    <h1 style="text-align: center;">Cadastro de produtos.</h1>
-    <form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <br>
-      <label for="name">Nome:</label>
-      <input type="text" name="name" placeholder="Nome do produto" id="name">
-      <br>
-      <br>
-      <label for="size">Tamanho:</label>
-      <input type="number" id="size" name="size" step="0.1" min="0" placeholder="10.5">
-      <br>
-      <br>
-      <label for="code">Código:</label>
-      <input type="text" name="code" id="code">
-      <br>
-      <br>
-      <label for="category">Categoria:</label>
-      <select id="category" name="category">
-        {% for category in categories %}
-          <option value="{{ category.id }}">{{ category.name }}</option>
-        {% endfor %}
-      </select>   
-      <br>
-      <br>
-      <div id="photo-fields">
-        <label>Fotos:</label>
-        <input type="file" name="photos[]" accept="image/*">
-      </div>
-      <button type="button" onclick="addPhotoField()">Adicionar mais fotos</button><br>
-      <br>
-      <br>
-      <button type="submit">Enviar</button>
-    </form>
-<br>
-    <button type="submit" onclick="clique()">Clique</button>
-
-    <script>
-        // cadastro.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    const photoFields = document.getElementById('photo-fields');
-    
-    function addPhotoField() {
-        // Cria um novo campo de input para upload de fotos
-        const newInput = document.createElement('input');
-        newInput.type = 'file';
-        newInput.name = 'photos[]'; // Define o nome como array de fotos
-        newInput.accept = 'image/*'; // Apenas arquivos de imagem
-
-        // Adiciona o novo campo ao contêiner de fotos
-        photoFields.appendChild(newInput);
-    }
-
-    // Torna a função addPhotoField global para que possa ser chamada a partir do HTML
-    window.addPhotoField = addPhotoField;
-});
-
-
-
-    </script>
-    {% endblock %}
-   
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Cadastro de Produtos</title>
+		  
+	</head>
+	<body>
+		{% block 'dashboard' %}
+		<h1 style="text-align: center;">Cadastro de produtos.</h1>
+		<form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<br>
+			<label for="name">Nome:</label>
+			<input type="text" name="name" placeholder="Nome do produto" id="name">
+			<br>
+			<br>
+			<label for="size">Tamanho:</label>
+			<input type="number" id="size" name="size" step="0.1" min="0" placeholder="10.5">
+			<br>
+			<br>
+			<label for="code">Código:</label>
+			<input type="text" name="code" id="code">
+			<br>
+			<br>
+			<label for="category">Categoria:</label>
+			<select id="category" name="category">
+				{% for category in categories %}
+				<option value="{{ category.id }}">{{ category.name }}</option>
+				{% endfor %}
+			</select>
+			  
+			<br>
+			<br>
+			<div id="photo-fields">
+				<label>Fotos:</label>
+				<input type="file" name="photos[]" accept="image/*">
+			</div>
+			<button type="button" onclick="addPhotoField()">Adicionar mais fotos</button><br>
+			<br>
+			<br>
+			<button type="submit">Enviar</button>
+		</form>
+		<br>
+		<button type="submit" onclick="clique()">Clique</button>
+		<script>
+			// cadastro.js
+			
+			document.addEventListener('DOMContentLoaded', function() {
+			const photoFields = document.getElementById('photo-fields');
+			
+			function addPhotoField() {
+			// Cria um novo campo de input para upload de fotos
+			const newInput = document.createElement('input');
+			newInput.type = 'file';
+			newInput.name = 'photos[]'; // Define o nome como array de fotos
+			newInput.accept = 'image/*'; // Apenas arquivos de imagem
+			
+			// Adiciona o novo campo ao contêiner de fotos
+			photoFields.appendChild(newInput);
+			}
+			
+			// Torna a função addPhotoField global para que possa ser chamada a partir do HTML
+			window.addPhotoField = addPhotoField;
+			});
+			
+		</script>
+		{% endblock %}
+	</body>
 </html>
