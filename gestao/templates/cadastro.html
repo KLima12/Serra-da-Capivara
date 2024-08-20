@@ -13,75 +13,41 @@
 	<body>
 		{% block 'dashboard' %}
 		<h1 class="cabecalho">Cadastro de Produtos</h1>
-		<form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data">
+		
+		<form action="{% url 'cadastro' %}" method="post" enctype="multipart/form-data" style="margin-left: 1rem;">
 			{% csrf_token %}
-
-			<div class="field-box">
-				<label for="name">Nome:</label>
-				<input type="text" name="name" placeholder="Nome do produto" id="name" required>
-			</div>
-
-			<div class="field-box">
-				<label for="size">Tamanho:</label>
-				<input type="text" id="size" name="size" placeholder="Tamanho" required>
-			</div>
-
-			<div class="field-box">
-				<label for="code">Código:</label>
-				<input type="text" name="code" id="code" placeholder="Código" required>
-			</div>
-
-			<div class="field-box">
-				<label for="category">Categoria:</label>
-				<select id="category" name="category" required>
-					<option value="" disabled selected>Selecione uma categoria</option>
-					{% for category in categories %}
-					<option value="{{ category.id }}">{{ category.name }}</option>
-					{% endfor %}
-				</select>
-			</div>
-
-			<br>
-
-			<div id="photo-fields" class="field-box">
-				<label>Fotos:</label>
-				<input type="file" name="photos[]" accept="image/*">
-			</div>
+			{{ form.as_p }}
 			
-			<div class="field-box">
+			<div class="field-box" id="photo-fields">
+				<label for="photos">Fotos:</label>
+				<input type="file" name="photos[]" id="photos" accept="image/*" multiple required>
 				<button type="button" onclick="addPhotoField()">Adicionar mais fotos</button><br>
 			</div>
-			
-			<br>
-
+		
 			<div class="field-box">
-				<button type="submit">Enviar</button>
 			</div>
+			
+			<button type="submit" class="btn btn-edit">Adicionar Produto</button>
 		</form>
-		<br>
-		<button type="submit" onclick="clique()">Clique</button>
+		
 		<script>
-			// cadastro.js
-			
 			document.addEventListener('DOMContentLoaded', function() {
-			const photoFields = document.getElementById('photo-fields');
+				const photoFields = document.getElementById('photo-fields');
 			
-			function addPhotoField() {
-			// Cria um novo campo de input para upload de fotos
-			const newInput = document.createElement('input');
-			newInput.type = 'file';
-			newInput.name = 'photos[]'; // Define o nome como array de fotos
-			newInput.accept = 'image/*'; // Apenas arquivos de imagem
+				function addPhotoField() {
+					const newInput = document.createElement('input');
+					newInput.type = 'file';
+					newInput.name = 'photos[]'; 
+					newInput.accept = 'image/*';
+					photoFields.appendChild(newInput);
+				}
 			
-			// Adiciona o novo campo ao contêiner de fotos
-			photoFields.appendChild(newInput);
-			}
-			
-			// Torna a função addPhotoField global para que possa ser chamada a partir do HTML
-			window.addPhotoField = addPhotoField;
+				window.addPhotoField = addPhotoField;
 			});
-			
 		</script>
+		
+		
+		
 		{% endblock %}
 	</body>
 </html>

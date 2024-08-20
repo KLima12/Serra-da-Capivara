@@ -17,14 +17,7 @@ class Product(models.Model):
         blank = True,
         )
     views = models.PositiveIntegerField(default=0)
+    photos = models.JSONField(default=list, blank=False)
     
     def __str__(self):
         return self.name
-
-#Criei essa classe para várias fotos 
-class ProductPhoto(models.Model):
-    product = models.ForeignKey(Product, related_name='fotos', on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='produtos_fotos/')
-   
-    def __str__(self):
-        return f"Foto de {self.product.name}"

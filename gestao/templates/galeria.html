@@ -31,13 +31,12 @@
                                 <h7 class="produto">Tamanho: {{ product.size }}</h7>
                                 <h7 class="produto">Visualizações: {{ product.views }}</h7>
 
-                                <div class="product-photo-container">
-                                    {% if product.fotos.all %}
-                                        <img src="{{ product.fotos.all.0.photo.url }}" alt="Foto de {{ product.name }}" class="product-photo">
-                                    {% else %}
-                                        <p class="produto">Sem Fotos</p>
-                                    {% endif %}
-                                </div>
+                                {% if product.photos %}
+                                    <img src="../../media/{{ product.photos.0 }}" alt="Imagem de {{ product.name }}" class="product-photo">
+                                {% else %}
+                                    <p>Sem Imagens</p>
+                                {% endif %}
+
 
                                 <a href="{% url 'editar' product.id %}" class="btn btn-edit">Editar Produto</a>
 
