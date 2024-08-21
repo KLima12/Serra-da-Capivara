@@ -176,7 +176,7 @@ def editarCategoria(request, category_id):
                 image.save(in_memory_file, format='WEBP')
                 in_memory_file.seek(0)
 
-                path = default_storage.save(f'category_photos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                path = default_storage.save(f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                 category.photo = path
 
             category.save()
@@ -219,7 +219,7 @@ def cadastroCategoria(request):
                 image.save(in_memory_file, format='WEBP')
                 in_memory_file.seek(0)
 
-                path = default_storage.save(f'category_photos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                path = default_storage.save(f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                 category.photo = path
 
             category.save()

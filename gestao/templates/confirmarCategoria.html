@@ -9,6 +9,7 @@
     <title>Apagar Categoria</title>
 </head>
 <body>
+    {% block 'dashboard' %}
     <h1 class="cabecalho">Apagar Categoria</h1>
     <h2 class="titulo">Você tem certeza de que deseja apagar a categoria "{{ category.name }}"?</h2>
 
@@ -17,5 +18,6 @@
         <a href="{% url 'galeria' %}" class="btn btn-secondary btn-Confirm">Não</a>
         <button type="submit" class="btn btn-danger">Sim</button>
     </form>
+    {% endblock %}
 </body>
 </html>
