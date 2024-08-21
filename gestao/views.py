@@ -124,7 +124,25 @@ def editar(request, product_id):
                 product.photos = [p for p in product.photos if p not in removed_photos]
                 product.save()
 
-            return redirect('galeria') 
+            if 'photos[]' in request.FILES:
+                photos = product.photos if product.photos else []
+                for index, photo in enumerate(request.FILES.getlist('photos[]')):
+                    image = Image.open(photo)
+                    image = image.convert('RGB')
+
+                    filename, _ = os.path.splitext(photo.name)
+                    new_filename = f"img-{product.name.replace(' ', '-')}-{len(photos) + index + 1}.jpg"
+
+                    in_memory_file = io.BytesIO()
+                    image.save(in_memory_file, format='JPEG')
+                    in_memory_file.seek(0)
+
+                    path = default_storage.save(f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                    photos.append(path)
+                product.photos = photos
+                product.save()
+
+            return redirect('galeria')
     else:
         form = EditForm(instance=product)
     
