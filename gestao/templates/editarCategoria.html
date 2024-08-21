@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
+    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Categoria</title>
+</head>
+<body>
+    {% block 'dashboard' %}
+    <h1 class="cabecalho">Editar Categoria</h1>
+
+    <form action="{% url 'editarCategoria' category.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <table>{{ form.as_table }}</table>
+
+            <div class=" smallPadding">
+                <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-edit">Salvar</button>
+            </div>
+        </table>
+    </form>
+    
+    <input type="file" id="photo-input" accept="image/*" style="display:none;" multiple>
+
+    {% endblock %}
+</body>
+</html>

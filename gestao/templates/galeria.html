@@ -47,10 +47,12 @@
                             </div>
                         {% endfor %}
                         <a href="{% url 'cadastro'%}?category_id={{ category.id }}" class="btn btn-add">Adicionar Produto</a>
+                        <a href="{% url 'editarCategoria' category_id=category.id %}" class="btn btn-add">Editar Categoria</a>
                     {% else %}
                         <p class="vertical">Sem Produtos</p>
 
                         <a href="{% url 'cadastro'%}?category_id={{ category.id }}" class="btn btn-add">Adicionar Produto</a>
+                        <a href="{% url 'editarCategoria' category_id=category.id %}" class="btn btn-add">Editar Categoria</a>
                         <form action="{% url 'confirmacaoCategoria' category.id %}" method="get" style="display:inline;" class="form">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-remove">Apagar Categoria</button>

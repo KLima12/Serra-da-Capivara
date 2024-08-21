@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Category, Product
-from .forms import EditForm, EditFormCategory, ProductForm
+from .forms import EditForm, EditFormCategory, ProductForm, CategoryForm
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from PIL import Image
@@ -42,10 +42,10 @@ def cadastro(request):
                     image = image.convert('RGB') 
 
                     filename, _ = os.path.splitext(photo.name)
-                    new_filename = f"img-{product.name.replace(' ', '-')}-{index+1}.jpg"
+                    new_filename = f"img-{product.name.replace(' ', '-')}-{index+1}.webp"
 
                     in_memory_file = io.BytesIO()
-                    image.save(in_memory_file, format='JPEG')
+                    image.save(in_memory_file, format='WEBP')
                     in_memory_file.seek(0) 
 
                     path = default_storage.save(f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
@@ -70,7 +70,6 @@ def galeria(request):
         category: Product.objects.filter(category=category).order_by('name')
         for category in categories
     }
-
 
     context = {
         'categories': categories,
@@ -97,6 +96,11 @@ def confirmacaoProduto(request, product_id):
 def confirmacaoCategoria(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     if request.method == 'POST':
+        if category.photo:
+            photo_path = category.photo.name
+            if default_storage.exists(photo_path):
+                default_storage.delete(photo_path)
+
         category.delete()
         return redirect('galeria') 
 
@@ -131,10 +135,10 @@ def editar(request, product_id):
                     image = image.convert('RGB')
 
                     filename, _ = os.path.splitext(photo.name)
-                    new_filename = f"img-{product.name.replace(' ', '-')}-{len(photos) + index + 1}.jpg"
+                    new_filename = f"img-{product.name.replace(' ', '-')}-{len(photos) + index + 1}.webp"
 
                     in_memory_file = io.BytesIO()
-                    image.save(in_memory_file, format='JPEG')
+                    image.save(in_memory_file, format='WEBP')
                     in_memory_file.seek(0)
 
                     path = default_storage.save(f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
@@ -147,6 +151,41 @@ def editar(request, product_id):
         form = EditForm(instance=product)
     
     return render(request, 'editar.html', {'form': form, 'product': product})
+
+
+def editarCategoria(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+
+    if request.method == 'POST':
+        form = EditFormCategory(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+
+            if 'photo' in request.FILES:
+                if category.photo:
+                    photo_path = category.photo.name
+                    if default_storage.exists(photo_path):
+                        default_storage.delete(photo_path)
+
+                photo = request.FILES['photo']
+                image = Image.open(photo)
+                image = image.convert('RGB') 
+
+                new_filename = f"img-{category.name.replace(' ', '-')}.webp"
+                in_memory_file = io.BytesIO()
+                image.save(in_memory_file, format='WEBP')
+                in_memory_file.seek(0)
+
+                path = default_storage.save(f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                category.photo = path
+
+            category.save()
+            return redirect('galeria')
+    else:
+        form = EditFormCategory(instance=category)
+
+    return render(request, 'editarCategoria.html', {'form': form, 'category': category})
+
 
 
 @csrf_exempt
@@ -166,11 +205,26 @@ def remove_photo(request):
 
 def cadastroCategoria(request):
     if request.method == 'POST':
-        form = EditFormCategory(request.POST, request.FILES)
+        form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            category = form.save(commit=False)
+            
+            if 'photo' in request.FILES:
+                photo = request.FILES['photo']
+                image = Image.open(photo)
+                image = image.convert('RGB') 
+
+                new_filename = f"img-{category.name.replace(' ', '-')}.webp"
+                in_memory_file = io.BytesIO()
+                image.save(in_memory_file, format='WEBP')
+                in_memory_file.seek(0)
+
+                path = default_storage.save(f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                category.photo = path
+
+            category.save()
             return redirect('galeria')
     else:
-        form = EditFormCategory()
+        form = CategoryForm()
     
     return render(request, 'cadastroCategoria.html', {'form': form})
