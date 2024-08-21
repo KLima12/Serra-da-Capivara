@@ -59,7 +59,7 @@ class EditForm(forms.ModelForm):
             },
         }
 
-class EditFormCategory(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'photo']
@@ -71,4 +71,22 @@ class EditFormCategory(forms.ModelForm):
             'name': {
                 'unique': 'Uma categoria com este nome já existe.',
             }
+        }
+
+class EditFormCategory(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'photo']
+        labels = {
+            'name': 'Nome',
+            'photo': 'Foto',
+        }
+        error_messages = {
+            'name': {
+                'unique': 'Uma categoria com este nome já existe.',
+                'required': 'Por favor, insira o nome da categoria',
+            },
+            'photo': {
+                'required': 'Por favor, insira uma foto',
+            },
         }
