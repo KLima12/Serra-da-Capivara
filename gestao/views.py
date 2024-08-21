@@ -15,9 +15,6 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 
-def home(request):
-    return render(request, 'home.html')
-
 
 def cadastro(request):
     categories = Category.objects.all().order_by('name')
