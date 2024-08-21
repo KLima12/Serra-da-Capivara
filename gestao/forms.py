@@ -1,5 +1,7 @@
 from django import forms
 from .models import Product, Category
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -90,3 +92,22 @@ class EditFormCategory(forms.ModelForm):
                 'required': 'Por favor, insira uma foto',
             },
         }
+        
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Nome do Usúario', max_length=50)
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
+    
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get("username")
+        password = cleaned_data.get("password")
+        
+        #Autentifica o usuário
+        user = authenticate(username=username, password=password)
+        
+        if user is None:                    
+            raise forms.ValidationError("Usuário ou senha errados")
+        
+        self.cleaned_data['user'] = user
+        return cleaned_data
