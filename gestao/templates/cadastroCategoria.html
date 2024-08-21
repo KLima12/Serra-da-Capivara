@@ -13,7 +13,7 @@
     <h1 class="cabecalho">Adicionar Categoria</h1>
 
     <div style="margin-left: 1rem;">
-        <form action="{% url 'cadastroCategoria' %}" method="post" >
+        <form action="{% url 'cadastroCategoria' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>

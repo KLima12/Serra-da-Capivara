@@ -62,9 +62,10 @@ class EditForm(forms.ModelForm):
 class EditFormCategory(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['name', 'photo']
         labels = {
             'name': 'Nome da Categoria',
+            'photo': 'Foto',
         }
         error_messages = {
             'name': {

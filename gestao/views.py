@@ -166,11 +166,11 @@ def remove_photo(request):
 
 def cadastroCategoria(request):
     if request.method == 'POST':
-        form = EditFormCategory(request.POST,)
+        form = EditFormCategory(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('galeria') 
+            return redirect('galeria')
     else:
-       form = EditFormCategory()
-
+        form = EditFormCategory()
+    
     return render(request, 'cadastroCategoria.html', {'form': form})
