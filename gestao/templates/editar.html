@@ -14,105 +14,164 @@
     {% block 'dashboard' %}
     <h1 class="cabecalho">Editar Produto</h1>
 
-    <form id="product-form" action="{% url 'editar' product.id %}" method="post" >
+    <form action="{% url 'editar' product.id %}" method="post" enctype="multipart/form-data" id="product-form" data-product-name="{{ product.name }}">
         {% csrf_token %}
         <table>
             <table>{{ form.as_table }}</table>
-
-            {% if product.photos %}
-                <div class="horizontal" id="photo-container">
-                {% for photo in product.photos %}
+    
+            <div class="horizontal alignCenter smallPadding" >
+                <div class="horizontal alignCenter noPadding" id="photo-container">
+                    {% for photo in product.photos %}
                     <div class="vertical" draggable="true" data-photo="{{ photo }}">
                         <img src="../../media/{{ photo }}" alt="Imagem de {{ product.name }}" class="product-photo" draggable="false">
                         <button type="button" class="btn btn-danger remove-photo-btn">X</button>
                     </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
-            {% else %}
-                <p>Sem Imagens</p>
-            {% endif %}
 
+                <button type="button" id="add-photo-btn" class="btn btn-primary btn-add-photo">+</button>
+            </div>
+    
             <br>
-            
-            <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-edit">Salvar</button>
+    
+            <div class=" smallPadding">
+                <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-edit">Salvar</button>
+            </div>
         </table>
     </form>
+    
+    
+    
+    <input type="file" id="photo-input" accept="image/*" style="display:none;" multiple>
 
+    
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const photoContainer = document.getElementById('photo-container');
-        const form = document.getElementById('product-form');
-        let removedPhotos = [];
+        document.addEventListener('DOMContentLoaded', function() {
+    const photoContainer = document.getElementById('photo-container');
+    const form = document.getElementById('product-form');
+    const productName = form.dataset.productName.replace(' ', '-');
+    let removedPhotos = [];
+    let newPhotos = [];
 
-        const dragImage = document.createElement('img');
-        dragImage.style.position = 'absolute';
-        dragImage.style.top = '-9999px';
-        dragImage.style.height = '1rem';
-        dragImage.style.objectFit = 'contain'; 
-        document.body.appendChild(dragImage);
+    document.getElementById('add-photo-btn').addEventListener('click', function() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.multiple = true;
 
-        photoContainer.addEventListener('dragstart', function(e) {
-            if (e.target.classList.contains('vertical')) {
-                e.dataTransfer.setData('text/plain', e.target.dataset.photo);
+        input.addEventListener('change', function() {
+            for (let file of input.files) {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('product-photo');
 
-                dragImage.src = e.target.querySelector('img').src;
-                dragImage.onload = function() {
-                    e.dataTransfer.setDragImage(dragImage, 0, 0);
-                };
-            }
-        });
+                        const photoElement = document.createElement('div');
+                        photoElement.classList.add('vertical');
+                        photoElement.appendChild(img);
 
-        photoContainer.addEventListener('dragover', function(e) {
-            e.preventDefault();
-        });
+                        const removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.classList.add('btn', 'btn-danger', 'remove-photo-btn');
+                        removeBtn.textContent = 'X';
+                        photoElement.appendChild(removeBtn);
 
-        photoContainer.addEventListener('drop', function(e) {
-            e.preventDefault();
-            const draggedPhoto = e.dataTransfer.getData('text/plain');
-            const targetPhoto = e.target.closest('.vertical');
-            if (targetPhoto && targetPhoto.dataset.photo !== draggedPhoto) {
-                const allPhotos = Array.from(photoContainer.children);
-                const draggedElement = allPhotos.find(el => el.dataset.photo === draggedPhoto);
-                const targetIndex = allPhotos.indexOf(targetPhoto);
-                const draggedIndex = allPhotos.indexOf(draggedElement);
-                if (targetIndex < draggedIndex) {
-                    photoContainer.insertBefore(draggedElement, targetPhoto);
-                } else {
-                    photoContainer.insertBefore(draggedElement, targetPhoto.nextSibling);
+                        photoContainer.appendChild(photoElement);
+
+                        // Store the file with a unique name in newPhotos array
+                        newPhotos.push({
+                            file: file,
+                            name: `img-${productName}-${newPhotos.length + 1}.jpg`
+                        });
+                    };
+                    reader.readAsDataURL(file);
                 }
             }
         });
 
-        photoContainer.addEventListener('click', function(e) {
-            if (e.target.classList.contains('remove-photo-btn')) {
-                const photoElement = e.target.closest('.vertical');
+        input.click();
+    });
+
+    photoContainer.addEventListener('dragstart', function(e) {
+        if (e.target.classList.contains('vertical')) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.photo);
+
+            dragImage.src = e.target.querySelector('img').src;
+            dragImage.onload = function() {
+                e.dataTransfer.setDragImage(dragImage, 0, 0);
+            };
+        }
+    });
+
+    photoContainer.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    });
+
+    photoContainer.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const draggedPhoto = e.dataTransfer.getData('text/plain');
+        const targetPhoto = e.target.closest('.vertical');
+        if (targetPhoto && targetPhoto.dataset.photo !== draggedPhoto) {
+            const allPhotos = Array.from(photoContainer.children);
+            const draggedElement = allPhotos.find(el => el.dataset.photo === draggedPhoto);
+            const targetIndex = allPhotos.indexOf(targetPhoto);
+            const draggedIndex = allPhotos.indexOf(draggedElement);
+            if (targetIndex < draggedIndex) {
+                photoContainer.insertBefore(draggedElement, targetPhoto);
+            } else {
+                photoContainer.insertBefore(draggedElement, targetPhoto.nextSibling);
+            }
+        }
+    });
+
+    photoContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-photo-btn')) {
+            const photoElement = e.target.closest('.vertical');
+
+            if (photoContainer.children.length > 1) {
                 const photoPath = photoElement.dataset.photo;
-                removedPhotos.push(photoPath); 
+                if (photoPath) {
+                    removedPhotos.push(photoPath);
+                }
                 photoElement.remove();
+            } else {
+                alert("O produto deve ter pelo menos uma imagem.");
+            }
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const photoOrder = Array.from(photoContainer.children).map(el => el.dataset.photo || null).filter(photo => photo !== null);
+
+        const formData = new FormData(form);
+        formData.append('photo_order', JSON.stringify(photoOrder));
+        formData.append('removed_photos', JSON.stringify(removedPhotos));
+
+        newPhotos.forEach(({ file, name }) => {
+            if (file && file.size > 0) {
+                formData.append('photos[]', file, name);
             }
         });
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const photoOrder = Array.from(photoContainer.children).map(el => el.dataset.photo);
-            
-            const formData = new FormData(form);
-            formData.append('photo_order', JSON.stringify(photoOrder));
-            formData.append('removed_photos', JSON.stringify(removedPhotos));
-            
-            fetch(form.action, {
-                method: 'POST',
-                body: formData
-            }).then(response => {
-                if (response.ok) {
-                    window.location.href = response.url;
-                } else {
-                    alert('Error submitting form');
-                }
-            });
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = response.url;
+            } else {
+                alert('Erro ao editar o produto.');
+            }
+        }).catch(error => {
+            console.error('Fetch error:', error);
         });
     });
+});
+
     </script>
     {% endblock %}
 </body>

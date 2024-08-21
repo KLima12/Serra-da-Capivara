@@ -35,6 +35,20 @@
     margin-top: 2rem;
 }
 
+.alignCenter {
+    align-items: center;
+}
+
+.smallPadding {
+    padding-left: 1rem;
+    margin: 0;
+}
+
+.noPadding {
+    padding: 0;
+    margin: 0;
+}
+
 .vertical {
     display: flex;
     flex-direction: column;
@@ -130,6 +144,10 @@
 
 .btn-Confirm {
     margin-left: 7rem !important;
+}
+
+.btn-add-photo {
+    height: 3rem !important;
 }
 
 .product-photo {
