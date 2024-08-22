@@ -27,8 +27,11 @@ urlpatterns = [
     path('gestao/', include('gestao.urls')),
     path('email/', include('enviaemail.urls')),
     path('home/', include('backend.urls')),
-    re_path(r'^.*$', RedirectView.as_view(url='/home/', permanent=False), name='index'),
 ]
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) 
+
+urlpatterns += [
+    re_path(r'^.*$', RedirectView.as_view(url='/home/', permanent=False), name='index'),
+]
