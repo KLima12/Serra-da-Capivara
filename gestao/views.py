@@ -13,7 +13,31 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from .forms import LoginForm
 
+def home(request):
+    return render(request, 'home.html')
+
+
+def login(request):
+    if request.method == 'POST':
+       form = LoginForm(request.POST)
+       if form.is_valid():
+           user = form.cleaned_data['user']
+           auth_login(request, user)
+           return redirect('home')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form':form})
+
+def logout(request):
+    auth_logout(request)
+    return redirect('home')
+
+@login_required  
 def cadastro(request):
     categories = Category.objects.all().order_by('name')
 
@@ -57,7 +81,7 @@ def cadastro(request):
     return render(request, 'cadastro.html', {'form': form, 'categories': categories})
 
     
-
+@login_required
 def galeria(request):
     categories = Category.objects.all().order_by('name')
     products = Product.objects.all()
@@ -74,7 +98,7 @@ def galeria(request):
 
     return render(request, 'galeria.html', context)
 
-
+@login_required
 def confirmacaoProduto(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
@@ -88,6 +112,7 @@ def confirmacaoProduto(request, product_id):
     return render(request, 'confirmarProduto.html', {'product': product})
 
 
+@login_required
 def confirmacaoCategoria(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     if request.method == 'POST':
@@ -101,7 +126,7 @@ def confirmacaoCategoria(request, category_id):
 
     return render(request, 'confirmarCategoria.html', {'category': category})
 
-
+@login_required
 def editar(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     
@@ -148,6 +173,7 @@ def editar(request, product_id):
     return render(request, 'editar.html', {'form': form, 'product': product})
 
 
+@login_required
 def editarCategoria(request, category_id):
     category = get_object_or_404(Category, id=category_id)
 
@@ -197,7 +223,7 @@ def remove_photo(request):
         return JsonResponse({'success': False}, status=400)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-
+@login_required
 def cadastroCategoria(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES)
