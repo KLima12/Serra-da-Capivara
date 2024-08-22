@@ -14,8 +14,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-
-
 def cadastro(request):
     categories = Category.objects.all().order_by('name')
 
