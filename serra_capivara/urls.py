@@ -27,7 +27,7 @@ urlpatterns = [
     path('gestao/', include('gestao.urls')),
     path('email/', include('enviaemail.urls')),
     path('home/', include('backend.urls')),
-    re_path(r'^.*$', RedirectView.as_view(url='/gestao/galeria/', permanent=False), name='index'),
+    re_path(r'^.*$', RedirectView.as_view(url='/home/', permanent=False), name='index'),
 ]
 
 
