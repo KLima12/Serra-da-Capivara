@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+        {% block css %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
+        {% endblock %}
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Galeria de Produtos</title>
+	</head>
+	<body>
+		{% block 'dashboard' %}
+		<h1 class="cabecalho">Galeria de produtos</h1>
+
+        <!--
+        ~Miguelindo aqui
+        2 laços: um para imprimir as categorias, e outro para imprimir os produtos nessa categoria
+        -->
+        <div>
+            {% for category, products_list in category_products.items %}
+            <div class="cat">
+                <h1 class="titulo">{{ category.name }}</h1>
+                <div class="horizontal">
+                    {% if products_list %}
+                        {% for product in products_list %}
+                            <div class="vertical">
+                                <h3 class="produto">{{ product.name }}</h3>
+                                <h7 class="produto">Código: {{ product.code }}</h7>
+                                <h7 class="produto">Tamanho: {{ product.size }}</h7>
+                                <h7 class="produto">Visualizações: {{ product.views }}</h7>
+                                
+                                {% if product.photos %}
+                                    <img src="../../media/{{ product.photos.0 }}" alt="Imagem de {{ product.name }}" class="product-photo">
+                                {% else %}
+                                    <p>Sem Imagens</p>
+                                {% endif %}
+
+                                    <a href="{% url 'form' product.id %}" class="btn btn-edit">Comprar Produto</a>
+                        
+
+                            </div>
+                        {% endfor %}
+           
+                     
+                    {% endif %}
+
+                    
+                </div>
+            </div>
+            {% endfor %}
+
+            <a href="{% url 'cadastroCategoria'%}" class="btn btn-add">Adicionar Categoria</a>
+        </div>
+
+
+        
+        
+		{% endblock %}
+	</body>
+</html>
