@@ -1,19 +1,20 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-   {% block 'dashboard' %}
+  </head>
+  <body>
+    {% block 'dashboard' %}
     <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <table>{{form.as_table}}</table>
-        <input type="submit" value="Login">
+      {% csrf_token %}
+      <table>
+        {{form.as_table}}
+      </table>
+      <input type="submit" value="Login" />
     </form>
-   {% endblock %}
-</body>
+    {% endblock %}
+  </body>
 </html>

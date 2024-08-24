@@ -1,76 +1,110 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-        {% block css %}
-            <link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
-        {% endblock %}
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Galeria de Produtos</title>
-	</head>
-	<body>
-		{% block 'dashboard' %}
-		<h1 class="cabecalho">Galeria de produtos</h1>
+  <head>
+    {% block css %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleGaleria.css' %}"
+    />
+    {% endblock %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galeria de Produtos</title>
+  </head>
+  <body>
+    {% block 'dashboard' %}
+    <h1 class="cabecalho">Galeria de produtos</h1>
 
-        <!--
+    <!--
         ~Miguelindo aqui
         2 laços: um para imprimir as categorias, e outro para imprimir os produtos nessa categoria
         -->
-        <div>
-            {% for category, products_list in category_products.items %}
-            <div class="cat">
-                <h1 class="titulo">{{ category.name }}</h1>
-                <div class="horizontal">
-                    {% if products_list %}
-                        {% for product in products_list %}
-                            <div class="vertical">
-                                <h3 class="produto">{{ product.name }}</h3>
-                                <h7 class="produto">Código: {{ product.code }}</h7>
-                                <h7 class="produto">Tamanho: {{ product.size }}</h7>
-                                <h7 class="produto">Visualizações: {{ product.views }}</h7>
+    <div>
+      {% for category, products_list in category_products.items %}
+      <div class="cat">
+        <h1 class="titulo">{{ category.name }}</h1>
+        <div class="horizontal">
+          {% if products_list %} {% for product in products_list %}
+          <div class="vertical">
+            <h3 class="produto">{{ product.name }}</h3>
+            <h7 class="produto">Código: {{ product.code }}</h7>
+            <h7 class="produto">Tamanho: {{ product.size }}</h7>
+            <h7 class="produto">Visualizações: {{ product.views }}</h7>
 
-                                {% if product.photos %}
-                                    <img src="../../media/{{ product.photos.0 }}" alt="Imagem de {{ product.name }}" class="product-photo">
-                                {% else %}
-                                    <p>Sem Imagens</p>
-                                {% endif %}
+            {% if product.photos %}
+            <img
+              src="../../media/{{ product.photos.0 }}"
+              alt="Imagem de {{ product.name }}"
+              class="product-photo"
+            />
+            {% else %}
+            <p>Sem Imagens</p>
+            {% endif %}
 
+            <a href="{% url 'editar' product.id %}" class="btn btn-edit"
+              >Editar Produto</a
+            >
 
-                                <a href="{% url 'editar' product.id %}" class="btn btn-edit">Editar Produto</a>
+            <form
+              action="{% url 'confirmacaoProduto' product.id %}"
+              method="get"
+              style="display: inline"
+              class="form"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">
+                Apagar Produto
+              </button>
+            </form>
+          </div>
+          {% endfor %}
+          <a
+            href="{% url 'cadastro'%}?category_id={{ category.id }}"
+            class="btn btn-add"
+            >Adicionar Produto</a
+          >
+          <a
+            href="{% url 'editarCategoria' category_id=category.id %}"
+            class="btn btn-add"
+            >Editar Categoria</a
+          >
+          {% else %}
+          <p class="vertical">Sem Produtos</p>
 
-                                <form action="{% url 'confirmacaoProduto' product.id %}" method="get" style="display:inline;" class="form">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Apagar Produto</button>
-                                </form>
-                            </div>
-                        {% endfor %}
-                        <a href="{% url 'cadastro'%}?category_id={{ category.id }}" class="btn btn-add">Adicionar Produto</a>
-                        <a href="{% url 'editarCategoria' category_id=category.id %}" class="btn btn-add">Editar Categoria</a>
-                    {% else %}
-                        <p class="vertical">Sem Produtos</p>
+          <a
+            href="{% url 'cadastro'%}?category_id={{ category.id }}"
+            class="btn btn-add"
+            >Adicionar Produto</a
+          >
+          <a
+            href="{% url 'editarCategoria' category_id=category.id %}"
+            class="btn btn-add"
+            >Editar Categoria</a
+          >
+          <form
+            action="{% url 'confirmacaoCategoria' category.id %}"
+            method="get"
+            style="display: inline"
+            class="form"
+          >
+            {% csrf_token %}
+            <button type="submit" class="btn btn-remove">
+              Apagar Categoria
+            </button>
+          </form>
 
-                        <a href="{% url 'cadastro'%}?category_id={{ category.id }}" class="btn btn-add">Adicionar Produto</a>
-                        <a href="{% url 'editarCategoria' category_id=category.id %}" class="btn btn-add">Editar Categoria</a>
-                        <form action="{% url 'confirmacaoCategoria' category.id %}" method="get" style="display:inline;" class="form">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-remove">Apagar Categoria</button>
-                        </form>
-                        
-                    {% endif %}
-
-                    
-                </div>
-            </div>
-            {% endfor %}
-
-            <a href="{% url 'cadastroCategoria'%}" class="btn btn-add">Adicionar Categoria</a>
+          {% endif %}
         </div>
+      </div>
+      {% endfor %}
 
+      <a href="{% url 'cadastroCategoria'%}" class="btn btn-add"
+        >Adicionar Categoria</a
+      >
+    </div>
 
-        
-        
-		{% endblock %}
-	</body>
+    {% endblock %}
+  </body>
 </html>
