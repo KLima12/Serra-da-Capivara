@@ -24,7 +24,6 @@ def home(request):
     return render(request, 'home.html')
 
 
-
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

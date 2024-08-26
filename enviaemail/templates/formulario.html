@@ -12,15 +12,16 @@
 <body>
     {% block 'dashboard' %}
 
-    <form action="{% url 'formulario' %}" method="post">
+    <form action="{%url 'formulario' %}" method="POST">
         {% csrf_token %}
+
         <table>
             {{form.as_table}}
         </table>
-        <input type="submit" value="login">
+        <input type="submit" value="Enviar">
+
     </form>
     {% endblock %}
 
 </body>
-
 </html>
