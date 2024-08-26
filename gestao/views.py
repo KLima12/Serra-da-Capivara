@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.core.mail import send_mail
 from .models import Category, Product
 from .forms import EditForm, EditFormCategory, ProductForm, CategoryForm
 from django.core.files.storage import default_storage
@@ -18,26 +19,30 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
 
+
 def home(request):
     return render(request, 'home.html')
 
 
+
 def login(request):
     if request.method == 'POST':
-       form = LoginForm(request.POST)
-       if form.is_valid():
-           user = form.cleaned_data['user']
-           auth_login(request, user)
-           return redirect('home')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = form.cleaned_data['user']
+            auth_login(request, user)
+            return redirect('home')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form':form})
+    return render(request, 'login.html', {'form': form})
+
 
 def logout(request):
     auth_logout(request)
     return redirect('home')
 
-@login_required  
+
+@login_required
 def cadastro(request):
     categories = Category.objects.all().order_by('name')
 
@@ -58,29 +63,31 @@ def cadastro(request):
             if 'photos[]' in request.FILES:
                 for index, photo in enumerate(request.FILES.getlist('photos[]')):
                     image = Image.open(photo)
-                    image = image.convert('RGB') 
+                    image = image.convert('RGB')
 
                     filename, _ = os.path.splitext(photo.name)
-                    new_filename = f"img-{product.name.replace(' ', '-')}-{index+1}.webp"
+                    new_filename = f"img-{product.name.replace(' ', '-')}-{
+                        index+1}.webp"
 
                     in_memory_file = io.BytesIO()
                     image.save(in_memory_file, format='WEBP')
-                    in_memory_file.seek(0) 
+                    in_memory_file.seek(0)
 
-                    path = default_storage.save(f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                    path = default_storage.save(
+                        f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                     photos.append(path)
 
             product.photos = photos
             product.save()
             messages.success(request, 'Produto adicionado com sucesso!')
-        
+
             return redirect('cadastro')
     else:
         form = ProductForm(initial={'category': initial_category})
 
     return render(request, 'cadastro.html', {'form': form, 'categories': categories})
 
-    
+
 @login_required
 def galeria(request):
     categories = Category.objects.all().order_by('name')
@@ -98,6 +105,7 @@ def galeria(request):
 
     return render(request, 'galeria.html', context)
 
+
 @login_required
 def confirmacaoProduto(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -105,7 +113,7 @@ def confirmacaoProduto(request, product_id):
         for photo_path in product.photos:
             if default_storage.exists(photo_path):
                 default_storage.delete(photo_path)
-        
+
         product.delete()
         return redirect('galeria')
 
@@ -122,14 +130,15 @@ def confirmacaoCategoria(request, category_id):
                 default_storage.delete(photo_path)
 
         category.delete()
-        return redirect('galeria') 
+        return redirect('galeria')
 
     return render(request, 'confirmarCategoria.html', {'category': category})
+
 
 @login_required
 def editar(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    
+
     if request.method == 'POST':
         form = EditForm(request.POST, instance=product)
         if form.is_valid():
@@ -145,7 +154,8 @@ def editar(request, product_id):
                 for photo in removed_photos:
                     if default_storage.exists(photo):
                         default_storage.delete(photo)
-                product.photos = [p for p in product.photos if p not in removed_photos]
+                product.photos = [
+                    p for p in product.photos if p not in removed_photos]
                 product.save()
 
             if 'photos[]' in request.FILES:
@@ -155,13 +165,15 @@ def editar(request, product_id):
                     image = image.convert('RGB')
 
                     filename, _ = os.path.splitext(photo.name)
-                    new_filename = f"img-{product.name.replace(' ', '-')}-{len(photos) + index + 1}.webp"
+                    new_filename = f"img-{product.name.replace(' ', '-')}-{
+                        len(photos) + index + 1}.webp"
 
                     in_memory_file = io.BytesIO()
                     image.save(in_memory_file, format='WEBP')
                     in_memory_file.seek(0)
 
-                    path = default_storage.save(f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                    path = default_storage.save(
+                        f'produtos_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                     photos.append(path)
                 product.photos = photos
                 product.save()
@@ -169,7 +181,7 @@ def editar(request, product_id):
             return redirect('galeria')
     else:
         form = EditForm(instance=product)
-    
+
     return render(request, 'editar.html', {'form': form, 'product': product})
 
 
@@ -190,14 +202,15 @@ def editarCategoria(request, category_id):
 
                 photo = request.FILES['photo']
                 image = Image.open(photo)
-                image = image.convert('RGB') 
+                image = image.convert('RGB')
 
                 new_filename = f"img-{category.name.replace(' ', '-')}.webp"
                 in_memory_file = io.BytesIO()
                 image.save(in_memory_file, format='WEBP')
                 in_memory_file.seek(0)
 
-                path = default_storage.save(f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                path = default_storage.save(
+                    f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                 category.photo = path
 
             category.save()
@@ -206,7 +219,6 @@ def editarCategoria(request, category_id):
         form = EditFormCategory(instance=category)
 
     return render(request, 'editarCategoria.html', {'form': form, 'category': category})
-
 
 
 @csrf_exempt
@@ -223,29 +235,31 @@ def remove_photo(request):
         return JsonResponse({'success': False}, status=400)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+
 @login_required
 def cadastroCategoria(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
             category = form.save(commit=False)
-            
+
             if 'photo' in request.FILES:
                 photo = request.FILES['photo']
                 image = Image.open(photo)
-                image = image.convert('RGB') 
+                image = image.convert('RGB')
 
                 new_filename = f"img-{category.name.replace(' ', '-')}.webp"
                 in_memory_file = io.BytesIO()
                 image.save(in_memory_file, format='WEBP')
                 in_memory_file.seek(0)
 
-                path = default_storage.save(f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
+                path = default_storage.save(
+                    f'categorias_fotos/{new_filename}', ContentFile(in_memory_file.read(), new_filename))
                 category.photo = path
 
             category.save()
             return redirect('galeria')
     else:
         form = CategoryForm()
-    
+
     return render(request, 'cadastroCategoria.html', {'form': form})

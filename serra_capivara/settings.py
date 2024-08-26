@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestao',
     'backend',
-    'enviaemail'
+    'enviaemail',
 ]
 
 MIDDLEWARE = [
@@ -129,7 +129,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 # CRIACAO do email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # email padrao >>>>> tudo do .env aqui!
