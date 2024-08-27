@@ -5,13 +5,13 @@ from .forms import EmailForm
 
 
 def formulario(request):
-    form = EmailForm()
-    return render(request, 'formulario.html', {'form': form})
+    varform = EmailForm()
+    return render(request, 'formulario.html', {'form': varform})
 
 
 def processa_formulario(request):
-    form = EmailForm(request.POST)
-    return HttpResponse(form)
+    varform = EmailForm(request.POST)
+    return HttpResponse(varform)
 
 
 def envia_email(request):
