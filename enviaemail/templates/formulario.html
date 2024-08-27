@@ -12,7 +12,7 @@
 <body>
     {% block 'dashboard' %}
 
-    <form action="{%url 'formulario' %}" method="POST">
+    <form action="{% url 'processar-email' %}" method="POST">
         {% csrf_token %}
 
         <table>
@@ -24,4 +24,5 @@
     {% endblock %}
 
 </body>
+
 </html>

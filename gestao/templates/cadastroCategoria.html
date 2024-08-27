@@ -1,27 +1,33 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+  <head>
     {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/styleGaleria.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleGaleria.css' %}"
+    />
     {% endblock %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adicionar Categoria</title>
-</head>
-<body>
+  </head>
+  <body>
     {% block 'dashboard' %}
     <h1 class="cabecalho">Adicionar Categoria</h1>
 
-    <div style="margin-left: 1rem;">
-        <form action="{% url 'cadastroCategoria' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-edit">Adicionar</button>
-        </form>
+    <div style="margin-left: 1rem">
+      <form
+        action="{% url 'cadastroCategoria' %}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %} {{ form.as_p }}
+        <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-edit">Adicionar</button>
+      </form>
     </div>
     {% endblock %}
-</body>
+  </body>
 </html>

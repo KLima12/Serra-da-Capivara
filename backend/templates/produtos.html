@@ -1,0 +1,148 @@
+{% extends "base.html" %} {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% block css %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleGaleria.css' %}"
+    />
+    {% endblock %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galeria de Produtos</title>
+  </head>
+  <body>
+    {% block 'dashboard' %}
+    <h1 class="cabecalho">Galeria de produtos</h1>
+
+    <!--
+        ~Miguelindo aqui
+        2 laços: um para imprimir as categorias, e outro para imprimir os produtos nessa categoria
+        -->
+    <div>
+      {% for category, products_list in category_products.items %}
+      <div class="cat">
+        <h1 class="titulo">{{ category.name }}</h1>
+        <div class="horizontal">
+          {% if products_list %} {% for product in products_list %}
+          <div class="vertical">
+            <h3 class="produto">{{ product.name }}</h3>
+            <h7 class="produto">Código: {{ product.code }}</h7>
+            <h7 class="produto">Tamanho: {{ product.size }}</h7>
+            <h7 class="produto">Visualizações: {{ product.views }}</h7>
+
+            {% if product.photos %}
+            <img
+              src="../../media/{{ product.photos.0 }}"
+              alt="Imagem de {{ product.name }}"
+              class="product-photo"
+            />
+            {% else %}
+            <p>Sem Imagens</p>
+            {% endif %}
+
+            <button
+              class="btn btn-cart btn-edit"
+              data-product-id="{{ product.id }}"
+            >
+              Adicionar ao Carrinho
+            </button>
+          </div>
+          {% endfor %} {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <button class="btn btn-edit" id="buy-button">Comprar Produto</button>
+
+    <script>
+      document
+        .getElementById("buy-button")
+        .addEventListener("click", function () {
+          sendCartDataToServer();
+        });
+
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      function sendCartDataToServer() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        fetch('{% url "save_cart" %}', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({ cart: cart }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              window.open('{% url "message" %}', "_blank");
+            } else {
+              console.error("Error:", data);
+            }
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        document.querySelectorAll(".btn-cart").forEach((button) => {
+          const productId = button.getAttribute("data-product-id");
+
+          let productInCart = cart.find((item) => item.id === productId);
+
+          if (productInCart) {
+            button.classList.remove("btn-edit");
+            button.classList.add("btn-danger");
+            button.textContent = "Remover do Carrinho";
+          }
+
+          button.addEventListener("click", function () {
+            if (productInCart) {
+              cart = cart.filter((item) => item.id !== productId);
+            } else {
+              cart.push({ id: productId, quantity: 1 });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            productInCart = cart.find((item) => item.id === productId);
+            if (productInCart) {
+              button.classList.remove("btn-edit");
+              button.classList.add("btn-danger");
+              button.textContent = "Remover do Carrinho";
+            } else {
+              button.classList.remove("btn-danger");
+              button.classList.add("btn-edit");
+              button.textContent = "Adicionar ao Carrinho";
+            }
+          });
+        });
+      });
+    </script>
+
+    {% endblock %}
+  </body>
+</html>

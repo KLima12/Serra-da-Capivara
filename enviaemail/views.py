@@ -1,22 +1,27 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.mail import send_mail
-from .forms import EmailForm
+from .forms import ContatoEmail
 
 
 def formulario(request):
-    varform = EmailForm()
-    return render(request, 'formulario.html', {'form': varform})
+    form = ContatoEmail()
+    return render(request, 'formulario.html', {'form': form})
 
 
-def processa_formulario(request):
-    varform = EmailForm(request.POST)
-    return HttpResponse(varform)
+def processaremail(request):
+    form = ContatoEmail(request.POST)
+    if form.is_valid():
+        nome = form.data['nome']
+        email = form.data['email']
+        assunto = form.data['assunto']
+        mensagem = form.data['mensagem']
 
-
-def envia_email(request):
-    # Assunto : Conteudo : Email ativo : Email passivo
-    send_mail('****Assunto: ****', '**** Conteudo do email ****',
-              'contato.adealencar@mail.com', ['dinhoalencaraa@gmail.com'])
-    return HttpResponse('O email foi enviado. ')
-    # LEMBRAR DE TROCAR OS EMAILS
+    send_mail(
+        assunto,
+        f"Mensagem de {nome} \nEmail: {email} \nMensagem: {mensagem}",
+        'contato.adealencar@gmail.com',
+        ['dinhoalencaraa@gmail.com', email],
+        fail_silently=False,  # para o codigo nao falhar "silenciosamente"
+    )
+    return HttpResponse('Email enviado com sucesso.')

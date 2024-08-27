@@ -1,7 +1,7 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %}
 
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang='pt-BR'>
 
 <head>
@@ -17,3 +17,18 @@
 </body>
 
 </html>
+=======
+<html lang="pt-BR">
+  <head>
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'react/index-C23PyG9O.css' %}" />
+    {% endblock %}
+  </head>
+  <body>
+    {% block 'dashboard' %}
+    <div id="root"></div>
+    <script type="module" src="{% static 'react/index-ByoSY8Jw.js' %}"></script>
+    {% endblock %}
+  </body>
+</html>
+>>>>>>> 2e3be4ad8a2fed32f82ed14cd9f4813c7e1e22e2
