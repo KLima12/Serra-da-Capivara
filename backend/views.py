@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-
-=======
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from gestao.models import Product, Category
 from urllib.parse import quote
 from django.http import JsonResponse
 import json
->>>>>>> 2e3be4ad8a2fed32f82ed14cd9f4813c7e1e22e2
 
 def inicio(request):
     return render(request, 'inicio.html')

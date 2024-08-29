@@ -25,13 +25,6 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gestao/', include('gestao.urls')),
-<<<<<<< HEAD
-    path('', include('enviaemail.urls')),
-    path('home/', include('backend.urls')),
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
     path('email/', include('enviaemail.urls')),
     path('home/', include('backend.urls')),
 ]
@@ -42,4 +35,3 @@ urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 urlpatterns += [
     re_path(r'^.*$', RedirectView.as_view(url='/home/', permanent=False), name='index'),
 ]
->>>>>>> 2e3be4ad8a2fed32f82ed14cd9f4813c7e1e22e2
