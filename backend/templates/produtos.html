@@ -56,7 +56,8 @@
       {% endfor %}
     </div>
 
-    <button class="btn btn-edit" id="buy-button">Comprar Produto</button>
+    <a href="{% url 'carrinho' %}" class="btn btn-edit"> Ir para o Carrinho </a>
+    <button class="btn btn-edit" id="buy-button">Comprar Produtos</button>
 
     <script>
       document
@@ -96,6 +97,29 @@
           .then((data) => {
             if (data.status === "success") {
               window.open('{% url "message" %}', "_blank");
+            } else {
+              console.error("Error:", data);
+            }
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+          });
+      }
+
+      function sendCartDataToServerCarrinho() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        fetch('{% url "save_cart" %}', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({ cart: cart }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              window.open('{% url "carrinho" %}', "_blank");
             } else {
               console.error("Error:", data);
             }

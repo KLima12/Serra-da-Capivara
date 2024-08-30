@@ -1,0 +1,162 @@
+{% extends "base.html" %} {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% block css %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleGaleria.css' %}"
+    />
+    {% endblock %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho</title>
+  </head>
+  <body>
+    {% block 'dashboard' %}
+    <h1 class="cabecalho">Carrinho</h1>
+
+    <div id="itemsDiv"></div>
+
+    <button class="btn btn-edit" id="checkout-button">Comprar Produtos</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        products = JSON.parse("{{ products_json|escapejs }}");
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        renderCartItems(products, cart);
+
+        document
+          .getElementById("checkout-button")
+          .addEventListener("click", function () {
+            sendCartDataToServer();
+          });
+      });
+
+      function sendCartDataToServer() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        fetch('{% url "save_cart" %}', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({ cart: cart }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              window.open('{% url "message" %}', "_blank");
+            } else {
+              console.error("Error:", data);
+            }
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+          });
+      }
+
+      function renderCartItems(products, cart) {
+        const cartItemsContainer = document.getElementById("itemsDiv");
+        cartItemsContainer.innerHTML = "";
+
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = "<p>Seu carrinho está vazio.</p>";
+          return;
+        }
+
+        cart.forEach((cartItem) => {
+          const product = products.find((p) => p.pk === Number(cartItem.id));
+
+          if (product) {
+            const productDiv = document.createElement("div");
+            productDiv.className = "cart-item";
+
+            productDiv.innerHTML = `
+                <div class="product-details">
+                    <h3 class="produto">${product.fields.name}</h3>
+                    <div class="product-info">
+                    <h7 class="produto">Tamanho: ${product.fields.size}</h7>
+                    <h7 class="produto">Código: ${product.fields.code}</h7>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-decrease" data-product-id="${product.pk}">-</button>
+                    <h7 class="produto quantity">${cartItem.quantity}</h7>
+                    <button class="btn btn-increase" data-product-id="${product.pk}">+</button>
+                    <button class="btn btn-remove btn-danger" data-product-id="${product.pk}">Remover</button>
+                </div>
+
+                `;
+
+            cartItemsContainer.appendChild(productDiv);
+          }
+        });
+
+        document.querySelectorAll(".btn-increase").forEach((button) => {
+          button.addEventListener("click", function () {
+            modifyCartItemQuantity(this.dataset.productId, 1);
+          });
+        });
+
+        document.querySelectorAll(".btn-decrease").forEach((button) => {
+          button.addEventListener("click", function () {
+            modifyCartItemQuantity(this.dataset.productId, -1);
+          });
+        });
+
+        document.querySelectorAll(".btn-remove").forEach((button) => {
+          button.addEventListener("click", function () {
+            removeCartItem(this.dataset.productId);
+          });
+        });
+      }
+
+      function modifyCartItemQuantity(productId, delta) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const itemIndex = cart.findIndex((item) => item.id === productId);
+
+        if (itemIndex >= 0) {
+          cart[itemIndex].quantity += delta;
+
+          if (cart[itemIndex].quantity <= 0) {
+            cart.splice(itemIndex, 1);
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          renderCartItems(products, cart);
+        }
+      }
+
+      function removeCartItem(productId) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart = cart.filter((item) => item.id !== productId);
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCartItems(products, cart);
+      }
+
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    </script>
+
+    {% endblock %}
+  </body>
+</html>
