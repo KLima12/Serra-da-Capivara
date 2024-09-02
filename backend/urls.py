@@ -1,14 +1,14 @@
-from django.contrib import admin
-from django.urls import path, include
 from . import views
-from django.conf import settings
+from django.urls import re_path
 from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
-    path('', views.inicio, name='inicio'),
-    path('produtos/', views.produtos, name='produtos'),
-    path('carrinho/', views.carrinho, name='carrinho'),
-    path('get-cart-items/', views.get_cart_items, name='get_cart_items'),
-    path('save_cart/', views.save_cart, name='save_cart'),
-    path('message/', views.message, name='message'),
-]
+    re_path(r'^home/?$', views.inicio, name='inicio'),
+    re_path(r'^produtos/?$', views.produtos, name='produtos'),
+    re_path(r'^carrinho/?$', views.carrinho, name='carrinho'),
+    re_path(r'^get-cart-items/?$', views.get_cart_items, name='get_cart_items'),
+    re_path(r'^save_cart/?$', views.save_cart, name='save_cart'),
+    re_path(r'^message/?$', views.message, name='message'),
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -52,7 +52,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'serra_capivara.middleware.LowercaseMiddleware',
 ]
+
+APPEND_SLASH = True
 
 ROOT_URLCONF = 'serra_capivara.urls'
 
