@@ -1,28 +1,24 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
+  <head>
     {% block css %}
+    <link rel="icon" href="../../media/icon/logo-icon.png" />
     {% endblock %}
-</head>
+  </head>
 
-<body>
+  <body>
     {% block 'dashboard' %}
 
     <form action="{% url 'processar-email' %}" method="POST">
-        {% csrf_token %}
+      {% csrf_token %}
 
-        <table>
-            {{form.as_table}}
-        </table>
-        <input type="submit" value="Enviar">
-
+      <table>
+        {{form.as_table}}
+      </table>
+      <input type="submit" value="Enviar" />
     </form>
     {% endblock %}
-
-</body>
-
+  </body>
 </html>
