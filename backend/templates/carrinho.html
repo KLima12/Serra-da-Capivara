@@ -19,7 +19,7 @@
 
     <div id="itemsDiv"></div>
 
-    <button class="btn btn-edit" id="checkout-button">Comprar Produtos</button>
+    <button class="btn btn-edit" id="checkout-button">Enviar</button>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -72,24 +72,25 @@
 
           if (product) {
             const productDiv = document.createElement("div");
-            productDiv.className = "cart-item";
+            productDiv.className = "cart";
 
             productDiv.innerHTML = `
-                <div class="product-details">
-                    <h3 class="produto">${product.fields.name}</h3>
-                    <div class="product-info">
-                    <h7 class="produto">Tamanho: ${product.fields.size}</h7>
-                    <h7 class="produto">Código: ${product.fields.code}</h7>
+                <div class="cart-item">
+                    <div class="product-details">
+                        <h3 class="produto">${product.fields.name}</h3>
+                        <div class="product-info">
+                        <h7 class="produto">Tamanho: ${product.fields.size}</h7>
+                        <h7 class="produto">Código: ${product.fields.code}</h7>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-decrease" data-product-id="${product.pk}">-</button>
+                        <h7 class="produto quantity">${cartItem.quantity}</h7>
+                        <button class="btn btn-increase" data-product-id="${product.pk}">+</button>
+                        <button class="btn btn-remove btn-danger" data-product-id="${product.pk}">Remover Produto</button>
                     </div>
                 </div>
-
-                <div class="controls">
-                    <button class="btn btn-decrease" data-product-id="${product.pk}">-</button>
-                    <h7 class="produto quantity">${cartItem.quantity}</h7>
-                    <button class="btn btn-increase" data-product-id="${product.pk}">+</button>
-                    <button class="btn btn-remove btn-danger" data-product-id="${product.pk}">Remover</button>
-                </div>
-
                 `;
 
             cartItemsContainer.appendChild(productDiv);
