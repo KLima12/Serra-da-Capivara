@@ -8,10 +8,10 @@
       type="text/css"
       href="{% static 'css/styleGaleria.css' %}"
     />
-    {% endblock %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Editar Produto</title>
+    <title>Editar Produto {{ product.name }}</title>
+    {% endblock %}
   </head>
   <body>
     {% block 'dashboard' %}
