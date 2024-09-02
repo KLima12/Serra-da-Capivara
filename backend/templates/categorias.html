@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% block css %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleGaleria.css' %}"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    {% endblock %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galeria de Produtos</title>
+  </head>
+  <body>
+    {% block 'dashboard' %}
+    <h1 class="cabecalho">Galeria de produtos</h1>
+
+    <!--
+        ~Miguelindo aqui
+        2 laços: um para imprimir as categorias, e outro para imprimir os produtos nessa categoria
+        -->
+
+    <div>
+      <div class="category-horizontal">
+        {% for category in categories %}
+
+        <div class="category-wrap">
+          <div class="category-vertical">
+            <a
+              href="{% url 'produtos' category_id=category.id %}"
+              class="category-link"
+            >
+              {% if category.photo %}
+              <img
+                src="../../media/{{ category.photo }}"
+                alt="Imagem de {{ category.name }}"
+                class="category-photo"
+              />
+              {% else %}
+              <p>Sem Imagens</p>
+              {% endif %}
+            </a>
+
+            <a
+              href="{% url 'produtos' category_id=category.id %}"
+              class="category-link"
+            >
+              <h1 class="category-text">{{ category.name }}</h1>
+            </a>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

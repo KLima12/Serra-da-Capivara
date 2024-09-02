@@ -15,24 +15,25 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <h1 class="cabecalho">Galeria de produtos</h1>
+    <h1 class="cabecalho">{{ category.name }}</h1>
 
-    <!--
-        ~Miguelindo aqui
-        2 laços: um para imprimir as categorias, e outro para imprimir os produtos nessa categoria
-        -->
-    <div>
-      {% for category, products_list in category_products.items %}
-      <div class="cat">
-        <h1 class="titulo">{{ category.name }}</h1>
-        <div class="horizontal">
-          {% if products_list %} {% for product in products_list %}
-          <div class="vertical">
-            <h3 class="produto">{{ product.name }}</h3>
-            <h7 class="produto">Código: {{ product.code }}</h7>
-            <h7 class="produto">Tamanho: {{ product.size }}</h7>
-            <h7 class="produto">Visualizações: {{ product.views }}</h7>
+    <div class="horizontal">
+      <div class="category-button-container">
+        {% for categoria in categories %} {% if categoria.id == category.id %}
+        <button class="category-button-disabled" aria-disabled="true">
+          {{ categoria.name }}
+        </button>
+        {% else %}
+        <a href="{% url 'produtos' category_id=categoria.id %}">
+          <button class="category-button">{{ categoria.name }}</button>
+        </a>
+        {% endif %} {% endfor %}
+      </div>
 
+      <div class="product-container">
+        <div class="product-horizontal">
+          {% for product in products %}
+          <div class="product-vertical">
             {% if product.photos %}
             <img
               src="../../media/{{ product.photos.0 }}"
@@ -43,6 +44,10 @@
             <p>Sem Imagens</p>
             {% endif %}
 
+            <h3 class="produto">{{ product.name }}</h3>
+
+            <h7 class="produto">{{ product.views }}</h7>
+
             <button
               class="btn btn-cart btn-edit"
               data-product-id="{{ product.id }}"
@@ -50,22 +55,14 @@
               Adicionar ao Carrinho
             </button>
           </div>
-          {% endfor %} {% endif %}
+          {% endfor %}
         </div>
       </div>
-      {% endfor %}
     </div>
 
     <a href="{% url 'carrinho' %}" class="btn btn-edit"> Ir para o Carrinho </a>
-    <button class="btn btn-edit" id="buy-button">Comprar Produtos</button>
 
     <script>
-      document
-        .getElementById("buy-button")
-        .addEventListener("click", function () {
-          sendCartDataToServer();
-        });
-
       function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {

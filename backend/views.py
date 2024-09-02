@@ -8,18 +8,24 @@ import json
 def inicio(request):
     return render(request, 'inicio.html')
 
-def produtos(request):
+def categorias(request):
     categories = Category.objects.all().order_by('name')
-    products = Product.objects.all()
-    category_products = {
-        category: Product.objects.filter(category=category).order_by('name')
-        for category in categories
+
+    context = {
+        'categories': categories,
     }
+
+    return render(request, 'categorias.html', context)
+
+def produtos(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    products = Product.objects.filter(category=category).order_by('name')
+    categories = Category.objects.all().order_by('name')
 
     context = {
         'categories': categories,
         'products': products,
-        'category_products': category_products,
+        'category': category, 
     }
 
     return render(request, 'produtos.html', context)
