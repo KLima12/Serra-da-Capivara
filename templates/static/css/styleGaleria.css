@@ -156,6 +156,18 @@
   border: #35a7dc 1px solid;
 }
 
+.product-photo-edit {
+  height: 5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: #35a7dc 1px solid;
+  cursor: grab;
+}
+
+.product-photo-edit:active {
+  cursor: grabbing;
+}
+
 .product-container {
   width: 75%;
 }

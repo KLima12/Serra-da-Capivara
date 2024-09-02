@@ -37,7 +37,7 @@
               <img
                 src="../../media/{{ photo }}"
                 alt="Imagem de {{ product.name }}"
-                class="product-photo"
+                class="product-photo-edit"
                 draggable="false"
               />
               <button type="button" class="btn btn-danger remove-photo-btn">
@@ -96,10 +96,12 @@
                   reader.onload = function (e) {
                     const img = document.createElement("img");
                     img.src = e.target.result;
-                    img.classList.add("product-photo");
+                    img.classList.add("product-photo-edit");
 
                     const photoElement = document.createElement("div");
-                    photoElement.classList.add("vertical");
+                    photoElement.classList.add(
+                      "vertical product-photo-edit-grabbed"
+                    );
                     photoElement.appendChild(img);
 
                     const removeBtn = document.createElement("button");
