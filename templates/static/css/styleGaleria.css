@@ -582,6 +582,7 @@
 
 .cart-product-photo {
   height: 5rem;
+  max-width: 8rem;
   border-radius: 5px;
 }
 
@@ -856,6 +857,7 @@ a {
 
 .view-product-img-selected {
   height: 40rem;
+  max-width: 70rem;
   border-radius: 15px;
   display: block;
   position: relative;
