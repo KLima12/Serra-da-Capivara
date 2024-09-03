@@ -16,7 +16,9 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <h1 class="cabecalho">Editar Produto</h1>
+    <div class="center">
+      <h1 class="cabecalho">Editar Produto</h1>
+    </div>
 
     <form
       action="{% url 'editar' product.id %}"

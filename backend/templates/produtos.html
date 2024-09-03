@@ -16,7 +16,12 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <h1 class="cabecalho">{{ category.name }}</h1>
+    <div class="center">
+      <h1 class="cabecalho">{{ category.name }}</h1>
+      <a href="{% url 'carrinho' %}">
+        <img src="../../media/icon/cart.svg" / class="cart">
+      </a>
+    </div>
 
     <div class="category-button-container-horizontal">
       <div>
@@ -79,8 +84,6 @@
         </div>
       </div>
     </div>
-
-    <a href="{% url 'carrinho' %}" class="btn btn-edit"> Ir para o Carrinho </a>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {

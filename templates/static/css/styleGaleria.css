@@ -22,7 +22,6 @@
 
 .cabecalho {
   text-align: center;
-  padding-top: 2rem;
   color: var(--texto);
 }
 
@@ -279,6 +278,7 @@
   max-width: 15rem;
   text-align: left;
   padding-left: 0.5rem;
+  padding-right: 0.5rem;
   text-wrap: wrap;
 }
 
@@ -428,8 +428,16 @@
   color: var(--texto-hover);
 }
 
+.category-link:hover .category-photo {
+  filter: brightness(70%);
+}
+
 .category-link:active h1 {
   color: var(--texto-click);
+}
+
+.category-link:active .category-photo {
+  filter: brightness(50%);
 }
 
 .category-button-container-horizontal {
@@ -604,4 +612,32 @@ select {
 
 .unselectable {
   user-select: none;
+}
+
+.center {
+  align-content: center !important;
+  align-items: center;
+  align-self: center;
+  justify-content: center !important;
+  display: flex;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.cart {
+  width: 2rem;
+  right: 5rem;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
+    brightness(102%) contrast(102%);
+  cursor: pointer;
+}
+
+.cart:hover {
+  filter: invert(62%) sepia(7%) saturate(1307%) hue-rotate(337deg)
+    brightness(86%) contrast(84%);
+}
+
+.cart:active {
+  filter: invert(52%) sepia(15%) saturate(5812%) hue-rotate(346deg)
+    brightness(80%) contrast(45%);
 }
