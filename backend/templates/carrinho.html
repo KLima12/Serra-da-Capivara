@@ -16,13 +16,8 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <div class="center">
-      <h1 class="cabecalho">Carrinho</h1>
-    </div>
 
-    <div id="itemsDiv"></div>
-
-    <button class="btn btn-edit" id="checkout-button">Enviar</button>
+    <div id="itemsDiv" class="itemsDiv"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -64,13 +59,27 @@
       function renderCartItems(products, cart) {
         const cartItemsContainer = document.getElementById("itemsDiv");
         cartItemsContainer.innerHTML = "";
+        const checkoutButton = document.createElement("button");
+        checkoutButton.className = "btn btn-edit btn-enviar";
+        checkoutButton.id = "checkout-button";
+        checkoutButton.textContent = "Enviar";
+
+        const headerHTML = `
+          <div class="cart-header">
+            <img src="../../media/icon/cart.svg" class="cart-header-img" />
+            <h1 class="cart-header-text">Carrinho</h1>
+          </div>
+        `;
+
+        cartItemsContainer.insertAdjacentHTML("afterbegin", headerHTML);
 
         if (cart.length === 0) {
-          cartItemsContainer.innerHTML = "<p>Seu carrinho está vazio.</p>";
+          cartItemsContainer.innerHTML =
+            "<p class='produto'>Seu carrinho está vazio.</p>";
           return;
         }
 
-        cart.forEach((cartItem) => {
+        cart.forEach((cartItem, index) => {
           const product = products.find((p) => p.pk === Number(cartItem.id));
 
           if (product) {
@@ -79,6 +88,10 @@
 
             productDiv.innerHTML = `
                 <div class="cart-item">
+                    <div class="cart-img-container">
+                      <img src="../../media/${product.fields.photos[0]}" alt="Imagem de ${product.fields.name}" class="cart-product-photo">
+                    </div>
+
                     <div class="product-details">
                         <h3 class="produto">${product.fields.name}</h3>
                         <div class="product-info">
@@ -88,13 +101,22 @@
                     </div>
 
                     <div class="controls">
-                        <button class="btn btn-decrease" data-product-id="${product.pk}">-</button>
-                        <h7 class="produto quantity">${cartItem.quantity}</h7>
-                        <button class="btn btn-increase" data-product-id="${product.pk}">+</button>
-                        <button class="btn btn-remove btn-danger" data-product-id="${product.pk}">Remover Produto</button>
+                        <div class="controls-buttons">
+                          <button class="btn btn-decrease btn-edit" data-product-id="${product.pk}">-</button>
+                          <h7 class="produto quantity">${cartItem.quantity}</h7>
+                          <button class="btn btn-increase btn-edit" data-product-id="${product.pk}">+</button>
+                        </div>
+
+                        <button class="btn btn-remove btn-edit" data-product-id="${product.pk}">Remover Produto</button>
                     </div>
                 </div>
                 `;
+
+            if (index < cart.length - 1) {
+              const lineDiv = document.createElement("div");
+              lineDiv.className = "cart-line";
+              productDiv.appendChild(lineDiv);
+            }
 
             cartItemsContainer.appendChild(productDiv);
           }
@@ -117,6 +139,9 @@
             removeCartItem(this.dataset.productId);
           });
         });
+
+        const itemsDiv = document.getElementById("itemsDiv");
+        itemsDiv.appendChild(checkoutButton);
       }
 
       function modifyCartItemQuantity(productId, delta) {

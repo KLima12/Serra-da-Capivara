@@ -81,6 +81,7 @@
         );
         const zoomedImg = document.querySelector(".zoomed-image");
         const thumbnails = document.querySelectorAll(".view-product-img");
+        const productId = "{{ product.id }}";
 
         if (lens && selectedImgs.length > 0 && zoomedImg) {
           function magnify(selectedImgs, zoomedImg) {
@@ -138,34 +139,41 @@
         const selectedImg = document.querySelector(
           ".view-product-img-selected"
         );
+
+        if (thumbnails.length > 0) {
+          const firstThumbnail = thumbnails[0];
+          firstThumbnail.classList.add("selected-img");
+          selectedImg.src = firstThumbnail.src;
+        }
+
         thumbnails.forEach((thumbnail) => {
           thumbnail.addEventListener("click", () => {
             selectedImg.src = thumbnail.src;
+
+            thumbnails.forEach((img) => {
+              img.classList.remove("selected-img");
+            });
+
+            thumbnail.classList.add("selected-img");
           });
         });
 
-        document.querySelectorAll(".product-card").forEach((card) => {
-          card.addEventListener("click", () => {
-            const productId = card.getAttribute("data-product-id");
-
-            fetch(`/update-views/${productId}/`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}",
-              },
-              body: JSON.stringify({ id: productId }),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                if (data.success) {
-                  const viewsText = card.querySelector(".product-views-text");
-                  viewsText.textContent = data.new_views;
-                }
-              })
-              .catch((error) => console.error("Error:", error));
-          });
+        window.addEventListener("pageshow", function (event) {
+          if (event.persisted) {
+            window.location.reload();
+          }
         });
+
+        fetch(`/update-views/${productId}/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+          body: JSON.stringify({ id: productId }),
+        })
+          .then((response) => response.json())
+          .catch((error) => console.error("Error:", error));
       });
 
       function getCookie(name) {
@@ -244,7 +252,6 @@
             button.classList.add("btn-cart-check");
             button.querySelector("img").src = "../../../media/icon/check.svg";
             button.querySelector("span").textContent = "Produto Adicionado";
-            button.disabled = true;
           }
 
           button.addEventListener("click", function () {
@@ -262,7 +269,6 @@
               button.classList.add("btn-cart-check");
               button.querySelector("img").src = "../../../media/icon/check.svg";
               button.querySelector("span").textContent = "Produto Adicionado";
-              button.disabled = true;
             } else {
               button.classList.remove("btn-cart-check");
               button.classList.add("btn-edit");

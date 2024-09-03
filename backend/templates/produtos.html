@@ -89,29 +89,12 @@
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".product-card").forEach((card) => {
-          card.addEventListener("click", () => {
-            const productId = card.getAttribute("data-product-id");
+      document.addEventListener("DOMContentLoaded", () => {});
 
-            fetch(`/update-views/${productId}/`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}",
-              },
-              body: JSON.stringify({ id: productId }),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                if (data.success) {
-                  const viewsText = card.querySelector(".product-views-text");
-                  viewsText.textContent = data.new_views;
-                }
-              })
-              .catch((error) => console.error("Error:", error));
-          });
-        });
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+          window.location.reload();
+        }
       });
 
       function getCookie(name) {

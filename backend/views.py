@@ -70,6 +70,7 @@ def carrinho(request):
         {
             "pk": product.pk,
             "fields": {
+                "photos": product.photos,
                 "name": product.name,
                 "code": product.code,
                 "size": product.size,
