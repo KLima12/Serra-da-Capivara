@@ -18,43 +18,62 @@
     {% block 'dashboard' %}
     <h1 class="cabecalho">{{ category.name }}</h1>
 
-    <div class="horizontal">
-      <div class="category-button-container">
-        {% for categoria in categories %} {% if categoria.id == category.id %}
-        <button class="category-button-disabled" aria-disabled="true">
-          {{ categoria.name }}
-        </button>
-        {% else %}
-        <a href="{% url 'produtos' category_id=categoria.id %}">
-          <button class="category-button">{{ categoria.name }}</button>
-        </a>
-        {% endif %} {% endfor %}
+    <div class="category-button-container-horizontal">
+      <div>
+        <h1 class="category-text-buttons-container">Categorias</h1>
+        <div class="category-button-container">
+          {% for categoria in categories %} {% if categoria.id == category.id %}
+          <button class="category-button-disabled" aria-disabled="true">
+            {{ categoria.name }}
+          </button>
+          {% else %}
+          <a href="{% url 'produtos' category_id=categoria.id %}">
+            <button class="category-button">{{ categoria.name }}</button>
+          </a>
+          {% endif %} {% endfor %}
+        </div>
       </div>
+
+      <div class="vertical-line"></div>
 
       <div class="product-container">
         <div class="product-horizontal">
           {% for product in products %}
           <div class="product-vertical">
-            {% if product.photos %}
-            <img
-              src="../../media/{{ product.photos.0 }}"
-              alt="Imagem de {{ product.name }}"
-              class="product-photo"
-            />
-            {% else %}
-            <p>Sem Imagens</p>
-            {% endif %}
+            <div class="product-card">
+              {% if product.photos %}
+              <img
+                src="../../media/{{ product.photos.0 }}"
+                alt="Imagem de {{ product.name }}"
+                class="product-photo-card"
+              />
+              {% else %}
+              <p>Sem Imagens</p>
+              {% endif %}
 
-            <h3 class="produto">{{ product.name }}</h3>
+              <h3 class="product-text unselectable">{{ product.name }}</h3>
 
-            <h7 class="produto">{{ product.views }}</h7>
+              <div class="views-horizontal">
+                <img
+                  src="../../media/icon/view.svg"
+                  class="view-icon-img unselectable"
+                  alt="view icon"
+                />
 
-            <button
-              class="btn btn-cart btn-edit"
-              data-product-id="{{ product.id }}"
-            >
-              Adicionar ao Carrinho
-            </button>
+                <h7 class="product-views-text unselectable"
+                  >{{ product.views }}</h7
+                >
+              </div>
+
+              <!--
+              <button
+                class="btn btn-cart btn-edit"
+                data-product-id="{{ product.id }}"
+              >
+                Adicionar ao Carrinho
+              </button>
+              -->
+            </div>
           </div>
           {% endfor %}
         </div>
