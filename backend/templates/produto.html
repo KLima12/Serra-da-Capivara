@@ -19,77 +19,131 @@
     <div class="center">
       <h1 class="cabecalho">{{ category.name }}</h1>
       <a href="{% url 'carrinho' %}">
-        <img src="../../media/icon/cart.svg" class="cart-ico" />
+        <img src="../../../media/icon/cart.svg" class="cart-ico" />
       </a>
     </div>
 
     <div class="category-button-container-horizontal">
-      <div>
-        <h1 class="category-text-buttons-container">Categorias</h1>
-        <div class="category-button-container">
-          {% for categoria in categories %} {% if categoria.id == category.id %}
-          <button class="category-button-disabled" aria-disabled="true">
-            {{ categoria.name }}
-          </button>
-          {% else %}
-          <a href="{% url 'produtos' category_id=categoria.id %}">
-            <button class="category-button">{{ categoria.name }}</button>
-          </a>
-          {% endif %} {% endfor %}
-        </div>
-      </div>
-
-      <div class="vertical-line"></div>
-
-      <div class="product-container">
-        <div class="product-horizontal">
-          {% for product in products %}
-          <div class="product-vertical">
-            <a
-              href="{% url 'produto' category_id=category.id product_id=product.id %}"
-            >
-              <div class="product-card" data-product-id="{{ product.id }}">
-                {% if product.photos %}
-                <img
-                  src="../../media/{{ product.photos.0 }}"
-                  alt="Imagem de {{ product.name }}"
-                  class="product-photo-card"
-                />
-                {% else %}
-                <p>Sem Imagens</p>
-                {% endif %}
-
-                <h3 class="product-text unselectable">{{ product.name }}</h3>
-
-                <div class="views-horizontal">
-                  <img
-                    src="../../media/icon/view.svg"
-                    class="view-icon-img unselectable"
-                    alt="view icon"
-                  />
-
-                  <h7 class="product-views-text unselectable"
-                    >{{ product.views }}</h7
-                  >
-                </div>
-
-                <!--
-              <button
-                class="btn btn-cart btn-edit"
-                data-product-id="{{ product.id }}"
-              >
-                Adicionar ao Carrinho
-              </button>
-              --></div>
-            </a>
+      <div class="view-product-container">
+        <div class="view-product-vertical">
+          <div class="view-product-vertical">
+            <h2 class="view-product-text">{{ product.name }}</h2>
+            <div class="view-product-horizontal">
+              <h6 class="view-product-text">Tamanho: {{ product.size }}</h6>
+              <h6 class="view-product-text">Código: {{ product.code }}</h6>
+            </div>
           </div>
-          {% endfor %}
+
+          <div class="view-product-horizontal">
+            <div class="view-product-vertical">
+              {% for photo in product.photos %}
+
+              <img
+                src="../../../media/{{ photo }}"
+                alt="Imagem de {{ product.name }}"
+                class="view-product-img"
+              />
+
+              {% endfor %}
+            </div>
+
+            <section class="img-zoom-container">
+              <img
+                src="../../../media/{{ product.photos.0 }}"
+                alt="Imagem de {{ product.name }}"
+                class="view-product-img-selected"
+              />
+
+              <div class="zoom-lens"></div>
+            </section>
+
+            <div class="zoomed-image"></div>
+          </div>
+
+          <button
+            class="btn btn-cart btn-edit"
+            data-product-id="{{ product.id }}"
+          >
+            <img src="../../../media/icon/cart.svg" class="cart-ico-button" />
+
+            <span>Adicionar ao Carrinho</span>
+          </button>
         </div>
       </div>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        const lens = document.querySelector(".zoom-lens");
+        const imgContainer = document.querySelector(".img-zoom-container");
+        const selectedImgs = document.querySelectorAll(
+          ".view-product-img-selected"
+        );
+        const zoomedImg = document.querySelector(".zoomed-image");
+        const thumbnails = document.querySelectorAll(".view-product-img");
+
+        if (lens && selectedImgs.length > 0 && zoomedImg) {
+          function magnify(selectedImgs, zoomedImg) {
+            lens.addEventListener("mousemove", moveLens);
+
+            selectedImgs.forEach((selectedImg) => {
+              selectedImg.addEventListener("mousemove", (e) =>
+                moveLens(e, selectedImg)
+              );
+            });
+
+            imgContainer.addEventListener("mouseleave", leaveLens);
+          }
+
+          function moveLens(e, selectedImg) {
+            let x, y, cx, cy;
+
+            const selectedImg_rect = selectedImg.getBoundingClientRect();
+            x = e.pageX - selectedImg_rect.left - lens.offsetWidth / 2;
+            y = e.pageY - selectedImg_rect.top - lens.offsetHeight / 2;
+
+            let max_xpos = selectedImg_rect.width - lens.offsetWidth;
+            let max_ypos = selectedImg_rect.height - lens.offsetHeight;
+
+            if (x > max_xpos) x = max_xpos;
+            if (x < 0) x = 0;
+
+            if (y > max_ypos) y = max_ypos;
+            if (y < 0) y = 0;
+
+            lens.style.top = `${y}px`;
+            lens.style.left = `${x}px`;
+
+            cx = zoomedImg.offsetWidth / lens.offsetWidth;
+            cy = zoomedImg.offsetHeight / lens.offsetHeight;
+
+            zoomedImg.style.background = `url('${selectedImg.src}') -${
+              x * cx
+            }px -${y * cy}px / ${selectedImg_rect.width * cx}px ${
+              selectedImg_rect.height * cy
+            }px no-repeat`;
+
+            lens.classList.add("active");
+            zoomedImg.classList.add("active");
+          }
+
+          function leaveLens() {
+            lens.classList.remove("active");
+            zoomedImg.classList.remove("active");
+          }
+
+          magnify(selectedImgs, zoomedImg);
+        }
+
+        const selectedImg = document.querySelector(
+          ".view-product-img-selected"
+        );
+        thumbnails.forEach((thumbnail) => {
+          thumbnail.addEventListener("click", () => {
+            selectedImg.src = thumbnail.src;
+          });
+        });
+
         document.querySelectorAll(".product-card").forEach((card) => {
           card.addEventListener("click", () => {
             const productId = card.getAttribute("data-product-id");
@@ -187,8 +241,10 @@
 
           if (productInCart) {
             button.classList.remove("btn-edit");
-            button.classList.add("btn-danger");
-            button.textContent = "Remover do Carrinho";
+            button.classList.add("btn-cart-check");
+            button.querySelector("img").src = "../../../media/icon/check.svg";
+            button.querySelector("span").textContent = "Produto Adicionado";
+            button.disabled = true;
           }
 
           button.addEventListener("click", function () {
@@ -203,12 +259,16 @@
             productInCart = cart.find((item) => item.id === productId);
             if (productInCart) {
               button.classList.remove("btn-edit");
-              button.classList.add("btn-danger");
-              button.textContent = "Remover do Carrinho";
+              button.classList.add("btn-cart-check");
+              button.querySelector("img").src = "../../../media/icon/check.svg";
+              button.querySelector("span").textContent = "Produto Adicionado";
+              button.disabled = true;
             } else {
-              button.classList.remove("btn-danger");
+              button.classList.remove("btn-cart-check");
               button.classList.add("btn-edit");
-              button.textContent = "Adicionar ao Carrinho";
+              button.querySelector("img").src = "../../../media/icon/cart.svg";
+              button.querySelector("span").textContent =
+                "Adicionar ao Carrinho";
             }
           });
         });

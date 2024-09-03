@@ -17,7 +17,11 @@ def categorias(request):
 
     return render(request, 'categorias.html', context)
 
-def produtos(request, category_id):
+def produtos(request, category_id=None):
+    if category_id is None:
+        category_id = Category.objects.first()
+        return redirect('produtos', category_id=category_id.id)
+
     category = get_object_or_404(Category, id=category_id)
     products = Product.objects.filter(category=category).order_by('-views')
     categories = Category.objects.all().order_by('name')
@@ -29,6 +33,21 @@ def produtos(request, category_id):
     }
 
     return render(request, 'produtos.html', context)
+
+def produto(request, category_id, product_id):
+    category = get_object_or_404(Category, id=category_id)
+    products = Product.objects.filter(category=category).order_by('-views')
+    product = get_object_or_404(Product, id=product_id)
+    categories = Category.objects.all().order_by('name')
+
+    context = {
+        'categories': categories,
+        'products': products,
+        'product': product,
+        'category': category, 
+    }
+
+    return render(request, 'produto.html', context)
 
 
 def carrinho(request):
