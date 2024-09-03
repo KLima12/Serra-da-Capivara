@@ -19,7 +19,7 @@ def categorias(request):
 
 def produtos(request, category_id):
     category = get_object_or_404(Category, id=category_id)
-    products = Product.objects.filter(category=category).order_by('name')
+    products = Product.objects.filter(category=category).order_by('-views')
     categories = Category.objects.all().order_by('name')
 
     context = {
@@ -128,6 +128,14 @@ def message(request):
 
     return redirect(whatsapp_url)
 
-    
+def update_views(request, product_id):
+    if request.method == 'POST':
+        try:
+            product = Product.objects.get(id=product_id)
+            product.views += 1
+            product.save()
+            return JsonResponse({'success': True, 'new_views': product.views})
+        except Product.DoesNotExist:
+            return JsonResponse({'success': False}, status=404)
     
 

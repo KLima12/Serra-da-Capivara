@@ -31,8 +31,11 @@
           {{ form.as_table }}
         </table>
 
-        <div class="horizontal alignCenter smallPadding">
-          <div class="horizontal alignCenter noPadding" id="photo-container">
+        <div class="horizontal-edit-img alignCenter smallPadding">
+          <div
+            class="horizontal-edit-img alignCenter noPadding"
+            id="photo-container"
+          >
             {% for photo in product.photos %}
             <div class="vertical" draggable="true" data-photo="{{ photo }}">
               <img

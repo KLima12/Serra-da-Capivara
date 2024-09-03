@@ -45,6 +45,16 @@
   justify-items: center;
 }
 
+.horizontal-edit-img {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  margin-top: 2rem;
+}
+
 .alignCenter {
   align-items: center;
 }
@@ -74,6 +84,7 @@
   color: var(--texto);
   font-family: "Inter";
   font-weight: 400;
+  text-align: center;
 }
 
 .form {
@@ -265,6 +276,7 @@
   font-weight: 400;
   font-size: 16px;
   width: 100%;
+  max-width: 15rem;
   text-align: left;
   padding-left: 0.5rem;
   text-wrap: wrap;
@@ -337,6 +349,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(25% - 1rem), 1fr));
   gap: 1rem;
+  row-gap: 3rem;
   padding-left: 0em;
   padding-right: 0rem;
   margin-top: 0;
@@ -358,6 +371,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(25% - 1rem), 1fr));
   gap: 0rem;
+  row-gap: 3rem;
   padding-left: 17rem;
   padding-right: 17rem;
   margin-top: 3rem;

@@ -40,7 +40,7 @@
         <div class="product-horizontal">
           {% for product in products %}
           <div class="product-vertical">
-            <div class="product-card">
+            <div class="product-card" data-product-id="{{ product.id }}">
               {% if product.photos %}
               <img
                 src="../../media/{{ product.photos.0 }}"
@@ -83,6 +83,31 @@
     <a href="{% url 'carrinho' %}" class="btn btn-edit"> Ir para o Carrinho </a>
 
     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".product-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            const productId = card.getAttribute("data-product-id");
+
+            fetch(`/update-views/${productId}/`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+              },
+              body: JSON.stringify({ id: productId }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  const viewsText = card.querySelector(".product-views-text");
+                  viewsText.textContent = data.new_views;
+                }
+              })
+              .catch((error) => console.error("Error:", error));
+          });
+        });
+      });
+
       function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
