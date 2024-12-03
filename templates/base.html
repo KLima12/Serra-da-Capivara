@@ -4,6 +4,13 @@
 <html lang="pt-br">
   <head>
     {% block css %} {% endblock %}
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleFooter.css' %}"
+    />
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -26,5 +33,8 @@
   </head>
   <body class="background">
     {% block 'dashboard' %} {% endblock %}
+
+    <div id="react-footer"></div>
+    <script type="module" src="{% static 'react/index.js' %}"></script>
   </body>
 </html>
