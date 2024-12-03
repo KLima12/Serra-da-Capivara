@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Footer from "./components/teste";
+import Footer from "./components/footer";
 
 const footerElement = document.getElementById("react-footer");
-console.log(footerElement);
 
 if (footerElement) {
   ReactDOM.createRoot(footerElement).render(<Footer />);
