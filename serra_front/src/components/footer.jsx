@@ -8,6 +8,10 @@ const Footer = () => {
     });
   };
 
+  const getMediaPath = (path) => {
+    return `${process.env.PUBLIC_URL || ""}/media/${path}`;
+  };
+
   return (
     <div class="footer">
       <hr class="footerLine"></hr>
@@ -55,7 +59,7 @@ const Footer = () => {
             target="blank"
           >
             <img
-              src="../../media/icon/instagram.png"
+              src={getMediaPath("icon/instagram.png")}
               alt="logo instagram"
               class="logoInstagram"
             ></img>

@@ -32,9 +32,10 @@
     <title></title>
   </head>
   <body class="background">
-    {% block 'dashboard' %} {% endblock %}
-
+    {% block 'dashboard' %} {% endblock %} {% block footer%}
     <div id="react-footer"></div>
+    {% endblock %}
+
     <script type="module" src="{% static 'react/index.js' %}"></script>
   </body>
 </html>
