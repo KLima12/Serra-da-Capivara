@@ -179,7 +179,7 @@ def processaremail(request):
 
         send_mail(
             assunto,
-            f"Mensagem de {nome} \nCelular: {celular} \nEmail: {email} \nMensagem: {mensagem}",
+            f"Mensagem de {nome} \n\nCelular: {celular} \n\nEmail: {email} \n\nMensagem: {mensagem}",
             'contato.adealencar@gmail.com',
             ['srtjmg@gmail.com', email],
             fail_silently=False,  # para o codigo nao falhar "silenciosamente"

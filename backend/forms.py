@@ -5,7 +5,7 @@ import re
 def validate_phone_number(value):
     digits = re.sub(r'\D', '', value)
 
-    if len(digits) not in [8, 9, 10, 11]:
+    if len(digits) not in [8, 9, 10, 11, 12, 13]:
         raise ValidationError('Número Inválido')
 
     if len(digits) == 8:
@@ -16,6 +16,10 @@ def validate_phone_number(value):
         value = f"({digits[:2]}) {digits[2:6]}-{digits[6:]}"
     elif len(digits) == 11:
         value = f"({digits[:2]}) {digits[2:7]}-{digits[7:]}"
+    elif len(digits) == 12:
+        value = f"+{digits[:2]} ({digits[2:4]}) {digits[4:8]}-{digits[8:]}"
+    elif len(digits) == 13:
+        value = f"+{digits[:2]} ({digits[2:4]}) {digits[4:9]}-{digits[9:]}"
 
     return value
 
