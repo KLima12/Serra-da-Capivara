@@ -20,15 +20,30 @@ def validate_phone_number(value):
     return value
 
 class ContatoEmail(forms.Form):
-    nome = forms.CharField(max_length=50, label="Nome")
+    nome = forms.CharField(
+        max_length=50, 
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Nome", "class":"f1"})
+    )
     celular = forms.CharField(
         label="Celular", 
         validators=[validate_phone_number],
-        widget=forms.TextInput(attrs={"id": "celular-input", "maxlength": "15", "inputmode": "numeric"})
+        widget=forms.TextInput(attrs={"id": "celular-input", "maxlength": "19", "inputmode": "numeric", "placeholder": "Celular", "class":"f1"})
     )
-    email = forms.EmailField(label="Email")
-    assunto = forms.CharField(max_length=100,label="Assunto")
-    mensagem = forms.CharField(widget=forms.Textarea, label="Mensagem")
+    email = forms.EmailField(
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Email", "class":"f2"})
+    )
+    assunto = forms.CharField(
+        max_length=100,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Assunto", "class":"f2"})
+    )
+    mensagem = forms.CharField(
+        max_length=2500, 
+        label="",
+        widget=forms.Textarea(attrs={"placeholder": "Sua Mensagem", "class":"f3"})
+    )
 
 
     

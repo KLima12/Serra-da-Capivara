@@ -8,14 +8,21 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'css/styleFooter.css' %}"
+      href="{% static 'css/styleGaleria.css' %}"
     />
 
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'css/styleGaleria.css' %}"
+      href="{% static 'css/styleFontes.css' %}"
     />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleFooter.css' %}"
+    />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -29,11 +36,12 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
+
     <title></title>
   </head>
   <body class="background">
     {% block 'dashboard' %} {% endblock %} {% block footer%}
-    <div id="react-footer"></div>
+    <div id="react-footer" class="react-footer"></div>
     {% endblock %}
 
     <script type="module" src="{% static 'react/index.js' %}"></script>

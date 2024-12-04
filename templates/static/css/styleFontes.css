@@ -1,0 +1,58 @@
+:root {
+  --fundo: #322626;
+  --texto: #ffffff;
+  --texto-hover: #9f8272;
+  --texto-click: #a26e51;
+  --destaque: #3e3131;
+  --botao-off: #705e5e;
+  --botao-hover: #5c4646;
+  --botao-click: #4b2e2e;
+}
+
+.texto {
+  color: var(--texto);
+}
+
+.s10 {
+  font-size: 10px;
+}
+
+.s11 {
+  font-size: 11px;
+}
+
+.s12 {
+  font-size: 12px;
+}
+
+.s15 {
+  font-size: 15px;
+}
+
+.s16 {
+  font-size: 16px;
+}
+
+.s20 {
+  font-size: 20px;
+}
+
+.s22 {
+  font-size: 22px;
+}
+
+.s24 {
+  font-size: 24px;
+}
+
+.s26 {
+  font-size: 26px;
+}
+
+.s30 {
+  font-size: 30px;
+}
+
+.s40 {
+  font-size: 40px;
+}

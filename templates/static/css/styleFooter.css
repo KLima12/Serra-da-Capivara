@@ -9,6 +9,10 @@
   --botao-click: #4b2e2e;
 }
 
+#react-footer {
+  width: 100%;
+}
+
 .footer {
   margin-top: 7rem;
 }

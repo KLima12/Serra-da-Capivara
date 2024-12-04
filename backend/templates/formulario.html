@@ -11,10 +11,15 @@
       href="{% static 'css/styleLoad.css' %}"
     />
 
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/tailwindOutput.css' %}"
+    />
     {% endblock %}
   </head>
 
-  <body>
+  <body class="tela">
     {% block 'dashboard' %}
 
     <div id="block" style="display: none"></div>
@@ -22,16 +27,48 @@
       <div class="spinner"></div>
     </div>
 
-    <form action="{% url 'processar-email' %}" method="POST" id="contato-form">
-      {% csrf_token %}
+    <div class="menuContato flex">
+      <h2 class="texto s30">Entre em contato conosco!</h2>
+      <h8 class="texto s11">
+        Cerâmica Artesanal Serra da Capivara Ltda ● Sítio Barreirinho – Zona
+        rural – Coronel José Dias – PI – Brasil ● CEP: 64793-000
+      </h8>
+      <form
+        action="{% url 'processar-email' %}"
+        method="POST"
+        id="contato-form"
+      >
+        {% csrf_token %}
 
-      <table>
-        {{form.as_table}}
-      </table>
-      <input type="submit" value="Enviar" />
-    </form>
+        <div class="inp1">
+          <!-- Nome -->
+          {{ form.nome }}
+          <!-- Celular -->
+          {{ form.celular }}
+        </div>
 
-    <div id="response-message"></div>
+        <div class="inp2">
+          <!-- Email -->
+          {{ form.email }}
+        </div>
+
+        <div class="inp2">
+          <!-- Assunto -->
+          {{ form.assunto }}
+        </div>
+
+        <div class="inp3">
+          <!-- Mensagem -->
+          {{ form.mensagem }}
+        </div>
+
+        <button type="submit" value="Enviar" class="btn btn-edit" id="emailBtn">
+          Enviar
+        </button>
+      </form>
+
+      <div id="response-message"></div>
+    </div>
 
     <script>
       document
@@ -89,9 +126,21 @@
           } else if (x.length <= 10) {
             // (xx) xxxx-xxxx
             e.target.value = x.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-          } else {
+          } else if (x.length <= 11) {
             // (xx) xxxxx-xxxx
             e.target.value = x.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+          } else if (x.length <= 12) {
+            // +xx (xx) xxxx-xxxx
+            e.target.value = x.replace(
+              /(\d{2})(\d{2})(\d{4})(\d{0,4})/,
+              "+$1 ($2) $3-$4"
+            );
+          } else {
+            // +xx (xx) xxxxx-xxxx
+            e.target.value = x.replace(
+              /(\d{2})(\d{2})(\d{5})(\d{0,4})/,
+              "+$1 ($2) $3-$4"
+            );
           }
         });
     </script>
