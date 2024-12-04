@@ -4,6 +4,10 @@ from urllib.parse import quote
 from django.http import JsonResponse
 from django.core.serializers import serialize
 import json
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.core.mail import send_mail
+from .forms import ContatoEmail
 
 def inicio(request):
     return render(request, 'inicio.html')
@@ -159,3 +163,28 @@ def update_views(request, product_id):
             return JsonResponse({'success': False}, status=404)
     
 
+def formulario(request):
+    form = ContatoEmail()
+    return render(request, 'formulario.html', {'form': form})
+
+
+def processaremail(request):
+    form = ContatoEmail(request.POST)
+    if form.is_valid():
+        nome = form.data['nome']
+        celular = form.data['celular']
+        email = form.data['email']
+        assunto = form.data['assunto']
+        mensagem = form.data['mensagem']
+
+        send_mail(
+            assunto,
+            f"Mensagem de {nome} \nCelular: {celular} \nEmail: {email} \nMensagem: {mensagem}",
+            'contato.adealencar@gmail.com',
+            ['srtjmg@gmail.com', email],
+            fail_silently=False,  # para o codigo nao falhar "silenciosamente"
+        )
+
+        return JsonResponse({'success': True, 'message': 'Email enviado com sucesso!'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Erro ao enviar o email. Tente novamente.'})

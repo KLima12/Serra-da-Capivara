@@ -7,6 +7,12 @@ export default defineConfig({
     outDir: "../templates/static/react",
     emptyOutDir: true,
     base: "./",
+    server: {
+      proxy: {
+        "/api": "http://127.0.0.1:8000",
+        "/media": "http://127.0.0.1:8000",
+      },
+    },
     rollupOptions: {
       output: {
         entryFileNames: "index.js",

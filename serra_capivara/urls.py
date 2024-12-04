@@ -8,7 +8,7 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gestao/', include('gestao.urls')),
-    path('email/', include('enviaemail.urls')),
+    path('email/', include('backend.urls')),
     path('', include('backend.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% block css %}
+    <link rel="icon" href="../../media/icon/logo-icon.png" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styleLoad.css' %}"
+    />
+
+    {% endblock %}
+  </head>
+
+  <body>
+    {% block 'dashboard' %}
+
+    <div id="block" style="display: none"></div>
+    <div id="loading-spinner" style="display: none">
+      <div class="spinner"></div>
+    </div>
+
+    <form action="{% url 'processar-email' %}" method="POST" id="contato-form">
+      {% csrf_token %}
+
+      <table>
+        {{form.as_table}}
+      </table>
+      <input type="submit" value="Enviar" />
+    </form>
+
+    <div id="response-message"></div>
+
+    <script>
+      document
+        .getElementById("contato-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var form = new FormData(this);
+
+          document.getElementById("loading-spinner").style.display = "block";
+          document.getElementById("block").style.display = "block";
+          document.body.classList.add("processing");
+
+          fetch("{% url 'processar-email' %}", {
+            method: "POST",
+            body: form,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert(data.message);
+
+                document.getElementById("contato-form").reset();
+
+                document.getElementById("response-message").innerHTML = "";
+              } else {
+                document.getElementById(
+                  "response-message"
+                ).innerHTML = `<div class="error">${data.message}</div>`;
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Ocorreu um erro ao enviar o email. Tente novamente.");
+            })
+            .finally(() => {
+              document.getElementById("loading-spinner").style.display = "none";
+              document.getElementById("block").style.display = "none";
+              document.body.classList.remove("processing");
+            });
+        });
+
+      document
+        .getElementById("celular-input")
+        .addEventListener("input", function (e) {
+          var x = e.target.value.replace(/\D/g, ""); // Remover letras e símbolos
+
+          // Formatação números
+          if (x.length <= 8) {
+            // xxxx-xxxx
+            e.target.value = x.replace(/(\d{4})(\d{0,4})/, "$1-$2");
+          } else if (x.length <= 9) {
+            // xxxxx-xxxx
+            e.target.value = x.replace(/(\d{5})(\d{0,4})/, "$1-$2");
+          } else if (x.length <= 10) {
+            // (xx) xxxx-xxxx
+            e.target.value = x.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+          } else {
+            // (xx) xxxxx-xxxx
+            e.target.value = x.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+          }
+        });
+    </script>
+
+    {% endblock %}
+  </body>
+</html>
