@@ -17,17 +17,19 @@
   <body>
     {% block 'dashboard' %}
     <div class="center">
-      <h1 class="cabecalho">Adicionar Categoria</h1>
-    </div>
-    <div style="margin-left: 1rem">
       <form
         action="{% url 'cadastroCategoria' %}"
         method="post"
         enctype="multipart/form-data"
+        class="center"
       >
+        <h1 class="cabecalho">Adicionar Categoria</h1>
+
         {% csrf_token %} {{ form.as_p }}
-        <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-        <button type="submit" class="btn btn-edit">Adicionar</button>
+        <div>
+          <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-edit">Adicionar</button>
+        </div>
       </form>
     </div>
     {% endblock %}{% block footer %}{% endblock %}

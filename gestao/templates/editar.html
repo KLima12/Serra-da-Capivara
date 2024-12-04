@@ -17,67 +17,68 @@
   <body>
     {% block 'dashboard' %}
     <div class="center">
-      <h1 class="cabecalho">Editar Produto</h1>
-    </div>
+      <form
+        action="{% url 'editar' product.id %}"
+        method="post"
+        enctype="multipart/form-data"
+        id="product-form"
+        data-product-name="{{ product.name }}"
+        class="center"
+      >
+        <h1 class="cabecalho">Editar Produto</h1>
 
-    <form
-      action="{% url 'editar' product.id %}"
-      method="post"
-      enctype="multipart/form-data"
-      id="product-form"
-      data-product-name="{{ product.name }}"
-    >
-      {% csrf_token %}
-      <table>
+        {% csrf_token %}
         <table>
-          {{ form.as_table }}
-        </table>
+          <table>
+            {{ form.as_table }}
+          </table>
 
-        <div class="horizontal-edit-img alignCenter smallPadding">
-          <div
-            class="horizontal-edit-img alignCenter noPadding"
-            id="photo-container"
-          >
-            {% for photo in product.photos %}
-            <div class="vertical" draggable="true" data-photo="{{ photo }}">
-              <img
-                src="../../media/{{ photo }}"
-                alt="Imagem de {{ product.name }}"
-                class="product-photo-edit"
-                draggable="false"
-              />
-              <button type="button" class="btn btn-danger remove-photo-btn">
-                X
-              </button>
+          <div class="horizontal-edit-img alignCenter">
+            <div
+              class="horizontal-edit-img alignCenter noPadding"
+              id="photo-container"
+            >
+              {% for photo in product.photos %}
+              <div class="vertical" draggable="true" data-photo="{{ photo }}">
+                <img
+                  src="../../media/{{ photo }}"
+                  alt="Imagem de {{ product.name }}"
+                  class="product-photo-edit"
+                  draggable="false"
+                />
+                <button type="button" class="btn btn-danger remove-photo-btn">
+                  X
+                </button>
+              </div>
+              {% endfor %}
             </div>
-            {% endfor %}
+
+            <button
+              type="button"
+              id="add-photo-btn"
+              class="btn btn-primary btn-add-photo"
+            >
+              +
+            </button>
           </div>
 
-          <button
-            type="button"
-            id="add-photo-btn"
-            class="btn btn-primary btn-add-photo"
-          >
-            +
-          </button>
-        </div>
+          <br />
 
-        <br />
+          <div>
+            <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-edit">Salvar</button>
+          </div>
+        </table>
+      </form>
 
-        <div class="smallPadding">
-          <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-          <button type="submit" class="btn btn-edit">Salvar</button>
-        </div>
-      </table>
-    </form>
-
-    <input
-      type="file"
-      id="photo-input"
-      accept="image/*"
-      style="display: none"
-      multiple
-    />
+      <input
+        type="file"
+        id="photo-input"
+        accept="image/*"
+        style="display: none"
+        multiple
+      />
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {

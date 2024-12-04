@@ -42,73 +42,84 @@
               class="product-photo"
             />
             {% else %}
-            <p>Sem Imagens</p>
+            <p class="texto">Sem Imagens</p>
             {% endif %}
 
-            <a href="{% url 'editar' product.id %}" class="btn btn-edit"
-              >Editar Produto</a
+            <div class="center">
+              <a href="{% url 'editar' product.id %}" class="btn btn-edit"
+                >Editar Produto</a
+              >
+
+              <form
+                action="{% url 'confirmacaoProduto' product.id %}"
+                method="get"
+                style="display: inline"
+                class="form"
+              >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                  Apagar Produto
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="center">
+            <a
+              href="{% url 'cadastro'%}?category_id={{ category.id }}"
+              class="btn btn-add"
+              >Adicionar Produto</a
+            >
+            <a
+              href="{% url 'editarCategoria' category_id=category.id %}"
+              class="btn btn-add"
+              >Editar Categoria</a
+            >
+          </div>
+          {% else %}
+          <p class="vertical texto">Sem Produtos</p>
+
+          <div class="center">
+            <a
+              href="{% url 'cadastro'%}?category_id={{ category.id }}"
+              class="btn btn-add"
+              >Adicionar Produto</a
+            >
+            <a
+              href="{% url 'editarCategoria' category_id=category.id %}"
+              class="btn btn-add"
+              >Editar Categoria</a
             >
 
             <form
-              action="{% url 'confirmacaoProduto' product.id %}"
+              action="{% url 'confirmacaoCategoria' category.id %}"
               method="get"
               style="display: inline"
               class="form"
             >
               {% csrf_token %}
-              <button type="submit" class="btn btn-danger">
-                Apagar Produto
+              <button type="submit" class="btn btn-danger btn-remove">
+                Apagar Categoria
               </button>
             </form>
           </div>
-          {% endfor %}
-          <a
-            href="{% url 'cadastro'%}?category_id={{ category.id }}"
-            class="btn btn-add"
-            >Adicionar Produto</a
-          >
-          <a
-            href="{% url 'editarCategoria' category_id=category.id %}"
-            class="btn btn-add"
-            >Editar Categoria</a
-          >
-          {% else %}
-          <p class="vertical">Sem Produtos</p>
-
-          <a
-            href="{% url 'cadastro'%}?category_id={{ category.id }}"
-            class="btn btn-add"
-            >Adicionar Produto</a
-          >
-          <a
-            href="{% url 'editarCategoria' category_id=category.id %}"
-            class="btn btn-add"
-            >Editar Categoria</a
-          >
-          <form
-            action="{% url 'confirmacaoCategoria' category.id %}"
-            method="get"
-            style="display: inline"
-            class="form"
-          >
-            {% csrf_token %}
-            <button type="submit" class="btn btn-remove">
-              Apagar Categoria
-            </button>
-          </form>
 
           {% endif %}
         </div>
       </div>
 
-      <div class="horizontal-line"></div>
+      <hr class="footerLine" />
 
       {% endfor %}
-
-      <a href="{% url 'cadastroCategoria'%}" class="btn btn-add"
-        >Adicionar Categoria</a
-      >
     </div>
+
+    <div class="center">
+      <a href="{% url 'cadastroCategoria'%}" class="btn btn-add">
+        Adicionar Categoria
+      </a>
+      <br />
+    </div>
+
     {% endblock %}{% block footer %}{% endblock %}
   </body>
 </html>

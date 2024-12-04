@@ -17,11 +17,11 @@ urlpatterns = [
     path('save_cart/', views.save_cart, name='save_cart'),
     path('message/', views.message, name='message'),
     path('update-views/<int:product_id>/', views.update_views, name='update_views'),
-        path('formulario/', views.formulario, name='formulario-email'),
+    path('contatos/', views.formulario, name='formulario-email'),
     path('processaremail/', views.processaremail, name='processar-email'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
-    re_path(r'^.*$', RedirectView.as_view(url='formulario/', permanent=False), name='index'),
+    re_path(r'^.*$', RedirectView.as_view(url='home/', permanent=False), name='index'),
 ]
 

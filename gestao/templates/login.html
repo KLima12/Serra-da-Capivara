@@ -11,14 +11,15 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <form action="{% url 'login' %}" method="POST">
-      {% csrf_token %}
-      <table>
-        {{form.as_table}}
-      </table>
-      <button class="btn btn-edit btn-form" type="submit" value="Login">Login</div>
-    </form>
+    <div class="center">
+      <form action="{% url 'login' %}" method="POST" class="center">
+        {% csrf_token %}
+        <table>
+          {{form.as_table}}
+        </table>
+        <button class="btn btn-edit" type="submit" value="Login">Login</button>
+      </form>
+    </div>
     {% endblock %}{% block footer %}{% endblock %}
-
   </body>
 </html>

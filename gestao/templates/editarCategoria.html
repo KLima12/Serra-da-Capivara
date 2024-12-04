@@ -17,34 +17,35 @@
   <body>
     {% block 'dashboard' %}
     <div class="center">
-      <h1 class="cabecalho">Editar Categoria</h1>
-    </div>
+      <form
+        action="{% url 'editarCategoria' category.id %}"
+        method="post"
+        enctype="multipart/form-data"
+        class="center"
+      >
+        <h1 class="cabecalho">Editar Categoria</h1>
 
-    <form
-      action="{% url 'editarCategoria' category.id %}"
-      method="post"
-      enctype="multipart/form-data"
-    >
-      {% csrf_token %}
-      <table>
+        {% csrf_token %}
         <table>
-          {{ form.as_table }}
+          <table>
+            {{ form.as_table }}
+          </table>
+
+          <div class="smallPadding">
+            <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-edit">Salvar</button>
+          </div>
         </table>
+      </form>
 
-        <div class="smallPadding">
-          <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-          <button type="submit" class="btn btn-edit">Salvar</button>
-        </div>
-      </table>
-    </form>
-
-    <input
-      type="file"
-      id="photo-input"
-      accept="image/*"
-      style="display: none"
-      multiple
-    />
+      <input
+        type="file"
+        id="photo-input"
+        accept="image/*"
+        style="display: none"
+        multiple
+      />
+    </div>
 
     {% endblock %}{% block footer %}{% endblock %}
   </body>

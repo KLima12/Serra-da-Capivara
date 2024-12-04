@@ -38,7 +38,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return redirect('home')
+    return redirect('login')
 
 
 @login_required

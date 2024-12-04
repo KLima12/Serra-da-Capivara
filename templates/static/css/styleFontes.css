@@ -13,6 +13,10 @@
   color: var(--texto);
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .s10 {
   font-size: 10px;
 }
