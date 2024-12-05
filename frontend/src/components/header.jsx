@@ -79,15 +79,15 @@ const Header = () => {
         </a>
 
         <a
-          href="/contatos/"
-          className={`${isActive("/contatos/") ? "active" : ""}`}
+          href="/contato/"
+          className={`${isActive("/contato/") ? "active" : ""}`}
         >
           <h2
             className={`textoHeader s20 ${
-              isActive("/contatos/") ? "active" : ""
+              isActive("/contato/") ? "active" : ""
             }`}
           >
-            Contatos
+            Contato
           </h2>
         </a>
 

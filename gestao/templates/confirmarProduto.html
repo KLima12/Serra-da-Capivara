@@ -15,7 +15,7 @@
     {% endblock %}
   </head>
   <body>
-    {% block 'dashboard' %}
+    {% block header %}{% endblock %} {% block 'dashboard' %}
     <div class="center">
       <form
         action="{% url 'confirmacaoProduto' product.id %}"

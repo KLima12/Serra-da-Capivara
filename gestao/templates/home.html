@@ -12,7 +12,9 @@
     {% endblock %}
   </head>
   <body>
-    {% block 'dashboard' %} {% if user.is_authenticated %}
+    {% block header %}{% endblock %} {% block 'dashboard' %}
+    <div></div>
+    {% if user.is_authenticated %}
     <div class="center">
       <a href="{% url 'cadastro'%}" class="btn btn-add">Adicionar Produtos</a>
       <a href="{% url 'galeria'%}" class="btn btn-add">Consultar Produtos</a>

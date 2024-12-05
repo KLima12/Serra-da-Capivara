@@ -10,7 +10,7 @@
     {% endblock %}
   </head>
   <body>
-    {% block 'dashboard' %}
+    {% block header %}{% endblock %} {% block 'dashboard' %}
     <div class="center">
       <form action="{% url 'login' %}" method="POST" class="center">
         {% csrf_token %}
