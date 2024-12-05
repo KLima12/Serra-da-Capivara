@@ -788,15 +788,6 @@ select {
   position: absolute;
 }
 
-.cart-ico {
-  width: 2rem;
-  right: 5rem;
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
-    brightness(102%) contrast(102%);
-  cursor: pointer;
-  position: absolute;
-}
-
 .cart-ico:hover {
   filter: invert(62%) sepia(7%) saturate(1307%) hue-rotate(337deg)
     brightness(86%) contrast(84%);

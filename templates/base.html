@@ -20,6 +20,12 @@
     <link
       rel="stylesheet"
       type="text/css"
+      href="{% static 'css/styleHeader.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
       href="{% static 'css/styleFooter.css' %}"
     />
 
@@ -40,7 +46,9 @@
     <title></title>
   </head>
   <body class="background">
-    {% block 'dashboard' %} {% endblock %} {% block footer%}
+    {% block header %}
+    <div id="react-header"></div>
+    {% endblock %} {% block 'dashboard' %} {% endblock %} {% block footer%}
     <div id="react-footer" class="react-footer"></div>
     {% endblock %}
 

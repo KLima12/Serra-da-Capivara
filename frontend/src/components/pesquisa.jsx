@@ -1,9 +1,25 @@
 import React from "react";
 
 const BarraPesquisa = () => {
+  const getMediaPath = (path) => {
+    return `${process.env.PUBLIC_URL || ""}/media/${path}`;
+  };
+
   return (
-    <div>
-      <h2>Pesquisar</h2>
+    <div className="horizontal searchBar">
+      <img
+        src={getMediaPath("icon/search.svg")}
+        alt="icone pesquisa"
+        class="searchIcon"
+      ></img>
+
+      <form>
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          className="searchText s12"
+        ></input>
+      </form>
     </div>
   );
 };

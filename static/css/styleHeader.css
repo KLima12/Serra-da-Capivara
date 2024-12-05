@@ -1,0 +1,108 @@
+:root {
+  --fundo: #322626;
+  --texto: #ffffff;
+  --texto-hover: #9f8272;
+  --texto-click: #a26e51;
+  --placeholder: #b0a4a3;
+  --destaque: #3e3131;
+  --botao-off: #705e5e;
+  --botao-hover: #5c4646;
+  --botao-click: #4b2e2e;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.headerHorizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 4rem;
+  margin: 0;
+  margin-left: 4rem;
+}
+
+.logoCapivaraPequena {
+  width: 11rem;
+  margin: 0;
+}
+
+.textoHeader {
+  color: var(--texto);
+}
+
+.textoHeader:hover {
+  color: var(--texto-hover);
+}
+
+.textoHeader:active {
+  color: var(--texto-click);
+}
+
+.textoHeader.active {
+  color: var(--texto-click);
+  font-weight: bold;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  padding: 1rem;
+  background-color: var(--destaque);
+  width: 19rem;
+  height: 2rem;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.searchIcon {
+  width: 1rem;
+  margin: 0;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
+    brightness(102%) contrast(102%);
+}
+
+.searchText {
+  background-color: transparent !important;
+  height: 2rem !important;
+  width: 15rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cartIcon {
+  width: 2.5rem;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
+    brightness(102%) contrast(102%);
+  cursor: pointer;
+  margin: 0;
+}
+
+.cartIcon:hover {
+  filter: invert(62%) sepia(7%) saturate(1307%) hue-rotate(337deg)
+    brightness(86%) contrast(84%);
+}
+
+.cartIcon:active {
+  filter: invert(52%) sepia(15%) saturate(5812%) hue-rotate(346deg)
+    brightness(80%) contrast(45%);
+}
+
+.cartIcon.active {
+  filter: invert(52%) sepia(15%) saturate(5812%) hue-rotate(346deg)
+    brightness(80%) contrast(45%);
+}
+
+a.active {
+  pointer-events: none !important;
+  cursor: default !important;
+}
