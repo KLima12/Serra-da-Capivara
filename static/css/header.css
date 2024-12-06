@@ -5,6 +5,8 @@
   z-index: 999;
   top: 0;
   background-color: var(--fundo);
+  width: 100%;
+  max-width: 100%;
 }
 
 .header {
