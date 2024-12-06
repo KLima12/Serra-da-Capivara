@@ -20,6 +20,7 @@
   background-color: var(--destaque);
   width: 56.93vmax;
   height: 32.53vmax;
+  min-height: 18rem;
   border-radius: 0.9vmax;
   align-items: center;
   justify-content: center;

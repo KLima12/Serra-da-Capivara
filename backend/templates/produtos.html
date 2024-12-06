@@ -21,9 +21,11 @@
         <h1 class="category-text-buttons-container s20">Categorias</h1>
         <div class="category-button-container">
           {% for categoria in categories %} {% if categoria.id == category.id %}
-          <button class="category-button-disabled" aria-disabled="true">
-            {{ categoria.name }}
-          </button>
+          <a>
+            <button class="category-button-disabled" aria-disabled="true">
+              {{ categoria.name }}
+            </button>
+          </a>
           {% else %}
           <a href="{% url 'produtos' category_id=categoria.id %}">
             <button class="category-button">{{ categoria.name }}</button>

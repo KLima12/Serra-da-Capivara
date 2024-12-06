@@ -27,7 +27,10 @@ const Header = () => {
           className="logoCapivaraPequena"
         />
 
-        <a href="/home/" className={`${isActive("/home/") ? "active" : ""}`}>
+        <a
+          href="/home/"
+          className={`textoHeader ${isActive("/home/") ? "active" : ""}`}
+        >
           <h2
             className={`textoHeader s20 ${isActive("/home/") ? "active" : ""}`}
           >
@@ -35,7 +38,7 @@ const Header = () => {
           </h2>
         </a>
 
-        <a href="/categorias/">
+        <a href="/categorias/" className="textoHeader">
           <h2
             className={`textoHeader s20 ${
               isActive("/categorias/") ? "active" : ""
@@ -48,13 +51,14 @@ const Header = () => {
         <a
           href="https://www.pousadadaceramicaserradacapivara.com/"
           target="blank"
+          className="textoHeader"
         >
           <h2 className="textoHeader s20">Albergue</h2>
         </a>
 
         <a
           href="/historia/"
-          className={`${isActive("/historia/") ? "active" : ""}`}
+          className={`textoHeader ${isActive("/historia/") ? "active" : ""}`}
         >
           <h2
             className={`textoHeader s20 ${
@@ -67,7 +71,7 @@ const Header = () => {
 
         <a
           href="/reportagens/"
-          className={`${isActive("/reportagens/") ? "active" : ""}`}
+          className={`textoHeader ${isActive("/reportagens/") ? "active" : ""}`}
         >
           <h2
             className={`textoHeader s20 ${
@@ -80,7 +84,7 @@ const Header = () => {
 
         <a
           href="/contato/"
-          className={`${isActive("/contato/") ? "active" : ""}`}
+          className={`textoHeader ${isActive("/contato/") ? "active" : ""}`}
         >
           <h2
             className={`textoHeader s20 ${
