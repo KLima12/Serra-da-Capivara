@@ -12,8 +12,8 @@
 
 input,
 textarea {
-  height: 2.5rem;
-  border-radius: 5px;
+  height: 2.03vmax;
+  border-radius: 0.3vmax;
   border: 0;
   color: var(--texto);
   background-color: var(--botao-off);
@@ -21,12 +21,22 @@ textarea {
   justify-content: center;
   text-align: left;
   align-content: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.81vmax;
+  padding-right: 0.81vmax;
+  font-size: 0.88vmax !important;
+}
+
+.input-label {
+  font-size: 1.21vmax !important;
+  margin-right: 1vmax;
+}
+
+.edit-label {
+  font-size: 0.88vmax !important;
 }
 
 textarea {
-  padding-top: 1rem;
+  padding-top: 0.81vmax;
   resize: none !important;
 }
 
@@ -45,43 +55,43 @@ textarea::placeholder {
 
 .inp1 {
   width: 100%;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
+  margin-top: 1.63vmax;
+  margin-bottom: 0.61vmax;
   display: flex;
   flex-direction: row;
-  gap: 1.5rem;
+  gap: 1.22vmax;
 }
 
 .f1 {
-  width: 15rem;
-  height: 3rem;
+  width: 12.2vmax;
+  height: 2.44vmax;
 }
 
 .inp2 {
   width: 100%;
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-top: 0.61vmax;
+  margin-bottom: 0.61vmax;
 }
 
 .f2 {
   width: 100%;
-  height: 3rem;
+  height: 2.44vmax;
 }
 
 .inp3 {
   width: 100%;
-  margin-top: 0.75rem;
-  margin-bottom: 2rem;
+  margin-top: 0.61vmax;
+  margin-bottom: 1.63vmax;
 }
 
 .f3 {
   width: 100%;
-  height: 12rem;
+  height: 9.76vmax;
 }
 
 #emailBtn {
-  width: 8rem;
-  border-radius: 10px;
+  width: 6.51vmax;
+  border-radius: 0.6vmax;
 }
 
 textarea:focus,
@@ -90,10 +100,10 @@ input:focus {
 }
 
 select {
-  height: 2.5rem;
-  border-radius: 5px;
+  height: 2.03vmax;
+  border-radius: 0.3vmax;
   border: 0;
-  padding-left: 1rem;
+  padding-left: 0.81vmax;
   color: var(--texto);
   background-color: var(--botao-off);
 }
