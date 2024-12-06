@@ -8,6 +8,8 @@
       type="text/css"
       href="{% static 'css/galeria.css' %}"
     />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/produto.css' %}">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../../media/icon/logo-icon.png" />
@@ -62,12 +64,27 @@
             data-product-id="{{ product.id }}"
           >
             <img src="../../../media/icon/cart.svg" class="cart-ico-button" />
-
             <span>Adicionar ao Carrinho</span>
           </button>
+            <br>
+           
+          <div class="categorias-pai">
+            <p class="s30" style="color: white;">Categorias</p>
+              {% for categorias in categoria %}
+              <div class="categorias-links">
+                <a href="{% url 'produtos' category_id=categorias.id %}" class="s10">
+                  <button style="color: white;" class="category-button s10">{{categorias.name}}</button>
+                </a>
+              </div>  
+              
+              
+              {% endfor %}
+          </div>
         </div>
       </div>
     </div>
+
+    
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
