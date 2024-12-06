@@ -26,46 +26,54 @@ label {
   font-weight: bold;
 }
 
+.noWrap {
+  white-space: nowrap;
+}
+
 .s10 {
-  font-size: 0.55vmax;
+  font-size: 0.55vmax !important;
 }
 
 .s11 {
-  font-size: 0.6vmax;
+  font-size: 0.6vmax !important;
 }
 
 .s12 {
-  font-size: 0.66vmax;
+  font-size: 0.66vmax !important;
 }
 
 .s15 {
-  font-size: 0.82vmax;
+  font-size: 0.82vmax !important;
 }
 
 .s16 {
-  font-size: 0.88vmax;
+  font-size: 0.88vmax !important;
 }
 
 .s20 {
-  font-size: 1.1vmax;
+  font-size: 1.1vmax !important;
 }
 
 .s22 {
-  font-size: 1.21vmax;
+  font-size: 1.21vmax !important;
 }
 
 .s24 {
-  font-size: 1.32vmax;
+  font-size: 1.32vmax !important;
 }
 
 .s26 {
-  font-size: 1.43vmax;
+  font-size: 1.43vmax !important;
 }
 
 .s30 {
-  font-size: 1.65vmax;
+  font-size: 1.65vmax !important;
 }
 
 .s40 {
-  font-size: 2.2vmax;
+  font-size: 2.2vmax !important;
+}
+
+.s60 {
+  font-size: 3.3vmax !important;
 }
