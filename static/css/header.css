@@ -5,34 +5,40 @@
   z-index: 999;
   top: 0;
   background-color: var(--fundo);
+  width: 100%;
+  max-width: 100%;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .header {
   width: 100%;
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
   justify-content: left;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 0.75vmax;
+  margin-bottom: 0.75vmax;
 }
 
 .headerHorizontal {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: row !important;
+  align-items: center !important;
   justify-content: left;
-  gap: 4rem;
+  gap: 3vmax;
   margin: 0;
-  margin-left: 4rem;
+  margin-left: 3vmax;
 }
 
 .logoCapivaraPequena {
-  width: 11rem;
+  width: 10vmax;
   margin: 0;
 }
 
 .textoHeader {
   color: var(--texto);
+  white-space: nowrap;
+  vertical-align: middle !important;
 }
 
 .textoHeader:hover {
@@ -53,16 +59,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  padding: 1rem;
+  padding: 0.75vmax;
   background-color: var(--destaque);
-  width: 19rem;
-  height: 2rem;
+  width: 14.25vmax;
+  height: 1.75vmax;
   border-radius: 5px;
   margin: 0;
 }
 
 .searchIcon {
-  width: 1rem;
+  width: 0.75vmax;
   margin: 0;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
     brightness(102%) contrast(102%);
@@ -70,14 +76,19 @@
 
 .searchText {
   background-color: transparent !important;
-  height: 2rem !important;
-  width: 15rem !important;
+  height: 1.75vmax !important;
+  width: 11.25vmax !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
+.searchContainer {
+  display: flex !important;
+  align-items: center !important;
+}
+
 .cartIcon {
-  width: 2.5rem;
+  width: 2vmax;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
     brightness(102%) contrast(102%);
   cursor: pointer;

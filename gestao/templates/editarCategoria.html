@@ -23,7 +23,7 @@
         enctype="multipart/form-data"
         class="center"
       >
-        <h1 class="cabecalho">Editar Categoria</h1>
+        <h1 class="cabecalho s60">Editar Categoria</h1>
 
         {% csrf_token %}
         <table>
@@ -32,8 +32,12 @@
           </table>
 
           <div class="smallPadding">
-            <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-edit">Salvar</button>
+            <a href="{% url 'galeria' %}" class="btn btn-secondary s20 noWrap"
+              >Cancelar</a
+            >
+            <button type="submit" class="btn btn-edit s20 noWrap">
+              Salvar
+            </button>
           </div>
         </table>
       </form>

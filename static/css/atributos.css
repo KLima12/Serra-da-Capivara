@@ -2,12 +2,12 @@
 
 .horizontal {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(calc(25% - 1rem), 1fr));
-  gap: 1rem;
-  row-gap: 10rem;
-  padding-left: 10rem;
-  padding-right: 10rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(calc(25% - 0.81vmax), 1fr));
+  gap: 0.81vmax;
+  row-gap: 8.13vmax;
+  padding-left: 8.13vmax;
+  padding-right: 8.13vmax;
+  margin-top: 1.63vmax;
   align-items: center;
   justify-items: center;
 }
@@ -16,10 +16,10 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-width: 5rem;
+  min-width: 4.07vmax;
   align-items: center;
   justify-content: center;
-  margin-left: 0rem;
+  margin-left: 0vmax;
 }
 
 .noPadding {
@@ -28,7 +28,7 @@
 }
 
 .smallPadding {
-  padding-left: 1rem;
+  padding-left: 0.81vmax;
   margin: 0;
 }
 
@@ -39,8 +39,8 @@
   justify-content: center !important;
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  gap: 2rem;
+  margin-top: 1.63vmax;
+  gap: 1.63vmax;
 }
 
 .alignCenter {
@@ -60,6 +60,6 @@ table tr {
 
 table td,
 table th {
-  padding: 1rem;
+  padding: 0.81vmax;
   color: var(--texto);
 }

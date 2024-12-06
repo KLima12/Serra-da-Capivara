@@ -5,16 +5,16 @@
 }
 
 .footer {
-  margin-top: 7rem;
+  margin-top: 5.25vmax;
 }
 
 .footerSections {
   display: flex;
   flex-direction: row;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 7.5vmax;
+  padding-right: 7.5vmax;
   color: var(--texto);
-  gap: 50rem;
+  gap: 37.5vmax;
   justify-content: center;
 }
 
@@ -22,7 +22,13 @@
   color: var(--texto);
   width: 95%;
   margin: auto;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5vmax;
+}
+
+.sectionCentral {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
 }
 
 .sectionInstagram {
@@ -32,8 +38,8 @@
 }
 
 .logoInstagram {
-  width: 3rem;
-  height: 3rem;
+  width: 2.25vmax;
+  height: 2.25vmax;
 }
 .logoInstagram:hover {
   filter: brightness(70%);
@@ -52,9 +58,9 @@
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.25rem;
-  margin-top: 2rem;
+  margin-top: 1.5vmax;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1vmax;
   font-weight: bold;
   background-color: var(--destaque);
   width: 100%;

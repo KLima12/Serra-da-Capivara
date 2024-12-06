@@ -25,7 +25,7 @@
         data-product-name="{{ product.name }}"
         class="center"
       >
-        <h1 class="cabecalho">Editar Produto</h1>
+        <h1 class="cabecalho s60">Editar Produto</h1>
 
         {% csrf_token %}
         <table>
@@ -46,7 +46,10 @@
                   class="product-photo-edit"
                   draggable="false"
                 />
-                <button type="button" class="btn btn-danger remove-photo-btn">
+                <button
+                  type="button"
+                  class="btn btn-danger remove-photo-btn s20 noWrap"
+                >
                   X
                 </button>
               </div>
@@ -56,7 +59,7 @@
             <button
               type="button"
               id="add-photo-btn"
-              class="btn btn-primary btn-add-photo"
+              class="btn btn-primary btn-add-photo s20 noWrap"
             >
               +
             </button>
@@ -65,8 +68,12 @@
           <br />
 
           <div>
-            <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-edit">Salvar</button>
+            <a href="{% url 'galeria' %}" class="btn btn-secondary s20 noWrap"
+              >Cancelar</a
+            >
+            <button type="submit" class="btn btn-edit s20 noWrap">
+              Salvar
+            </button>
           </div>
         </table>
       </form>

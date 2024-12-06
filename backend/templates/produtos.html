@@ -18,12 +18,14 @@
     {% block 'dashboard' %}
     <div class="category-button-container-horizontal">
       <div>
-        <h1 class="category-text-buttons-container">Categorias</h1>
+        <h1 class="category-text-buttons-container s20">Categorias</h1>
         <div class="category-button-container">
           {% for categoria in categories %} {% if categoria.id == category.id %}
-          <button class="category-button-disabled" aria-disabled="true">
-            {{ categoria.name }}
-          </button>
+          <a>
+            <button class="category-button-disabled" aria-disabled="true">
+              {{ categoria.name }}
+            </button>
+          </a>
           {% else %}
           <a href="{% url 'produtos' category_id=categoria.id %}">
             <button class="category-button">{{ categoria.name }}</button>
@@ -52,7 +54,9 @@
                 <p>Sem Imagens</p>
                 {% endif %}
 
-                <h3 class="product-text unselectable">{{ product.name }}</h3>
+                <h3 class="product-text unselectable s16">
+                  {{ product.name }}
+                </h3>
 
                 <div class="views-horizontal">
                   <img
@@ -61,7 +65,7 @@
                     alt="view icon"
                   />
 
-                  <h7 class="product-views-text unselectable"
+                  <h7 class="product-views-text unselectable s10"
                     >{{ product.views }}</h7
                   >
                 </div>
