@@ -93,21 +93,21 @@
                     </div>
 
                     <div class="product-details">
-                        <h3 class="produto">${product.fields.name}</h3>
+                        <h3 class="produto s30">${product.fields.name}</h3>
                         <div class="product-info">
-                        <h7 class="produto">Tamanho: ${product.fields.size}</h7>
-                        <h7 class="produto">Código: ${product.fields.code}</h7>
+                        <h7 class="produto s12">Tamanho: ${product.fields.size}</h7>
+                        <h7 class="produto s12">Código: ${product.fields.code}</h7>
                         </div>
                     </div>
 
                     <div class="controls">
                         <div class="controls-buttons">
-                          <button class="btn btn-decrease btn-edit" data-product-id="${product.pk}">-</button>
-                          <h7 class="produto quantity">${cartItem.quantity}</h7>
-                          <button class="btn btn-increase btn-edit" data-product-id="${product.pk}">+</button>
+                          <button class="btn btn-decrease btn-edit s16 noWrap" data-product-id="${product.pk}">-</button>
+                          <h7 class="produto s20">${cartItem.quantity}</h7>
+                          <button class="btn btn-increase btn-edit s16 noWrap" data-product-id="${product.pk}">+</button>
                         </div>
 
-                        <button class="btn btn-remove btn-edit" data-product-id="${product.pk}">Remover Produto</button>
+                        <button class="btn btn-remove btn-edit s16 noWrap" data-product-id="${product.pk}">Remover Produto</button>
                     </div>
                 </div>
                 `;

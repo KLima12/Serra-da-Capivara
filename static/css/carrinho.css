@@ -7,15 +7,15 @@
   justify-content: left;
   vertical-align: middle;
   text-align: center;
-  margin-top: 1rem;
-  margin-left: 12rem;
-  margin-bottom: 1rem;
-  gap: 1rem;
+  margin-top: 0.81vmax;
+  margin-left: 9.76vmax;
+  margin-bottom: 0.81vmax;
+  gap: 0.81vmax;
   width: 100%;
 }
 
 .cart-header-img {
-  height: 3rem;
+  height: 2.44vmax;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
     brightness(102%) contrast(102%);
 }
@@ -24,7 +24,7 @@
   color: var(--texto);
   font-family: "Inter";
   font-weight: 600;
-  font-size: 40px;
+  font-size: 2.2vmax !important;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -35,12 +35,12 @@
   align-items: center;
   justify-content: center;
   background-color: var(--destaque);
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  margin-top: 3rem;
-  margin-right: 20rem;
-  margin-left: 20rem;
-  border-radius: 20px;
+  padding-top: 1.63vmax;
+  padding-bottom: 1.63vmax;
+  margin-top: 2.44vmax;
+  margin-right: 16.27vmax;
+  margin-left: 16.27vmax;
+  border-radius: 1.2vmax;
   width: auto;
 }
 
@@ -55,33 +55,33 @@
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  padding: 1rem;
-  margin-top: 1rem;
-  width: 75rem;
+  padding: 0.81vmax;
+  margin-top: 0.81vmax;
+  width: 61vmax;
   position: relative;
 }
 
 .cart-line {
   border-bottom: 1px solid var(--texto-hover);
-  width: 60rem;
+  width: 48.8vmax;
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 0.81vmax;
+  margin-top: 0.81vmax;
 }
 
 .cart-img-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 13rem;
+  min-width: 10.57vmax;
 }
 
 .cart-product-photo {
-  height: 5rem;
-  max-width: 8rem;
-  border-radius: 5px;
+  height: 4.07vmax;
+  max-width: 6.51vmax;
+  border-radius: 0.3vmax;
 }
 
 .product-details {
@@ -93,16 +93,16 @@
 .product-info {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 0.81vmax;
 }
 
 .controls-buttons {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 0.81vmax;
   justify-content: center;
   align-items: center;
-  margin-right: 10rem;
+  margin-right: 8.13vmax;
 }
 
 .controls {
@@ -110,8 +110,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
-  right: 5rem;
+  gap: 0.4vmax;
+  right: 4.07vmax;
 }
 
 .controls button,
@@ -120,23 +120,23 @@
 }
 
 .controls button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 0.4vmax 0.81vmax;
+  font-size: 0.81vmax;
 }
 
 .quantity {
-  font-size: 1rem;
+  font-size: 0.81vmax;
 }
 
 .btn-enviar {
-  margin-top: 3rem !important;
-  width: 12rem !important;
-  border-radius: 10px !important;
+  margin-top: 2.44vmax !important;
+  width: 9.76vmax !important;
+  border-radius: 0.6vmax !important;
 }
 
 .cart-ico {
-  width: 2rem;
-  right: 5rem;
+  width: 1.63vmax;
+  right: 4.07vmax;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
     brightness(102%) contrast(102%);
   cursor: pointer;
@@ -154,7 +154,7 @@
 }
 
 .cart-ico-button {
-  width: 1.5rem;
+  width: 1.22vmax;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
     brightness(102%) contrast(102%);
   cursor: pointer;
