@@ -1,0 +1,12 @@
+:root {
+  --fundo: #322626;
+  --texto: #ffffff;
+  --texto-hover: #9f8272;
+  --texto-click: #a26e51;
+  --placeholder: #b0a4a3;
+  --destaque: #3e3131;
+  --botao-off: #705e5e;
+  --botao-hover: #5c4646;
+  --botao-click: #4b2e2e;
+  --font-family: "Inter";
+}

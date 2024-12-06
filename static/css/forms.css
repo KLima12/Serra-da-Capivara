@@ -1,0 +1,99 @@
+@import url("variables.css");
+
+.form {
+  align-items: center;
+  justify-content: center;
+}
+
+.field {
+  background-color: #35a7dc !important;
+  color: white;
+}
+
+input,
+textarea {
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 0;
+  color: var(--texto);
+  background-color: var(--botao-off);
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  align-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+textarea {
+  padding-top: 1rem;
+  resize: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder);
+}
+
+#contato-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.inp1 {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.f1 {
+  width: 15rem;
+  height: 3rem;
+}
+
+.inp2 {
+  width: 100%;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.f2 {
+  width: 100%;
+  height: 3rem;
+}
+
+.inp3 {
+  width: 100%;
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.f3 {
+  width: 100%;
+  height: 12rem;
+}
+
+#emailBtn {
+  width: 8rem;
+  border-radius: 10px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+select {
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 0;
+  padding-left: 1rem;
+  color: var(--texto);
+  background-color: var(--botao-off);
+}

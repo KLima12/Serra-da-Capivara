@@ -1,0 +1,65 @@
+@import url("variables.css");
+
+.horizontal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(25% - 1rem), 1fr));
+  gap: 1rem;
+  row-gap: 10rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  margin-top: 2rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 5rem;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0rem;
+}
+
+.noPadding {
+  padding: 0;
+  margin: 0;
+}
+
+.smallPadding {
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.center {
+  align-content: center !important;
+  align-items: center !important;
+  align-self: center !important;
+  justify-content: center !important;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+table td,
+table th {
+  padding: 1rem;
+  color: var(--texto);
+}

@@ -1,16 +1,25 @@
-:root {
-  --fundo: #322626;
-  --texto: #ffffff;
-  --texto-hover: #9f8272;
-  --texto-click: #a26e51;
-  --destaque: #3e3131;
-  --botao-off: #705e5e;
-  --botao-hover: #5c4646;
-  --botao-click: #4b2e2e;
+@import url("variables.css");
+
+a {
+  text-decoration: none !important;
+}
+
+label {
+  color: var(--texto);
+  font-family: "Inter";
+  font-weight: 300;
+}
+
+.titulo {
+  color: var(--texto);
+  font-family: "Inter";
+  margin-left: 5rem;
+  font-weight: bold;
 }
 
 .texto {
   color: var(--texto);
+  font-family: "Inter";
 }
 
 .bold {
