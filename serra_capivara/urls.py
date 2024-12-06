@@ -11,6 +11,3 @@ urlpatterns = [
     path('', include('backend.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += [
-    re_path(r'^.*$', RedirectView.as_view(url='/categorias/', permanent=False), name='index'),
-]

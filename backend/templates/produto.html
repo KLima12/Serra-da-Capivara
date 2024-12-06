@@ -12,6 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../../media/icon/logo-icon.png" />
     <title>{{ category.name }}</title>
+
+    <script>
+      var csrf_token = "{{ csrf_token }}";
+    </script>
     {% endblock %}
   </head>
   <body>
@@ -161,7 +165,7 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}",
+            "X-CSRFToken": csrf_token,
           },
           body: JSON.stringify({ id: productId }),
         })

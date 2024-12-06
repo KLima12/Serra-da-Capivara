@@ -17,7 +17,3 @@ urlpatterns = [
     path('editarcategoria/<int:category_id>/', views.editarCategoria, name='editarCategoria'),
     path('remove-photo/', views.remove_photo, name='remove_photo'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns += [
-    re_path(r'^.*$', RedirectView.as_view(url='login/', permanent=False), name='index'),
-]
