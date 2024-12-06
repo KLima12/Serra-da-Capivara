@@ -23,17 +23,19 @@
         class="vertical"
         style="display: inline"
       >
-        <h1 class="cabecalho">Apagar Produto</h1>
+        <h1 class="cabecalho s60">Apagar Produto</h1>
 
         <h2 class="texto bold s30">
           Você tem certeza de que deseja apagar o produto "{{ product.name }}"?
         </h2>
 
         {% csrf_token %}
-        <a href="{% url 'galeria' %}" class="btn btn-secondary btn-Confirm"
+        <a
+          href="{% url 'galeria' %}"
+          class="btn btn-secondary btn-Confirm s20 noWrap"
           >Não</a
         >
-        <button type="submit" class="btn btn-danger">Sim</button>
+        <button type="submit" class="btn btn-danger s20 noWrap">Sim</button>
       </form>
     </div>
     {% endblock %}{% block footer %}{% endblock %}

@@ -8,7 +8,7 @@
     {% block css %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
     <link rel="icon" href="../../media/icon/logo-icon.png" />
-    <title>Início</title>
+    <title>Gestão</title>
     {% endblock %}
   </head>
   <body>
@@ -16,13 +16,17 @@
     <div></div>
     {% if user.is_authenticated %}
     <div class="center">
-      <a href="{% url 'cadastro'%}" class="btn btn-add">Adicionar Produtos</a>
-      <a href="{% url 'galeria'%}" class="btn btn-add">Consultar Produtos</a>
-      <a href="{% url 'logout' %}" class="btn btn-add">Logout</a>
+      <a href="{% url 'cadastro'%}" class="btn btn-add s20 noWrap"
+        >Adicionar Produtos</a
+      >
+      <a href="{% url 'galeria'%}" class="btn btn-add s20 noWrap"
+        >Consultar Produtos</a
+      >
+      <a href="{% url 'logout' %}" class="btn btn-add s20 noWrap">Logout</a>
       {% else %}
       <h1>Faça Login para gerenciar seus produtos</h1>
       <div class="pai">
-        <a href="{% url 'login'%}" class="btn btn-add">Login</a>
+        <a href="{% url 'login'%}" class="btn btn-add s20 noWrap">Login</a>
       </div>
       {% endif %} {% endblock %}{% block footer %}{% endblock %}
     </div>

@@ -30,7 +30,7 @@
         enctype="multipart/form-data"
         class="center"
       >
-        <h1 class="cabecalho">Cadastro de Produtos</h1>
+        <h1 class="cabecalho s60">Cadastro de Produtos</h1>
 
         {% csrf_token %}
         <table>
@@ -53,16 +53,20 @@
           <button
             type="button"
             onclick="addPhotoField()"
-            class="btn btn-add btn-form"
+            class="btn btn-add btn-form s20 noWrap"
           >
             Adicionar mais fotos
           </button>
 
-          <button type="submit" class="btn btn-edit">Adicionar Produto</button>
+          <button type="submit" class="btn btn-edit s20 noWrap">
+            Adicionar Produto
+          </button>
         </table>
       </form>
 
-      <a href="{% url 'galeria' %}" class="btn btn-add">Galeria de Produtos</a>
+      <a href="{% url 'galeria' %}" class="btn btn-add s20 noWrap"
+        >Galeria de Produtos</a
+      >
     </div>
 
     <script>

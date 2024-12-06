@@ -18,9 +18,9 @@
 
 .menuContato {
   background-color: var(--destaque);
-  width: 70rem;
-  height: 40rem;
-  border-radius: 15px;
+  width: 56.93vmax;
+  height: 32.53vmax;
+  border-radius: 0.9vmax;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -29,9 +29,9 @@
 
 .product-photo-edit {
   height: 4.07vmax;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
+  margin-top: 0.81vmax;
+  margin-bottom: 0.81vmax;
+  border-radius: 0.6vmax;
   cursor: grab;
 }
 
@@ -40,15 +40,15 @@
 }
 
 .drag-image {
-  width: 1rem !important;
-  height: 1rem !important;
+  width: 0.81vmax !important;
+  height: 0.81vmax !important;
   object-fit: contain;
   display: block;
 }
 
 .cat {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 4.07vmax;
+  padding-bottom: 4.07vmax;
 }
 
 .cabecalho {
@@ -60,24 +60,24 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  gap: 0.81vmax;
+  padding-left: 8.13vmax;
+  padding-right: 8.13vmax;
 }
 
 .horizontal-line {
-  border-bottom: 1px solid var(--texto);
-  width: 100rem;
+  border-bottom: 0.06vmax solid var(--texto);
+  width: 81.33vmax;
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  margin-bottom: 4.07vmax;
+  margin-top: 4.07vmax;
 }
 
 .vertical-line {
-  border-left: 1px solid var(--texto);
-  margin-left: 1.5rem;
+  border-left: 0.06vmax solid var(--texto);
+  margin-left: 1.22vmax;
   min-height: 100%;
 }
 

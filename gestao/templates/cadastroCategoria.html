@@ -23,12 +23,16 @@
         enctype="multipart/form-data"
         class="center"
       >
-        <h1 class="cabecalho">Adicionar Categoria</h1>
+        <h1 class="cabecalho s60">Adicionar Categoria</h1>
 
         {% csrf_token %} {{ form.as_p }}
         <div>
-          <a href="{% url 'galeria' %}" class="btn btn-secondary">Cancelar</a>
-          <button type="submit" class="btn btn-edit">Adicionar</button>
+          <a href="{% url 'galeria' %}" class="btn btn-secondary s20 noWrap"
+            >Cancelar</a
+          >
+          <button type="submit" class="btn btn-edit s20 noWrap">
+            Adicionar
+          </button>
         </div>
       </form>
     </div>
