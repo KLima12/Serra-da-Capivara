@@ -14,14 +14,19 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auh_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
+import unicodedata
 
 
 def home(request):
     return render(request, 'home.html')
+
+def remove_special_chars(text):
+    nfkd_form = unicodedata.normalize('NFKD', text)
+    return ''.join([c for c in nfkd_form if unicodedata.category(c) != 'Mn']).lower()
 
 
 def login(request):
@@ -65,8 +70,7 @@ def cadastro(request):
                     image = image.convert('RGB')
 
                     filename, _ = os.path.splitext(photo.name)
-                    new_filename = f"img-{product.name.replace(' ', '-')}-{
-                        index+1}.webp"
+                    new_filename = f"img-{remove_special_chars(product.name).replace(' ', '-')}-{index+1}.webp"
 
                     in_memory_file = io.BytesIO()
                     image.save(in_memory_file, format='WEBP')
@@ -247,7 +251,7 @@ def cadastroCategoria(request):
                 image = Image.open(photo)
                 image = image.convert('RGB')
 
-                new_filename = f"img-{category.name.replace(' ', '-')}.webp"
+                new_filename = f"img-{remove_special_chars(category.name).replace(' ', '-')}.webp"
                 in_memory_file = io.BytesIO()
                 image.save(in_memory_file, format='WEBP')
                 in_memory_file.seek(0)
