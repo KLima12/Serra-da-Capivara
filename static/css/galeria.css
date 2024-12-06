@@ -27,6 +27,25 @@
   margin: auto;
 }
 
+.product-photo-edit {
+  height: 4.07vmax;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  cursor: grab;
+}
+
+.product-photo-edit:active {
+  cursor: grabbing;
+}
+
+.drag-image {
+  width: 1rem !important;
+  height: 1rem !important;
+  object-fit: contain;
+  display: block;
+}
+
 .cat {
   padding-top: 5rem;
   padding-bottom: 5rem;
