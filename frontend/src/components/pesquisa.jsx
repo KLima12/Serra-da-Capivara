@@ -13,7 +13,7 @@ const BarraPesquisa = () => {
         class="searchIcon"
       ></img>
 
-      <form>
+      <form class="searchContainer">
         <input
           type="text"
           placeholder="Pesquisar"
