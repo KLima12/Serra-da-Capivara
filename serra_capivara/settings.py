@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b2l5rfz00$jjbo#=ofo4g^p1(jr&!34i-z$e+_x()j*^mq7id-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'serra_capivara.middleware.LowercaseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 APPEND_SLASH = True
@@ -125,6 +126,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/' 
 # Default primary key field type
