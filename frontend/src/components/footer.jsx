@@ -17,43 +17,37 @@ const Footer = () => {
       <hr class="footerLine"></hr>
       <div class="footerSections">
         <section>
-          <h2>Central de Atendimento</h2>
+          <section className="sectionCentral">
+            <h2 className="textoHeader s24">Central de Atendimento</h2>
 
-          <br></br>
+            <h4 className="textoHeader s20">
+              Telefone para vendas:
+              <br></br>
+              <h5 className="textoHeader s16">(89) 98119-0133</h5>
+            </h4>
 
-          <h4>
-            Telefone para vendas:
-            <br></br>
-            <h5>(89) 98119-0133</h5>
-          </h4>
+            <h4 className="textoHeader s20">
+              Fábrica e Escritório:
+              <br></br>
+              <h5 className="textoHeader s16">(89) 99433-2021</h5>
+            </h4>
 
-          <br></br>
+            <h4 className="textoHeader s20">
+              Loja São Raimundo Nonato – PI:
+              <br></br>
+              <h5 className="textoHeader s16">(89) 3582-1949</h5>
+            </h4>
 
-          <h4>
-            Fábrica e Escritório:
-            <br></br>
-            <h5>(89) 99433-2021</h5>
-          </h4>
-
-          <br></br>
-
-          <h4>
-            Loja São Raimundo Nonato – PI:
-            <br></br>
-            <h5>(89) 3582-1949</h5>
-          </h4>
-
-          <br></br>
-
-          <h4>
-            Email:
-            <br></br>
-            <h5>vendas@ceramicacapivara.com</h5>
-          </h4>
+            <h4 className="textoHeader s20">
+              Email:
+              <br></br>
+              <h5 className="textoHeader s16">vendas@ceramicacapivara.com</h5>
+            </h4>
+          </section>
         </section>
 
         <section class="sectionInstagram">
-          <h2>Siga-nos no Instagram!</h2>
+          <h2 className="textoHeader s24">Siga-nos no Instagram!</h2>
           <a
             href="https://www.instagram.com/ceramicaserradacapivarapi/"
             target="blank"
