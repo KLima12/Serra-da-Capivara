@@ -10,6 +10,6 @@
 }
 
 .categorias-links {
-    flex: 0 0 9%;  /* Isso faz com que cada link ocupe no máximo 9% do espaço da linha (aproximadamente 11 links por linha) */
+    flex: 0 0 7%;  /* Isso faz com que cada link ocupe no máximo 9% do espaço da linha (aproximadamente 11 links por linha) */
 }
 
