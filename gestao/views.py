@@ -168,8 +168,8 @@ def editar(request, product_id):
                     image = image.convert('RGB')
 
                     filename, _ = os.path.splitext(photo.name)
-                    new_filename = f"img-{product.name.replace(' ', '-')}-{
-                        len(photos) + index + 1}.webp"
+                    new_filename = f"img-{product.name.replace(' ', '-')}-{len(photos) + index + 1}.webp"
+
 
                     in_memory_file = io.BytesIO()
                     image.save(in_memory_file, format='WEBP')
