@@ -120,10 +120,13 @@
 .btn-cart {
   margin-top: 0.81vmax;
   width: 12.2vmax;
+  height: 2vmax;
+  padding: 0 !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
   vertical-align: middle !important;
+  border-radius: 0.6vmax !important;
 }
 
 .btn-cart-check {
