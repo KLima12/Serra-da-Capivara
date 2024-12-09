@@ -19,5 +19,7 @@ urlpatterns = [
     path('update-views/<int:product_id>/', views.update_views, name='update_views'),
     path('contato/', views.formulario, name='formulario-email'),
     path('processaremail/', views.processaremail, name='processar-email'),
+
+    path('api/categories/', views.get_categories_submenu, name='get_categories_submenu'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

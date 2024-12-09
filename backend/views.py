@@ -188,3 +188,8 @@ def processaremail(request):
         return JsonResponse({'success': True, 'message': 'Email enviado com sucesso!'})
     else:
         return JsonResponse({'success': False, 'message': 'Erro ao enviar o email. Tente novamente.'})
+    
+    
+def get_categories_submenu(request):
+    categories = Category.objects.all().values('id', 'name')
+    return JsonResponse(list(categories), safe=False)
