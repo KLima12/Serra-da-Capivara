@@ -34,113 +34,119 @@ const Header = () => {
   };
 
   return (
-    <div className="header">
-      <div className="headerHorizontal">
-        <img
-          src={getMediaPath("icon/logo-pequena.png")}
-          alt="logo capivara"
-          className="logoCapivaraPequena"
-        />
-        <a
-          href="/home/"
-          className={`textoHeader ${isActive("/home/") ? "active" : ""}`}
-        >
-          <h2
-            className={`textoHeader s20 ${isActive("/home/") ? "active" : ""}`}
-          >
-            Início
-          </h2>
-        </a>
+    <>
+      {isSubmenuOpen && (
+        <div className="overlay" onClick={() => setSubmenuOpen(false)}></div>
+      )}
 
-        <div className="submenuHorizontal">
-          <a href="/categorias/" className="textoHeader">
+      <div className="header">
+        <div className="headerHorizontal">
+          <img
+            src={getMediaPath("icon/logo-pequena.png")}
+            alt="logo capivara"
+            className="logoCapivaraPequena"
+          />
+          <a
+            href="/home/"
+            className={`textoHeader ${isActive("/home/") ? "active" : ""}`}
+          >
             <h2
-              className={`textoHeader s20 ${
-                isActive("/categorias/") ? "active" : ""
-              }`}
+              className={`textoHeader s20 ${isActive("/home/") ? "active" : ""}`}
             >
-              Nossos Produtos
+              Início
             </h2>
           </a>
 
-          <img
-            src={getMediaPath("icon/right-arrow.svg")}
-            className={`submenuButton ${isSubmenuOpen ? "submenuButtonActive" : ""}`}
-            onClick={toggleSubmenu}
-            alt="toggle submenu"
-          />
+          <div className="submenuHorizontal">
+            <a href="/categorias/" className="textoHeader">
+              <h2
+                className={`textoHeader s20 ${
+                  isActive("/categorias/") ? "active" : ""
+                }`}
+              >
+                Nossos Produtos
+              </h2>
+            </a>
 
-          {isSubmenuOpen && (
-            <div className="submenu">
-              {categories.map((category) => (
-                <a
-                  key={category.id}
-                  href={`/produtos/${category.id}/`}
-                  className="submenuItem"
-                >
-                  {category.name}
-                </a>
-              ))}
-            </div>
-          )}
+            <img
+              src={getMediaPath("icon/right-arrow.svg")}
+              className={`submenuButton ${isSubmenuOpen ? "submenuButtonActive" : ""}`}
+              onClick={toggleSubmenu}
+              alt="toggle submenu"
+            />
+
+            {isSubmenuOpen && (
+              <div className="submenu">
+                {categories.map((category) => (
+                  <a
+                    key={category.id}
+                    href={`/produtos/${category.id}/`}
+                    className="submenuItem s20"
+                  >
+                    {category.name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <a
+            href="https://www.pousadadaceramicaserradacapivara.com/"
+            target="blank"
+            className="textoHeader"
+          >
+            <h2 className="textoHeader s20">Albergue</h2>
+          </a>
+          <a
+            href="/historia/"
+            className={`textoHeader ${isActive("/historia/") ? "active" : ""}`}
+          >
+            <h2
+              className={`textoHeader s20 ${
+                isActive("/historia/") ? "active" : ""
+              }`}
+            >
+              Nossa História
+            </h2>
+          </a>
+          <a
+            href="/reportagens/"
+            className={`textoHeader ${isActive("/reportagens/") ? "active" : ""}`}
+          >
+            <h2
+              className={`textoHeader s20 ${
+                isActive("/reportagens/") ? "active" : ""
+              }`}
+            >
+              Reportagens
+            </h2>
+          </a>
+          <a
+            href="/contato/"
+            className={`textoHeader ${isActive("/contato/") ? "active" : ""}`}
+          >
+            <h2
+              className={`textoHeader s20 ${
+                isActive("/contato/") ? "active" : ""
+              }`}
+            >
+              Contato
+            </h2>
+          </a>
+          <BarraPesquisa />
+          <a
+            href="/carrinho/"
+            className={`${isActive("/carrinho/") ? "active" : ""}`}
+          >
+            <img
+              src={getMediaPath("icon/cart.svg")}
+              alt="cart"
+              className={`cartIcon ${isActive("/carrinho/") ? "active" : ""}`}
+            />
+          </a>
         </div>
-
-        <a
-          href="https://www.pousadadaceramicaserradacapivara.com/"
-          target="blank"
-          className="textoHeader"
-        >
-          <h2 className="textoHeader s20">Albergue</h2>
-        </a>
-        <a
-          href="/historia/"
-          className={`textoHeader ${isActive("/historia/") ? "active" : ""}`}
-        >
-          <h2
-            className={`textoHeader s20 ${
-              isActive("/historia/") ? "active" : ""
-            }`}
-          >
-            Nossa História
-          </h2>
-        </a>
-        <a
-          href="/reportagens/"
-          className={`textoHeader ${isActive("/reportagens/") ? "active" : ""}`}
-        >
-          <h2
-            className={`textoHeader s20 ${
-              isActive("/reportagens/") ? "active" : ""
-            }`}
-          >
-            Reportagens
-          </h2>
-        </a>
-        <a
-          href="/contato/"
-          className={`textoHeader ${isActive("/contato/") ? "active" : ""}`}
-        >
-          <h2
-            className={`textoHeader s20 ${
-              isActive("/contato/") ? "active" : ""
-            }`}
-          >
-            Contato
-          </h2>
-        </a>
-        <BarraPesquisa />
-        <a
-          href="/carrinho/"
-          className={`${isActive("/carrinho/") ? "active" : ""}`}
-        >
-          <img
-            src={getMediaPath("icon/cart.svg")}
-            alt="cart"
-            className={`cartIcon ${isActive("/carrinho/") ? "active" : ""}`}
-          />
-        </a>
       </div>
-    </div>
+    </>
   );
 };
 
