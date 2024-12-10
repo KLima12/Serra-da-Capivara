@@ -26,7 +26,7 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <div class="category-button-container-horizontal">
+    <div class="category-button-container">
       <div class="view-product-container">
         <div class="view-product-vertical">
           <div class="view-product-vertical">
@@ -71,25 +71,54 @@
 
             <span class="s15 noWrap">Adicionar ao Carrinho</span>
           </button>
-          <br>
-          <div class="categorias-pai">
-            <p class="s30" style="color: white;">Categorias</p>
-              {% for categorias in categoria %}
-              <div class="categorias-links">
-                <a href="{% url 'produtos' category_id=categorias.id %}" class="s20" style="color: white;">
-                  <button style="color: white;" class="category-button s20">{{categorias.name}}</button>
-                
-                </a>
-              </div>  
-              
-              
-              {% endfor %}
         </div>
       </div>
     </div>
 
-    
+    <div class="category-button-container-produto">
+      <h1 class="category-text-buttons-container s20">Categorias</h1>
 
+      <div>
+        <div class="category-grid">
+          <div class="category-column">
+            <!-- Ímpares -->
+            {% for categoria in categories %}
+            <!---->
+            {% if forloop.counter|divisibleby:2 == False %}
+            <!---->
+            {% if categoria.id == category.id %}
+            <a>
+              <button class="category-button-disabled" aria-disabled="true">
+                {{ categoria.name }}
+              </button>
+            </a>
+            {% else %}
+            <a href="{% url 'produtos' category_id=categoria.id %}">
+              <button class="category-button">{{ categoria.name }}</button>
+            </a>
+            {% endif %} {% endif %} {% endfor %}
+          </div>
+          <div class="category-column">
+            <!-- Pares -->
+            {% for categoria in categories %}
+            <!---->
+            {% if forloop.counter|divisibleby:2 %}
+            <!---->
+            {% if categoria.id == category.id %}
+            <a>
+              <button class="category-button-disabled" aria-disabled="true">
+                {{ categoria.name }}
+              </button>
+            </a>
+            {% else %}
+            <a href="{% url 'produtos' category_id=categoria.id %}">
+              <button class="category-button">{{ categoria.name }}</button>
+            </a>
+            {% endif %} {% endif %} {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {

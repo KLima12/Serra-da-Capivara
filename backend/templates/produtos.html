@@ -16,10 +16,10 @@
   </head>
   <body>
     {% block 'dashboard' %}
-    <div class="category-button-container-horizontal">
+    <div class="category-button-container">
       <div>
         <h1 class="category-text-buttons-container s20">Categorias</h1>
-        <div class="category-button-container">
+        <div class="category-button-container-vertical">
           {% for categoria in categories %} {% if categoria.id == category.id %}
           <a>
             <button class="category-button-disabled" aria-disabled="true">
