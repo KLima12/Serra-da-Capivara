@@ -1,15 +1,13 @@
-
-
 .categorias-pai {
     display: flex;
-    justify-content: flex-start; /* Alinha os itens à esquerda */
-}
-
-.categorias-pai {
-    color: white;
+    flex-direction: column;
+    align-items: center;
+   
 }
 
 .categorias-links {
-    flex: 0 0 7%;  /* Isso faz com que cada link ocupe no máximo 9% do espaço da linha (aproximadamente 11 links por linha) */
-}
+    display: flex;
+    flex-direction: row;
+   
 
+}
