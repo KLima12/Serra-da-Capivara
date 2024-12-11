@@ -143,7 +143,9 @@
   padding-left: 13.83vmax;
   padding-right: 13.83vmax;
   margin-top: 2.44vmax;
-  justify-content: start;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
 }
 
 .category-vertical {
@@ -180,7 +182,6 @@
   font-style: regular;
   font-weight: 400;
   color: var(--texto);
-  padding-top: 3.25vmax;
 }
 
 .category-link {
@@ -242,8 +243,6 @@
   flex-direction: column;
   flex-wrap: wrap;
   gap: 0vmax;
-  padding-left: 8.13vmax;
-  padding-right: 8.13vmax;
   margin-top: 1.63vmax;
   margin-left: 0;
   height: auto;

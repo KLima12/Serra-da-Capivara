@@ -75,18 +75,27 @@
       </div>
     </div>
     <div class="testando">
-      <h1 style="color: white;">Algumas sugestões</h1>
+      <h1 style="color: white">Algumas sugestões</h1>
       {% for produtos in product_category %}
-        <a href="{% url 'produto' category_id=produtos.category.id product_id=produtos.id %}" style="color: white;">{{produtos.name}}<img src="{{produtos.photo.url}}" alt="Foto da categoria"  class="view-product-img" >
-         
-        {% for photo in produtos.photo %}
-          <img src="../../../media/{{photo}}" alt="Foto do Produto" class="view-product-img">
-        {% endfor %}
-        </a>
-      {% endfor %}
-            
-    </div>
+      <a
+        href="{% url 'produto' category_id=produtos.category.id product_id=produtos.id %}"
+        style="color: white"
+        >{{produtos.name}}<img
+          src="{{produtos.photo.url}}"
+          alt="Foto da categoria"
+          class="view-product-img"
+        />
 
+        {% for photo in produtos.photo %}
+        <img
+          src="../../../media/{{photo}}"
+          alt="Foto do Produto"
+          class="view-product-img"
+        />
+        {% endfor %}
+      </a>
+      {% endfor %}
+    </div>
 
     <div class="category-button-container-produto">
       <h1 class="category-text-buttons-container s20">Categorias</h1>
@@ -161,8 +170,21 @@
             let x, y, cx, cy;
 
             const selectedImg_rect = selectedImg.getBoundingClientRect();
-            x = e.pageX - selectedImg_rect.left - lens.offsetWidth / 2;
-            y = e.pageY - selectedImg_rect.top - lens.offsetHeight / 2;
+            const scrollLeft =
+              window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop =
+              window.pageYOffset || document.documentElement.scrollTop;
+
+            x =
+              e.pageX -
+              selectedImg_rect.left -
+              lens.offsetWidth / 2 -
+              scrollLeft;
+            y =
+              e.pageY -
+              selectedImg_rect.top -
+              lens.offsetHeight / 2 -
+              scrollTop;
 
             let max_xpos = selectedImg_rect.width - lens.offsetWidth;
             let max_ypos = selectedImg_rect.height - lens.offsetHeight;
