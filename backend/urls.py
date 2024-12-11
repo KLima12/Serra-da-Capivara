@@ -17,6 +17,11 @@ urlpatterns = [
     path('save_cart/', views.save_cart, name='save_cart'),
     path('message/', views.message, name='message'),
     path('update-views/<int:product_id>/', views.update_views, name='update_views'),
+
+    path('historia/', views.historia, name='historia'),
+    path('reportagens/', views.reportagens, name='reportagens'),
+
+
     path('contato/', views.formulario, name='formulario-email'),
     path('processaremail/', views.processaremail, name='processar-email'),
 

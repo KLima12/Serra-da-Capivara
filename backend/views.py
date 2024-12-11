@@ -12,6 +12,12 @@ from .forms import ContatoEmail
 def inicio(request):
     return render(request, 'inicio.html')
 
+def historia(request):
+    return render(request, 'historia.html')
+    
+def reportagens(request):
+    return render(request, 'reportagens.html')
+
 def categorias(request):
     categories = Category.objects.all().order_by('name')
 
