@@ -135,7 +135,7 @@ class EditFormCategory(forms.ModelForm):
                 field.label = format_html('<span class="input-label">{}</span>', field.label)
         
 class LoginForm(forms.Form):
-    username = forms.CharField(label='Nome do Usúario', max_length=50)
+    username = forms.CharField(label='Nome do Usuário', max_length=50)
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
     
     

@@ -165,6 +165,7 @@
   height: 8.95vmax;
   margin-top: 0.81vmax;
   margin-bottom: 0.81vmax;
+  max-width: 15vmax;
 }
 
 .category-text {
