@@ -50,6 +50,7 @@ def produto(request, category_id, product_id):
     product = get_object_or_404(Product, id=product_id)
     categories = Category.objects.all().order_by('name')
     categoria = Category.objects.all()
+    product_category = Product.objects.filter(category = category_id)
 
     context = {
         'categories': categories,
@@ -57,6 +58,7 @@ def produto(request, category_id, product_id):
         'product': product,
         'category': category, 
         'categoria': categoria,
+        'product_category' : product_category,
     }
 
     return render(request, 'produto.html', context)

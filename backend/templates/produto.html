@@ -74,6 +74,19 @@
         </div>
       </div>
     </div>
+    <div class="testando">
+
+      {% for produtos in product_category %}
+        <p style="color: white;">Nome do produto: {{produtos}}</p>
+        <img src="{{produtos.category.photo.url}}" alt="Foto da categoria"  class="view-product-img" >
+      {% endfor %}
+            
+      <!-- {% for categoria in category.name %}
+          <p style="color: white;">{{categoria}}</p>
+      {% endfor %} -->
+      <!-- <h2 style="color: white;">{{category.name}} - {{product.name}}</h2> -->
+    </div>
+
 
     <div class="category-button-container-produto">
       <h1 class="category-text-buttons-container s20">Categorias</h1>
