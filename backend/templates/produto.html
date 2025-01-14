@@ -75,25 +75,18 @@
       </div>
     </div>
     <div class="testando">
-      <h1 style="color: white">Algumas sugestões</h1>
+      <h1 style="color: white">Produtos relacionados</h1>
+      
       {% for produtos in product_category %}
-      <a
-        href="{% url 'produto' category_id=produtos.category.id product_id=produtos.id %}"
-        style="color: white"
-        >{{produtos.name}}<img
-          src="{{produtos.photo.url}}"
-          alt="Foto da categoria"
-          class="view-product-img"
-        />
-
-        {% for photo in produtos.photo %}
-        <img
-          src="../../../media/{{photo}}"
-          alt="Foto do Produto"
-          class="view-product-img"
-        />
-        {% endfor %}
-      </a>
+                <a
+                href="{% url 'produto' category_id=produtos.category.id product_id=produtos.id %}"
+                style="color: white"
+                >{{produtos.name}}
+                  {% if produtos.photos %}
+                    <img src="../../../media/{{ produtos.photos.0 }}" alt="Foto do produto" class="view-product-img">
+                  {% endif %}
+                  </a>
+           
       {% endfor %}
     </div>
 
