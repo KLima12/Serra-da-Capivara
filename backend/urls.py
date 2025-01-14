@@ -7,6 +7,7 @@ from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('home/', views.inicio, name='inicio'),
+    path('pesquisa/<str:search>', views.pesquisa, name='pesquisa'),
     path('categorias/', views.categorias, name='categorias'),
     re_path(r'produtos/?$', views.produtos, name='produtosDefault'), 
     path('produtos/<int:category_id>/', views.produtos, name='produtos'),

@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 const BarraPesquisa = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const getMediaPath = (path) => {
     return `${process.env.PUBLIC_URL || ""}/media/${path}`;
+  };
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    if (!searchTerm.trim()) {
+      e.preventDefault();
+      return;
+    }
   };
 
   return (
@@ -10,14 +23,21 @@ const BarraPesquisa = () => {
       <img
         src={getMediaPath("icon/search.svg")}
         alt="icone pesquisa"
-        class="searchIcon"
+        className="searchIcon"
       ></img>
 
-      <form class="searchContainer">
+      <form
+        className="searchContainer"
+        action={`/pesquisa/${encodeURIComponent(searchTerm)}`}
+        method="GET"
+        onSubmit={handleFormSubmit}
+      >
         <input
           type="text"
           placeholder="Pesquisar"
           className="searchText s12"
+          value={searchTerm}
+          onChange={handleInputChange}
         ></input>
       </form>
     </div>

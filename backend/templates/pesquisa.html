@@ -8,40 +8,32 @@
       type="text/css"
       href="{% static 'css/galeria.css' %}"
     />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/produto.css' %}"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../../media/icon/logo-icon.png" />
-    <title>{{ category.name }}</title>
+    <title>Pesquisa: {{ searchTerm }}</title>
+
+    <script>
+      var csrf_token = "{{ csrf_token }}";
+    </script>
     {% endblock %}
   </head>
   <body>
     {% block 'dashboard' %}
-    <div class="category-button-container">
-      <div>
-        <h1 class="category-text-buttons-container s20">Categorias</h1>
-        <div class="category-button-container-vertical">
-          {% for categoria in categories %} {% if categoria.id == category.id %}
-          <a>
-            <button class="category-button-disabled" aria-disabled="true">
-              {{ categoria.name }}
-            </button>
-          </a>
-          {% else %}
-          <a href="{% url 'produtos' category_id=categoria.id %}">
-            <button class="category-button">{{ categoria.name }}</button>
-          </a>
-          {% endif %} {% endfor %}
-        </div>
-      </div>
-
-      <div class="vertical-line"></div>
-
+    <div class="center">
+      <h2 class="cabecalho s24">"{{ searchTerm }}"</h2>
       <div class="product-container">
         <div class="product-horizontal">
-          {% for product in products %}
+          {% if products %} {% for product in products %}
           <div class="product-vertical">
             <a
-              href="{% url 'produto' category_id=category.id product_id=product.id %}"
+              href="{% url 'produto' category_id=product.category.id product_id=product.id %}"
             >
               <div class="product-card" data-product-id="{{ product.id }}">
                 {% if product.photos %}
@@ -64,15 +56,16 @@
                     class="view-icon-img unselectable"
                     alt="view icon"
                   />
-
-                  <h7 class="product-views-text unselectable s10"
-                    >{{ product.views }}</h7
-                  >
+                  <h7 class="product-views-text unselectable s10">
+                    {{ product.views }}
+                  </h7>
                 </div>
               </div>
             </a>
           </div>
-          {% endfor %}
+          {% endfor %} {% else %}
+          <p class="cabecalho s16">Nenhum produto encontrado.</p>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -87,8 +80,6 @@
       });
     </script>
 
-    <div id="react-footer"></div>
-    <script type="module" src="{% static 'react/index.js' %}"></script>
     {% endblock %}
   </body>
 </html>

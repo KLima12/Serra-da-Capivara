@@ -12,6 +12,20 @@ from .forms import ContatoEmail
 def inicio(request):
     return render(request, 'inicio.html')
 
+def pesquisa(request, search=None):
+    print(f"Original search term: {search}") 
+    if search is None:
+        return redirect('inicio')
+    
+    products = Product.objects.filter(name__icontains=search)
+    
+    context = {
+        'searchTerm': search,
+        'products': products,
+    }
+    return render(request, 'pesquisa.html', context)
+
+
 def historia(request):
     return render(request, 'historia.html')
     
