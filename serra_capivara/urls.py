@@ -10,4 +10,3 @@ urlpatterns = [
     path('gestao/', include('gestao.urls')),
     path('', include('backend.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
