@@ -14,11 +14,12 @@
 .header {
   background-color: var(--fundo);
   width: 100%;
+  height: 6vmax;
   display: flex !important;
   align-items: center !important;
   justify-content: left;
-  padding: 0.75vmax;
-  margin-bottom: 0.75vmax;
+  padding: 1vmax;
+  margin: auto;
   z-index: 10 !important;
 }
 
@@ -35,13 +36,14 @@
 
 .logoCapivaraPequena {
   width: 10vmax;
-  margin: 0;
+  margin: auto;
 }
 
 .textoHeader {
   color: var(--texto);
   white-space: nowrap;
   vertical-align: middle !important;
+  margin: auto;
 }
 
 .textoHeader:hover {
