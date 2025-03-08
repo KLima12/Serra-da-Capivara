@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const getMediaPath = (path) => {
   return `${process.env.PUBLIC_URL || ""}/media/${path}`;
 };
 
-const img1 = getMediaPath("banners/banner-1.webp");
-const img2 = getMediaPath("banners/banner-2.webp");
-const img3 = getMediaPath("banners/banner-3.webp");
-
 const images = [
-  getMediaPath("banners/banner-1.webp"),
-  getMediaPath("banners/banner-2.webp"),
-  getMediaPath("banners/banner-3.webp"),
+  {
+    src: getMediaPath("banners/banner-1.webp"),
+    title: "Parque Nacional Serra da Capivara",
+    description:
+      'Os melhores períodos para visitar o Parque Nacional da Serra da Capivara são fevereiro e março, julho e agosto, e dezembro e janeiro. "Estas épocas são ótimas para passeios e trilhas. Recebemos turistas de diversos lugares e, para aqueles que se hospedam no nosso albergue, facilitamos o contato com guias turísticos, que também são das proximidades do parque", explica Girleide Oliveira. \n\nOs visitantes do parque podem explorar, além da riqueza cultural e histórica, trilhas preparadas para diferentes níveis de dificuldade, oferecendo uma variedade de atividades que atendem às expectativas e possibilidades de cada pessoa.',
+  },
+  {
+    src: getMediaPath("banners/banner-2.webp"),
+    title: "Albergue Serra da Capivara",
+    description: "Albergue bem bonito",
+  },
+  {
+    src: getMediaPath("banners/banner-3.webp"),
+    title: "Restaurante Serra da Capivara",
+    description: "Restaurante cheio de coisas gostosas",
+  },
 ];
 
 const Carrossel = () => {
   const [index, setIndex] = useState(0);
-  const [timer, setTimer] = useState(null);
+  const timerRef = useRef(null);
 
   const moveSlide = (direction) => {
     setIndex((prevIndex) => {
@@ -30,25 +39,36 @@ const Carrossel = () => {
   };
 
   const restartInterval = () => {
-    if (timer) clearInterval(timer);
-    const newTimer = setInterval(() => moveSlide(1), 5000);
-    setTimer(newTimer);
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => moveSlide(1), 5000);
   };
 
   useEffect(() => {
     restartInterval();
-    return () => clearInterval(timer);
+    return () => clearInterval(timerRef.current);
   }, []);
 
   return (
     <div className="carousel">
-      {images.map((src, i) => (
-        <img
-          key={i}
-          src={src}
-          alt={`Slide ${i}`}
-          className={`carouselItem banner${i + 1} ${i === index ? "active" : ""}`}
-        />
+      {images.map((image, i) => (
+        <div key={i} className={`carouselSlide ${i === index ? "active" : ""}`}>
+          <img
+            src={image.src}
+            alt={`Slide ${i}`}
+            className={`carouselItem banner${i + 1}`}
+          />
+          <div className="carousel-txt-container">
+            <h2>{image.title}</h2>
+            <p>
+              {image.description.split("\n").map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </p>
+          </div>
+        </div>
       ))}
 
       <div className="carousel-btn-container">
